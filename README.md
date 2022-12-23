@@ -30,7 +30,6 @@ poetry add --group dev black flake8 pytest
 
 See more info about `Poetry` basic usage [here](https://python-poetry.org/docs/basic-usage/).
 
-
 Run the server:
 
 ```zsh
@@ -61,3 +60,21 @@ cd frontend
 npm run dev
 
 ```
+
+### Extra libraries
+
+#### [Material UI](https://mui.com/material-ui/getting-started)
+
+```zsh
+
+# basic
+npm install @mui/material @emotion/react @emotion/styled
+
+# icons
+npm install @mui/icons-material
+
+# roboto font
+npm install @fontsource/roboto
+
+```
+
