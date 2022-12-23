@@ -1,6 +1,6 @@
 # Creative-AI-App
 
-## Backend
+## Backend (local)
 
 Setup `Poetry` in the virtual environment:
 
@@ -29,3 +29,16 @@ poetry add --group dev black flake8 pytest
 ```
 
 See more info about `Poetry` basic usage [here](https://python-poetry.org/docs/basic-usage/).
+
+
+Run the server:
+
+```zsh
+
+uvicorn app.main:app --reload
+
+```
+
+### TODO
+
+- [ ] Integrate [Broadcaster](https://github.com/encode/broadcaster)
