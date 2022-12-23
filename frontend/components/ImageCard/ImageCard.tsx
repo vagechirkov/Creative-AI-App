@@ -1,14 +1,13 @@
-import {FC, useContext} from "react";
-import {Avatar, Card, CardActions, CardHeader, CardMedia, IconButton} from "@mui/material";
+import React, {FC, useContext} from "react";
+import {Avatar, Badge, Card, CardActions, CardHeader, CardMedia, IconButton} from "@mui/material";
 import {red} from "@mui/material/colors";
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {IImageCardContext, ImageCardContext} from "../../contexts/ImageContext";
 
 
 const ImageCard: FC = () => {
-    const {image, likes } = useContext(ImageCardContext) as IImageCardContext;
+    const {image, reactions} = useContext(ImageCardContext) as IImageCardContext;
 
     return (
         <Card sx={{width: 300}}>
@@ -34,10 +33,9 @@ const ImageCard: FC = () => {
             />
             <CardActions disableSpacing>
                 <IconButton aria-label="add to favorites">
-                    <FavoriteIcon/>
-                </IconButton>
-                <IconButton aria-label="share">
-                    <ShareIcon/>
+                    <Badge badgeContent={reactions.likes} color="primary">
+                        <FavoriteIcon/>
+                    </Badge>
                 </IconButton>
             </CardActions>
         </Card>
