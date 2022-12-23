@@ -19,6 +19,7 @@ Create python project using `Poetry`:
 ```zsh
 
 poetry new app
+cd app
 
 # add basic dependencies
 poetry add fastapi uvicorn
