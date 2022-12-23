@@ -1,12 +1,15 @@
-import {FC} from "react";
+import {FC, useContext} from "react";
 import {Avatar, Card, CardActions, CardHeader, CardMedia, IconButton} from "@mui/material";
 import {red} from "@mui/material/colors";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import {IImageCardContext, ImageCardContext} from "../../contexts/ImageContext";
 
 
 const ImageCard: FC = () => {
+    const {image, likes } = useContext(ImageCardContext) as IImageCardContext;
+
     return (
         <Card sx={{width: 300}}>
             <CardHeader
@@ -25,8 +28,8 @@ const ImageCard: FC = () => {
             <CardMedia
                 component="img"
                 height="500"
-                src={"https://lexica-serve-encoded-images2.sharif.workers.dev/md/3761c6dd-a10f-4a76-bec5-27d508698840"}
-                alt="Adorably cute 🐈‍⬛, artstation winner by victo ngai, kilian eng and by jake parker, swirly vibrant color lines, winning-award masterpiece, fantastically gaudy, aesthetic octane render, 8k hd resolution"
+                src={image.src}
+                alt={image.alt}
                 loading="lazy"
             />
             <CardActions disableSpacing>
