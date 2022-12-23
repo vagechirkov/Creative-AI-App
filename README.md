@@ -53,3 +53,11 @@ npx create-next-app@latest --typescript frontend
 
 ```
 
+Run the server:
+
+```zsh
+
+cd frontend
+npm run dev
+
+```
