@@ -1,6 +1,6 @@
 # Creative-AI-App
 
-## Backend (local)
+## Backend (development)
 
 Setup `Poetry` in the virtual environment:
 
@@ -42,3 +42,14 @@ uvicorn app.main:app --reload
 ### TODO
 
 - [ ] Integrate [Broadcaster](https://github.com/encode/broadcaster)
+
+## Frontend (development)
+
+Create `Next.js` project:
+
+```zsh
+
+npx create-next-app@latest --typescript frontend
+
+```
+
