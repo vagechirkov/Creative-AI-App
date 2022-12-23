@@ -20,6 +20,11 @@ Create python project using `Poetry`:
 
 poetry new app
 
+# add basic dependencies
+poetry add fastapi uvicorn
+
+# add dev dependencies
+poetry add --group dev black flake8 pytest
 ```
 
 See more info about `Poetry` basic usage [here](https://python-poetry.org/docs/basic-usage/).
