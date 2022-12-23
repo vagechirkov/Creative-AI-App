@@ -22,7 +22,7 @@ poetry new app
 cd app
 
 # add basic dependencies
-poetry add fastapi uvicorn
+poetry add fastapi uvicorn websockets
 
 # add dev dependencies
 poetry add --group dev black flake8 pytest
