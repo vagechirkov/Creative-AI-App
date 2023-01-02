@@ -48,7 +48,7 @@ Create `Next.js` project:
 
 ```zsh
 
-npx create-next-app@latest --typescript frontend
+npx create-next-app@latest --typescript --experimental-app frontend 
 
 ```
 
@@ -78,3 +78,13 @@ npm install @fontsource/roboto
 
 ```
 
+#### [Tailwind CSS](https://tailwindcss.com/docs/guides/nextjs#app-directory)
+
+```zsh
+
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+
+
+
+```
