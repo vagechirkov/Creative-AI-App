@@ -63,18 +63,11 @@ npm run dev
 
 ### Extra libraries
 
-#### [Material UI](https://mui.com/material-ui/getting-started)
+#### [Material Tailwind](https://www.material-tailwind.com/docs/react/guide/next)
 
 ```zsh
 
-# basic
-npm install @mui/material @emotion/react @emotion/styled
-
-# icons
-npm install @mui/icons-material
-
-# roboto font
-npm install @fontsource/roboto
+npm i @material-tailwind/react
 
 ```
 
