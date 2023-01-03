@@ -10,6 +10,7 @@ python = "^3.9"
 fastapi = "^0.88.0"
 uvicorn = "^0.20.0"
 websockets = "^10.4"
+pydantic = "^1.10.4"
 
 
 [tool.poetry.group.dev.dependencies]
