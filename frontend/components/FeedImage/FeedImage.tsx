@@ -1,7 +1,7 @@
 'use client';
 
 import ImageCard from "../ImageCard";
-import {FC, useEffect, useState} from "react";
+import {FC, useCallback, useEffect, useState} from "react";
 import useWebSocket, {ReadyState} from 'react-use-websocket';
 
 
@@ -18,10 +18,9 @@ export type FeedImageType = {
 
 
 const FeedImage: FC<FeedImageProps> = ({wsUrl}) => {
-    const {sendJsonMessage, lastJsonMessage, readyState} = useWebSocket(wsUrl);
-
     const [feedImage, setFeedImage] = useState<FeedImageType | null>(null);
 
+    const {sendJsonMessage, lastJsonMessage, readyState} = useWebSocket(wsUrl);
 
     useEffect(() => {
         if (readyState === ReadyState.OPEN && lastJsonMessage) {
@@ -29,9 +28,28 @@ const FeedImage: FC<FeedImageProps> = ({wsUrl}) => {
         }
     }, [lastJsonMessage]);
 
+    const updateReactions = useCallback(
+        (emoji: string) => {
+            const reactions = feedImage?.reactions;
+            if (reactions) {
+
+                const reaction = reactions.find((value) => value.emoji === emoji);
+                if (reaction) {
+                    reaction.count++;
+                    sendJsonMessage(reaction);
+                }
+            }
+        }
+        , [feedImage])
+
+
     return (
         <>
-            {feedImage && <ImageCard imageUrl={feedImage.url} reactions={feedImage.reactions}/>}
+            {feedImage && <ImageCard
+                imageUrl={feedImage.url}
+                reactions={feedImage.reactions}
+                onReaction={updateReactions}
+            />}
         </>
     )
 }
