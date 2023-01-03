@@ -1,10 +1,10 @@
-const {v4: uuidv4} = require('uuid');
+import { nanoid } from 'nanoid'
 
 import FeedImage from "../../components/FeedImage";
 
 
 export default function Feed() {
-    const userId = uuidv4();
+    const userId: string = nanoid();
     return (
         <main>
             <FeedImage wsUrl={`ws://localhost:8000/ws/${userId}`}/>

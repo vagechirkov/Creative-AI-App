@@ -88,3 +88,11 @@ npx tailwindcss init -p
 
 
 ```
+
+#### [Nano ID](https://www.npmjs.com/package/nanoid)
+
+```zsh
+
+npm i nanoid
+
+```
