@@ -1,12 +1,14 @@
-from datetime import datetime
-from typing import Dict
+from typing import List
 
 from pydantic import BaseModel
 
 
+class ImageReaction(BaseModel):
+    emoji: str
+    count: int
+
+
 class FeedImage(BaseModel):
     id: int
-    created_at: datetime
-    title: str
     url: str
-    emoji: Dict[str, int]
+    reactions: List[ImageReaction]
