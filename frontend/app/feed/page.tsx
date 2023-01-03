@@ -1,5 +1,4 @@
-import ImageCard from "../../components/ImageCard";
-
+import FeedImage from "../../components/Feed/FeedImage";
 
 export default function Feed() {
 
@@ -11,8 +10,7 @@ export default function Feed() {
 
     return (
         <main>
-            <h1 className="text-3xl font-bold text-emerald-600">Feed</h1>
-            <ImageCard imageUrl={url} />
+            <FeedImage />
         </main>
     )
 }
