@@ -48,7 +48,12 @@ async def broadcast_feed():
     feed_image = FeedImage(
         id=last_three_images[-1].id + 1 if last_three_images else 1,
         url=urls[0],
-        reactions=[]
+        reactions=[
+            ImageReaction(emoji='😍', count=0),
+            ImageReaction(emoji='👍', count=0),
+            ImageReaction(emoji='👎', count=0),
+            ImageReaction(emoji='🤮', count=0),
+        ],
     )
     # remove the last image
     if last_three_images:
