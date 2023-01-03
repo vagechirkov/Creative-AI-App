@@ -12,4 +12,4 @@ class FeedImage(BaseModel):
     id: int
     url: str
     reactions: List[ImageReaction]
-    users_count: int = 0
+    active_users: int = 0
