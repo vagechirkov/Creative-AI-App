@@ -44,13 +44,17 @@ const FeedImage: FC<FeedImageProps> = ({wsUrl}) => {
 
 
     return (
-        <>
-            {feedImage && <ImageCard
-                imageUrl={feedImage.url}
-                reactions={feedImage.reactions}
-                onReaction={updateReactions}
-            />}
-        </>
+        <div className="flex items-center justify-center h-screen">
+            <div className="container max-w-sm h-full bg-gray-50">
+                <div className="flex items-center justify-center h-screen">
+                    {feedImage && <ImageCard
+                        imageUrl={feedImage.url}
+                        reactions={feedImage.reactions}
+                        onReaction={updateReactions}
+                    />}
+                </div>
+            </div>
+        </div>
     )
 }
 
