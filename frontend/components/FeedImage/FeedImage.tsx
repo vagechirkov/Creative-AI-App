@@ -1,6 +1,7 @@
 'use client'
 import ImageCard from "../ImageCard";
 import {FC, useEffect, useState} from "react";
+import useWebSocket, {ReadyState} from 'react-use-websocket';
 
 
 interface FeedImageProps {
@@ -16,33 +17,20 @@ export type FeedImageType = {
 
 
 const FeedImage: FC<FeedImageProps> = ({wsUrl}) => {
-    // Declare a state variable to store the WebSocket connection
-    const [ws, setWs] = useState<WebSocket | null>(null);
+    const {sendJsonMessage, lastJsonMessage, readyState} = useWebSocket(wsUrl);
 
     const [feedImage, setFeedImage] = useState<FeedImageType | null>(null);
 
 
     useEffect(() => {
-        // Connect to the WebSocket server
-        const socket = new WebSocket(wsUrl);
-
-        // Set the state variable when the connection is opened
-        socket.onopen = () => setWs(socket);
-
-        // Set the state variable to null when the connection is closed
-        socket.onclose = () => setWs(null);
-
-        // Update the emoji count and image URL state variables when a message is received
-        socket.onmessage = (event) => {
-            const data = JSON.parse(event.data);
-            setFeedImage(data);
-        };
-    }, [wsUrl]);
+        if (readyState !== ReadyState.OPEN && lastJsonMessage) {
+            setFeedImage(lastJsonMessage as FeedImageType);
+        }
+    }, [lastJsonMessage]);
 
     return (
         <>
-            {ws && feedImage &&
-                <ImageCard imageUrl={feedImage.url} reactions={feedImage.reactions}/>}
+            {feedImage && <ImageCard imageUrl={feedImage.url} reactions={feedImage.reactions}/>}
         </>
     )
 }
