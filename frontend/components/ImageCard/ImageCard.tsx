@@ -2,25 +2,33 @@
 
 import {FC} from "react";
 import {FeedImageType} from "../FeedImage/FeedImage";
+import {Card, CardFooter, CardHeader} from "@material-tailwind/react";
 
 
 interface ImageCardProps {
     imageUrl: string;
     reactions: FeedImageType['reactions'];
     onReaction: (emoji: string) => void;
+    interactive?: boolean;
 }
 
-const ImageCard: FC<ImageCardProps> = ({imageUrl, reactions, onReaction}) => {
+const ImageCard: FC<ImageCardProps> = (props) => {
+    const {imageUrl, reactions, onReaction, interactive=true} = props;
     return (
-        <div className="container max-w-xs">
-            <img src={imageUrl} alt="Content" className="object-center object-cover"/>
-            <div className="grid grid-flow-col auto-cols-max justify-around">
+        <Card className="w-300 ">
+            <CardHeader floated={false} className="h-500">
+                <img src={imageUrl} alt="Content"/>
+            </CardHeader>
+
+            <CardFooter className="grid grid-flow-col auto-cols-max justify-around">
                 {reactions &&
                     reactions.map((value, index) => (
                             <button
                                 onClick={() => onReaction(value.emoji)}
                                 key={`${index}-${imageUrl}`}
-                                className="text-2xl">
+                                className="text-2xl"
+                                disabled={!interactive}
+                            >
                                     <span
                                         className="bg-gray-200 rounded-full px-3 py-1 text-base font-bold text-black"
                                     >
@@ -30,8 +38,8 @@ const ImageCard: FC<ImageCardProps> = ({imageUrl, reactions, onReaction}) => {
                         )
                     )
                 }
-            </div>
-        </div>
+            </CardFooter>
+        </Card>
     );
 };
 

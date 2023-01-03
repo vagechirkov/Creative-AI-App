@@ -14,7 +14,7 @@ export type FeedImageType = {
     url: string;
     // list of emojis and their counts
     reactions: { emoji: string, count: number }[];
-    users_count: number;
+    active_users: number;
 }
 
 
@@ -26,20 +26,18 @@ const FeedImage: FC<FeedImageProps> = ({wsUrl}) => {
 
     useEffect(() => {
         if (readyState === ReadyState.OPEN && lastJsonMessage) {
-            setFeedImage(lastJsonMessage as FeedImageType);
+            const data = lastJsonMessage as FeedImageType;
+            setFeedImage(data);
+            // find the image in the history and update it
+
+            const index = feedHistory.findIndex((image) => image.id === data.id);
+            if (index !== -1) {
+                feedHistory[index] = data;
+            } else {
+                feedHistory.push(data);
+            }
         }
     }, [lastJsonMessage]);
-
-    useEffect(() => {
-        if (feedImage) {
-            // remove the oldest image if the history is longer than 10
-            if (feedHistory.length > 10) {
-                feedHistory.shift();
-            }
-            setFeedHistory([...feedHistory, feedImage]);
-            console.log(feedHistory);
-        }
-    }, [feedImage]);
 
     const updateReactions = useCallback(
         (emoji: string) => {
@@ -59,20 +57,26 @@ const FeedImage: FC<FeedImageProps> = ({wsUrl}) => {
     return (
         <div className="flex items-center justify-center h-screen">
             <div className="container max-w-sm h-full bg-gray-50">
-                <div className="flex items-center justify-center h-screen">
-                    {feedImage &&
-                        <>
-                            {/* add the number of watchers */}
-                            <div className="absolute top-0 right-0 m-4 text-gray-500">
-                                {feedImage.users_count}
-                            </div>
-                            <ImageCard
-                                imageUrl={feedImage.url}
-                                reactions={feedImage.reactions}
-                                onReaction={updateReactions}
-                            />
-                        </>
+                <div className="grid grid-flow-row items-center justify-center h-screen gap-5">
+                    {/* show all without the current image */}
+                    {feedHistory.slice(0, -1).map((value, index) => (
+                        <ImageCard
+                            imageUrl={value.url}
+                            reactions={value.reactions}
+                            onReaction={(emoji) => null}
+                            key={`${index}-${value.url}`}
+                        />))
                     }
+                    {feedImage &&
+
+                        <ImageCard
+                            imageUrl={feedImage.url}
+                            reactions={feedImage.reactions}
+                            onReaction={updateReactions}
+                        />
+
+                    }
+
                 </div>
             </div>
         </div>
