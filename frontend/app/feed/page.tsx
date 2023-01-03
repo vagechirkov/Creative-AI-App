@@ -1,4 +1,4 @@
-import FeedImage from "../../components/Feed/FeedImage";
+import FeedImage from "../../components/FeedImage";
 
 export default function Feed() {
 

@@ -37,13 +37,13 @@ const FeedImage: FC<FeedImageProps> = ({wsUrl}) => {
             const data = JSON.parse(event.data);
             setFeedImage(data);
         };
-
-        // Disconnect from the WebSocket server when the component unmounts
-        return () => socket.close();
     }, [wsUrl]);
 
     return (
-        <ImageCard imageUrl={feedImage?.url} reactions={feedImage?.reactions}/>
+        <>
+            {ws && feedImage &&
+                <ImageCard imageUrl={feedImage.url} reactions={feedImage.reactions}/>}
+        </>
     )
 }
 

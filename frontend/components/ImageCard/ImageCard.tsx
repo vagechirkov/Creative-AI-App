@@ -1,6 +1,6 @@
 'use client'
 import {FC, useState} from "react";
-import {FeedImageType} from "../Feed/FeedImage";
+import {FeedImageType} from "../FeedImage/FeedImage";
 
 
 interface ImageCardProps {
