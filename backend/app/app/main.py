@@ -25,14 +25,14 @@ class ConnectionManager:
 
         # send the current feed image to the new connection
         if last_three_images:
-            await websocket.send_json(last_three_images[-1].json())
+            await websocket.send_json(last_three_images[-1].dict())
 
     def disconnect(self, websocket: WebSocket):
         self.active_connections.remove(websocket)
 
     async def broadcast(self, message: FeedImage):
         for connection in self.active_connections:
-            await connection.send_json(message.json())
+            await connection.send_json(message.dict())
 
 
 manager = ConnectionManager()

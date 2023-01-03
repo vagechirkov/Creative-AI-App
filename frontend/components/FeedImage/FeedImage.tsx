@@ -1,4 +1,5 @@
-'use client'
+'use client';
+
 import ImageCard from "../ImageCard";
 import {FC, useEffect, useState} from "react";
 import useWebSocket, {ReadyState} from 'react-use-websocket';
@@ -23,7 +24,7 @@ const FeedImage: FC<FeedImageProps> = ({wsUrl}) => {
 
 
     useEffect(() => {
-        if (readyState !== ReadyState.OPEN && lastJsonMessage) {
+        if (readyState === ReadyState.OPEN && lastJsonMessage) {
             setFeedImage(lastJsonMessage as FeedImageType);
         }
     }, [lastJsonMessage]);
