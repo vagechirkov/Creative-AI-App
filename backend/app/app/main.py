@@ -57,6 +57,7 @@ async def broadcast_feed():
             ImageReaction(emoji='👎', count=0),
             ImageReaction(emoji='🤮', count=0),
         ],
+        users_count=len(manager.active_connections)
     )
     # remove the last image
     if last_three_images:
