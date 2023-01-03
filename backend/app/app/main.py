@@ -12,6 +12,8 @@ last_three_images: List[FeedImage] = []
 
 urls = [
     'https://lexica-serve-encoded-images2.sharif.workers.dev/md/3761c6dd-a10f-4a76-bec5-27d508698840',
+    'https://lexica-serve-encoded-images2.sharif.workers.dev/full_jpg/16b67559-5c64-4520-83a9-201dc87259da',
+    'https://lexica-serve-encoded-images2.sharif.workers.dev/md/5fd57d99-24dd-4c59-b93f-022aedba7638'
 ]
 
 
@@ -51,6 +53,7 @@ async def broadcast_feed():
         reactions=[
             ImageReaction(emoji='😍', count=0),
             ImageReaction(emoji='👍', count=0),
+            ImageReaction(emoji='😐', count=0),
             ImageReaction(emoji='👎', count=0),
             ImageReaction(emoji='🤮', count=0),
         ],
