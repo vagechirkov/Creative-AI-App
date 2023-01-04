@@ -27,24 +27,24 @@ build:
     - .tags
     - .services
 
-  image: node:16
-
-  cache:
-    paths:
-      - node_modules/
-
-  artifacts:
-    paths:
-      - .next/
-    expire_in: 1 week
-
-  before_script:
-    - rm -rf frontend
-    - rm -rf backend
-
-  script:
-    - npm ci
-    - npm run build
+#  image: node:16
+#
+#  cache:
+#    paths:
+#      - node_modules/
+#
+#  artifacts:
+#    paths:
+#      - .next/
+#    expire_in: 1 week
+#
+#  before_script:
+#    - rm -rf frontend
+#    - rm -rf backend
+#
+#  script:
+#    - npm ci
+#    - npm run build
 #    - cp .env.prod .next/.env
 
 docker:
