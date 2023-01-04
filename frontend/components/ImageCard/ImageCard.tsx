@@ -55,6 +55,7 @@ const ImageCard: FC<ImageCardProps> = (props) => {
                                     key={`${index}-${imageUrl}`}
                                     disabled={!interactive}
                                     size="small"
+                                    color="primary"
                                 >
                                     {value.emoji} {value.count}
                                 </IconButton>
