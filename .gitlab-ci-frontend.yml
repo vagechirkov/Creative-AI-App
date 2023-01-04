@@ -1,0 +1,54 @@
+variables:
+  APP_NAME: rn-iii-frontend
+  BACKEND_URL: https://rn-iii-backend.eks-test-default.mpg-chm.com
+
+include:
+  - project: "mpib/chm/common/deploy-pipeline"
+    ref: "1.5.3"
+    file: "react-app.yml"
+
+init:
+  extends: .init-stage
+  after_script:
+    - cp -r $CHILD_PIPELINE_EXECUTION_CONTEXT/* ./
+    - rm -rf frontend
+    - rm -rf backend
+#    - ls -R
+  artifacts:
+    paths:
+      - ./
+
+# Replace the build stage from the template `react-app.yml`
+# https://gitlab.gwdg.de/mpib/chm/common/deploy-pipeline/-/blob/master/react-app.yml
+build:
+  stage: build
+
+  extends:
+    - .tags
+    - .services
+
+  image: node:12
+
+  cache:
+    paths:
+      - node_modules/
+
+  artifacts:
+    paths:
+      - dist/
+    expire_in: 1 week
+
+  before_script:
+    - rm -rf frontend
+    - rm -rf backend
+
+  script:
+    - npm ci
+    - npm run build-prod
+
+docker:
+  extends: .docker-stage
+  before_script:
+    - rm -rf frontend
+    - rm -rf backend
+    - ls -R

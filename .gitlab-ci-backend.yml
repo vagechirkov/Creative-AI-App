@@ -1,0 +1,21 @@
+variables:
+  DEPLOYMENT_VARS: "MONGO_URL, DATABASE_NAME, BACKEND_USER, BACKEND_PASSWORD"
+  APP_NAME: rn-iii-backend
+
+include:
+  - project: "mpib/chm/common/deploy-pipeline"
+    ref: "1.5.3"
+    file: "python-app.yml"
+
+init:
+  extends: .init-stage
+  after_script:
+    - echo "Copying files from subdirectory to root directory"
+    - cp -r $CHILD_PIPELINE_EXECUTION_CONTEXT/* ./
+    - rm -rf frontend
+    - rm -rf backend
+    - echo "DATABASE_NAME=rn-iii-pilot-1ab" >>build.env
+    - cat build.env
+  artifacts:
+    paths:
+      - ./
