@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import {red} from "@mui/material/colors";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import {FeedImageType} from "../FeedImage/FeedImage";
+import {FeedImageType} from "../FeedImages/FeedImages";
 
 
 interface ImageCardProps {

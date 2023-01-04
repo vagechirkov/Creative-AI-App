@@ -13,6 +13,7 @@ export default function RootLayout({
       */}
       <head />
       <body>{children}</body>
+      <div id="bottom-anchor"></div>
     </html>
   )
 }

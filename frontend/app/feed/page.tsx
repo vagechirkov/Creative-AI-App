@@ -1,13 +1,13 @@
 import { nanoid } from 'nanoid'
 
-import FeedImage from "../../components/FeedImage";
+import FeedImages from "../../components/FeedImages";
 
 
 export default function Feed() {
     const userId: string = nanoid();
     return (
         <main>
-            <FeedImage wsUrl={`ws://localhost:8000/ws/${userId}`}/>
+            <FeedImages wsUrl={`ws://localhost:8000/ws/${userId}`}/>
         </main>
     )
 }
