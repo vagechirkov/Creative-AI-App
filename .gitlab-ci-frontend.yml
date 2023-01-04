@@ -35,7 +35,7 @@ build:
 
   artifacts:
     paths:
-      - dist/
+      - .next/
     expire_in: 1 week
 
   before_script:
