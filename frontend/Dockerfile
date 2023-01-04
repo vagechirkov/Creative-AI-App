@@ -1,5 +1,9 @@
 FROM node:16-alpine
 
-COPY .next .
+COPY .next .next
 
-CMD ["npm", "next", "start", "-p", "8080"]
+EXPOSE 8080
+
+ENV PORT 8080
+
+CMD ["node", "server.js"]
