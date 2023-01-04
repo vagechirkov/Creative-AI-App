@@ -1,3 +1,5 @@
+'use client';
+
 import {Box, Fade} from "@mui/material";
 
 interface Props {

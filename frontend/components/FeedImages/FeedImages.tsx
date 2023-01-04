@@ -1,9 +1,9 @@
 'use client';
 
 import ImageCard from "../ImageCard";
-import {FC, useCallback, useEffect, useState} from "react";
+import {FC, useCallback, useEffect, useRef, useState} from "react";
 import useWebSocket, {ReadyState} from 'react-use-websocket';
-import {Fab, Grid} from "@mui/material";
+import {Fab, Grid, LinearProgress} from "@mui/material";
 import ScrollBottom from "../ScrollBottom";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
@@ -24,6 +24,7 @@ export type FeedImageType = {
 const FeedImages: FC<FeedImageProps> = ({wsUrl}) => {
     const [feedImage, setFeedImage] = useState<FeedImageType | null>(null);
     const [feedHistory, setFeedHistory] = useState<FeedImageType[]>([]);
+    const feedEndRef = useRef<null | HTMLDivElement>(null);
 
     const {sendJsonMessage, lastJsonMessage, readyState} = useWebSocket(wsUrl);
 
@@ -61,17 +62,13 @@ const FeedImages: FC<FeedImageProps> = ({wsUrl}) => {
         }, [feedImage])
 
     const scrollToCurrentImage = useCallback(
-    (event: React.MouseEvent<HTMLDivElement>) => {
-        const anchor = (
-            (event.target as HTMLDivElement).ownerDocument || document
-        ).querySelector('#bottom-anchor');
-
-        if (anchor) {
-            anchor.scrollIntoView({
-                block: 'center',
-            });
-        }
-    }, [])
+        (event: React.MouseEvent<HTMLDivElement>) => {
+            if (feedEndRef.current) {
+                feedEndRef.current.scrollIntoView({
+                    block: 'center',
+                });
+            }
+        }, [])
 
 
     return (
@@ -98,20 +95,26 @@ const FeedImages: FC<FeedImageProps> = ({wsUrl}) => {
                 }
                 {feedImage &&
                     <Grid item>
-                        <ImageCard
-                            imageUrl={feedImage.url}
-                            reactions={feedImage.reactions}
-                            interactive={true}
-                            onReaction={updateReactions}
+                        <div ref={feedEndRef}>
+                            <ImageCard
+                                imageUrl={feedImage.url}
+                                reactions={feedImage.reactions}
+                                interactive={true}
+                                onReaction={updateReactions}
 
-                        />
+                            />
+                        </div>
                     </Grid>
                 }
+                <Grid item>
+                    <LinearProgress/>
+                </Grid>
                 <ScrollBottom clickHandler={scrollToCurrentImage}>
                     <Fab size="small" aria-label="scroll back to top">
                         <KeyboardArrowDownIcon/>
                     </Fab>
                 </ScrollBottom>
+
             </Grid>
 
         </>
