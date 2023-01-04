@@ -1,7 +1,7 @@
 'use client';
 
 import ImageCard from "../ImageCard";
-import {FC, useCallback, useEffect, useState} from "react";
+import {FC, useCallback, useEffect, useRef, useState} from "react";
 import useWebSocket, {ReadyState} from 'react-use-websocket';
 
 
@@ -24,6 +24,12 @@ const FeedImage: FC<FeedImageProps> = ({wsUrl}) => {
 
     const {sendJsonMessage, lastJsonMessage, readyState} = useWebSocket(wsUrl);
 
+    const cardEndRef = useRef<null | HTMLDivElement>(null);
+
+    const scrollToBottom = () => {
+        cardEndRef.current?.scrollIntoView(false) // {behavior: "smooth", block: "end"}
+    }
+
     useEffect(() => {
         if (readyState === ReadyState.OPEN && lastJsonMessage) {
             const data = lastJsonMessage as FeedImageType;
@@ -35,7 +41,14 @@ const FeedImage: FC<FeedImageProps> = ({wsUrl}) => {
                 feedHistory[index] = data;
             } else {
                 feedHistory.push(data);
+                // remove the oldest image if we have more than 10
+                if (feedHistory.length > 10) {
+                    feedHistory.shift();
+                }
+                // scroll to bottom if new image
+                scrollToBottom();
             }
+            setFeedHistory([...feedHistory]);
         }
     }, [lastJsonMessage]);
 
@@ -55,9 +68,9 @@ const FeedImage: FC<FeedImageProps> = ({wsUrl}) => {
 
 
     return (
-        <div className="flex items-center justify-center h-screen">
-            <div className="container max-w-sm h-full bg-gray-50">
-                <div className="grid grid-flow-row items-center justify-center h-screen gap-5">
+        <div className="flex justify-center h-screen">
+            <div className="container max-w-sm bg-gray-50">
+                <div className="grid grid-flow-row auto-rows-max items-start h-screen gap-5">
                     {/* show all without the current image */}
                     {feedHistory.slice(0, -1).map((value, index) => (
                         <ImageCard
@@ -68,14 +81,17 @@ const FeedImage: FC<FeedImageProps> = ({wsUrl}) => {
                         />))
                     }
                     {feedImage &&
-
                         <ImageCard
                             imageUrl={feedImage.url}
                             reactions={feedImage.reactions}
                             onReaction={updateReactions}
                         />
-
                     }
+                    <div ref={cardEndRef} className="flex justify-around items-center p-1 mt-0">
+                    <div
+                         className="w-5 h-5 border-t-2 border-t-indigo-500 rounded-full animate-spin"
+                    />
+                    </div>
 
                 </div>
             </div>
