@@ -1,13 +1,15 @@
-import { nanoid } from 'nanoid'
+import {nanoid} from 'nanoid'
 
 import FeedImages from "../../components/FeedImages";
 
 
-export default function Feed() {
+export default async function Feed() {
+    // Read environment variable from .env file
+    const WSBasePath = process.env.NEXT_PUBLIC_BACKEND_API;
     const userId: string = nanoid();
     return (
         <main>
-            <FeedImages wsUrl={`ws://localhost:8000/ws/${userId}`}/>
+            <FeedImages wsUrl={`${WSBasePath}${userId}`}/>
         </main>
     )
 }
