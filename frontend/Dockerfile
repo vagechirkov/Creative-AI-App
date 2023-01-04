@@ -1,3 +1,5 @@
-FROM nginx
+FROM node:16-alpine
 
-COPY .next /usr/share/nginx/html
+COPY .next .
+
+CMD ["npm", "next", "start", "-p", "80"]
