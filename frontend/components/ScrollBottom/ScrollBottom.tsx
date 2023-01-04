@@ -4,7 +4,7 @@ import {Box, Fade} from "@mui/material";
 
 interface Props {
     children: React.ReactElement;
-    clickHandler: (event: React.MouseEvent<HTMLDivElement>) => void;
+    clickHandler: () => void;
 }
 
 const ScrollBottom = (props: Props) => {

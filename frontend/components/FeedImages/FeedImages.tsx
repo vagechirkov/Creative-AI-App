@@ -28,26 +28,6 @@ const FeedImages: FC<FeedImageProps> = ({wsUrl}) => {
 
     const {sendJsonMessage, lastJsonMessage, readyState} = useWebSocket(wsUrl);
 
-    useEffect(() => {
-        if (readyState === ReadyState.OPEN && lastJsonMessage) {
-            const data = lastJsonMessage as FeedImageType;
-            setFeedImage(data);
-            // find the image in the history and update it
-
-            const index = feedHistory.findIndex((image) => image.id === data.id);
-            if (index !== -1) {
-                feedHistory[index] = data;
-            } else {
-                feedHistory.push(data);
-                // remove the oldest image if we have more than 10
-                if (feedHistory.length > 10) {
-                    feedHistory.shift();
-                }
-            }
-            setFeedHistory([...feedHistory]);
-        }
-    }, [lastJsonMessage]);
-
     const updateReactions = useCallback(
         (emoji: string) => {
             const reactions = feedImage?.reactions;
@@ -62,13 +42,38 @@ const FeedImages: FC<FeedImageProps> = ({wsUrl}) => {
         }, [feedImage])
 
     const scrollToCurrentImage = useCallback(
-        (event: React.MouseEvent<HTMLDivElement>) => {
+        () => {
             if (feedEndRef.current) {
                 feedEndRef.current.scrollIntoView({
+                    behavior: "smooth",
                     block: 'center',
                 });
             }
         }, [])
+
+    useEffect(() => {
+        if (readyState === ReadyState.OPEN && lastJsonMessage) {
+            const data = lastJsonMessage as FeedImageType;
+            setFeedImage(data);
+
+            const index = feedHistory.findIndex((image) => image.id === data.id);
+            if (index !== -1) {
+                // update existing image
+                setFeedHistory([...feedHistory.slice(0, -1), data]);
+            } else {
+                // remove the oldest image if we have more than 10
+                if (feedHistory.length > 10) {
+                    feedHistory.shift();
+                }
+                setFeedHistory([...feedHistory, data]);
+            }
+
+        }
+    }, [lastJsonMessage]);
+
+    useEffect(() => {
+        scrollToCurrentImage();
+    }, [feedImage?.url])
 
 
     return (
