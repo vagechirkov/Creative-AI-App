@@ -1,6 +1,6 @@
 variables:
   DEPLOYMENT_VARS: "MONGO_URL, DATABASE_NAME, BACKEND_USER, BACKEND_PASSWORD"
-  APP_NAME: creative-ai-backend
+  APP_NAME: creative-ai-app-backend
 
 include:
   - project: "mpib/chm/common/deploy-pipeline"
