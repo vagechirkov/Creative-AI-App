@@ -1,5 +1,5 @@
 variables:
-  APP_NAME: rn-iii-frontend
+  APP_NAME: creative-ai-frontend
   BACKEND_URL: https://rn-iii-backend.eks-test-default.mpg-chm.com
 
 include:
