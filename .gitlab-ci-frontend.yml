@@ -45,7 +45,7 @@ build:
   script:
     - npm ci
     - npm run build
-    - cp .env.prod .next/.env
+#    - cp .env.prod .next/.env
 
 docker:
   extends: .docker-stage
