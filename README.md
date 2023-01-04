@@ -63,11 +63,15 @@ npm run dev
 
 ### Extra libraries
 
-#### [Material Tailwind](https://www.material-tailwind.com/docs/react/guide/next)
+#### [Material UI](https://mui.com/material-ui/getting-started)
 
 ```zsh
 
-npm i @material-tailwind/react
+# basic
+npm install @mui/material @mui/styled-engine-sc styled-components
+
+# icons
+npm install @mui/icons-material
 
 ```
 
