@@ -1,5 +1,7 @@
 variables:
   APP_NAME: creative-ai-app-frontend
+  DEPLOYMENT_VARS: ""
+  WEB_PORT: 3000
 
 include:
   - project: "mpib/chm/common/deploy-pipeline"
