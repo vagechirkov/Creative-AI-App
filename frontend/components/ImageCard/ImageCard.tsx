@@ -1,8 +1,18 @@
 'use client';
 
 import {FC} from "react";
+import {
+    Avatar,
+    Card,
+    CardContent,
+    CardHeader,
+    CardMedia,
+    IconButton,
+    Stack
+} from "@mui/material";
+import {red} from "@mui/material/colors";
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {FeedImageType} from "../FeedImage/FeedImage";
-import {Card, CardFooter, CardHeader} from "@material-tailwind/react";
 
 
 interface ImageCardProps {
@@ -13,32 +23,46 @@ interface ImageCardProps {
 }
 
 const ImageCard: FC<ImageCardProps> = (props) => {
-    const {imageUrl, reactions, onReaction, interactive=true} = props;
+    const {imageUrl, reactions, onReaction, interactive = true} = props;
     return (
-        <Card className="w-300 ">
-            <CardHeader floated={false} className="h-500">
-                <img src={imageUrl} alt="Content"/>
-            </CardHeader>
 
-            <CardFooter className="grid grid-flow-col auto-cols-max justify-around">
-                {reactions &&
-                    reactions.map((value, index) => (
-                            <button
-                                onClick={() => onReaction(value.emoji)}
-                                key={`${index}-${imageUrl}`}
-                                className="text-2xl"
-                                disabled={!interactive}
-                            >
-                                    <span
-                                        className="bg-gray-200 rounded-full px-3 py-1 text-base font-bold text-black"
-                                    >
-                                    {value.emoji} {value.count}
-                                </span>
-                            </button>
-                        )
-                    )
+        <Card sx={{width: 300}}>
+            <CardHeader
+                avatar={
+                    <Avatar sx={{bgcolor: red[500]}} aria-label="recipe">
+                        A
+                    </Avatar>
                 }
-            </CardFooter>
+                action={
+                    <IconButton aria-label="settings">
+                        <MoreVertIcon/>
+                    </IconButton>
+                }
+                title="Artist 1"
+            />
+            <CardMedia
+                component="img"
+                height="500"
+                src={imageUrl}
+                loading="lazy"
+            />
+            <CardContent>
+                <Stack direction="row" spacing={1}>
+                    {reactions &&
+                        reactions.map((value, index) => (
+                                <IconButton
+                                    onClick={() => onReaction(value.emoji)}
+                                    key={`${index}-${imageUrl}`}
+                                    disabled={!interactive}
+                                    size="small"
+                                >
+                                    {value.emoji} {value.count}
+                                </IconButton>
+                            )
+                        )
+                    }
+                </Stack>
+            </CardContent>
         </Card>
     );
 };

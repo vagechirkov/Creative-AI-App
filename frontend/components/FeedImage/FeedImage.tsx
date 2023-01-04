@@ -1,8 +1,9 @@
 'use client';
 
 import ImageCard from "../ImageCard";
-import {FC, useCallback, useEffect, useRef, useState} from "react";
+import {FC, useCallback, useEffect, useState} from "react";
 import useWebSocket, {ReadyState} from 'react-use-websocket';
+import {Grid} from "@mui/material";
 
 
 interface FeedImageProps {
@@ -24,12 +25,6 @@ const FeedImage: FC<FeedImageProps> = ({wsUrl}) => {
 
     const {sendJsonMessage, lastJsonMessage, readyState} = useWebSocket(wsUrl);
 
-    const cardEndRef = useRef<null | HTMLDivElement>(null);
-
-    const scrollToBottom = () => {
-        cardEndRef.current?.scrollIntoView(false) // {behavior: "smooth", block: "end"}
-    }
-
     useEffect(() => {
         if (readyState === ReadyState.OPEN && lastJsonMessage) {
             const data = lastJsonMessage as FeedImageType;
@@ -45,8 +40,6 @@ const FeedImage: FC<FeedImageProps> = ({wsUrl}) => {
                 if (feedHistory.length > 10) {
                     feedHistory.shift();
                 }
-                // scroll to bottom if new image
-                scrollToBottom();
             }
             setFeedHistory([...feedHistory]);
         }
@@ -68,34 +61,37 @@ const FeedImage: FC<FeedImageProps> = ({wsUrl}) => {
 
 
     return (
-        <div className="flex justify-center h-screen">
-            <div className="container max-w-sm bg-gray-50">
-                <div className="grid grid-flow-row auto-rows-max items-start h-screen gap-5">
-                    {/* show all without the current image */}
-                    {feedHistory.slice(0, -1).map((value, index) => (
-                        <ImageCard
-                            imageUrl={value.url}
-                            reactions={value.reactions}
-                            onReaction={(emoji) => null}
-                            key={`${index}-${value.url}`}
-                        />))
-                    }
-                    {feedImage &&
-                        <ImageCard
-                            imageUrl={feedImage.url}
-                            reactions={feedImage.reactions}
-                            onReaction={updateReactions}
-                        />
-                    }
-                    <div ref={cardEndRef} className="flex justify-around items-center p-1 mt-0">
-                    <div
-                         className="w-5 h-5 border-t-2 border-t-indigo-500 rounded-full animate-spin"
+        <Grid
+            container
+            direction="column"
+            justifyContent="flex-start"
+            alignItems="center"
+            spacing={3}
+        >
+            {/* show all without the current image */}
+            {feedHistory.slice(0, -1).map((value, index) => (
+                <Grid item key={`${index}-${value.url}`}>
+                    <ImageCard
+                        imageUrl={value.url}
+                        reactions={value.reactions}
+                        onReaction={(emoji) => null}
+                        interactive={false}
                     />
-                    </div>
 
-                </div>
-            </div>
-        </div>
+                </Grid>
+            ))
+            }
+            {feedImage &&
+                <Grid item>
+                    <ImageCard
+                        imageUrl={feedImage.url}
+                        reactions={feedImage.reactions}
+                        interactive={true}
+                        onReaction={updateReactions}
+                    />
+                </Grid>
+            }
+        </Grid>
     )
 }
 
