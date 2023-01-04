@@ -27,7 +27,7 @@ build:
     - .tags
     - .services
 
-  image: node:12
+  image: node:16
 
   cache:
     paths:
@@ -44,7 +44,7 @@ build:
 
   script:
     - npm ci
-    - npm run build-prod
+    - npm run build
 
 docker:
   extends: .docker-stage
