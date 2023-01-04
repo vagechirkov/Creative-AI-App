@@ -1,11 +1,10 @@
 variables:
   APP_NAME: creative-ai-app-frontend
-  BACKEND_URL: https://rn-iii-backend.eks-test-default.mpg-chm.com
 
 include:
   - project: "mpib/chm/common/deploy-pipeline"
     ref: "1.5.3"
-    file: "react-app.yml"
+    file: "python-app.yml"
 
 init:
   extends: .init-stage
@@ -20,13 +19,13 @@ init:
 
 # Replace the build stage from the template `react-app.yml`
 # https://gitlab.gwdg.de/mpib/chm/common/deploy-pipeline/-/blob/master/react-app.yml
-build:
-  stage: build
-
-  extends:
-    - .tags
-    - .services
-
+#build:
+#  stage: build
+#
+#  extends:
+#    - .tags
+#    - .services
+#
 #  image: node:16
 #
 #  cache:
