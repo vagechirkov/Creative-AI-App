@@ -1,5 +1,4 @@
 variables:
-  DEPLOYMENT_VARS: "MONGO_URL, DATABASE_NAME, BACKEND_USER, BACKEND_PASSWORD"
   APP_NAME: creative-ai-app-backend
 
 include:
@@ -14,8 +13,7 @@ init:
     - cp -r $CHILD_PIPELINE_EXECUTION_CONTEXT/* ./
     - rm -rf frontend
     - rm -rf backend
-    - echo "DATABASE_NAME=rn-iii-pilot-1ab" >>build.env
-    - cat build.env
+
   artifacts:
     paths:
       - ./
