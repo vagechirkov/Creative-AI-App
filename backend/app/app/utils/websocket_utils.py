@@ -23,6 +23,7 @@ class ConnectionManager:
         self.active_connections.remove(websocket)
 
     async def broadcast(self, message: FeedImage):
+        message.active_users = len(self.active_connections)
         self.current_feed_image = message
         for connection in self.active_connections:
             await connection.send_json(message.dict())

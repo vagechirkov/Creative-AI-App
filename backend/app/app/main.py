@@ -34,7 +34,6 @@ async def startup_event():
     for feed in feeds:
         random_image = random_images.pop()
         image = create_feed_image(feed.current_feed_image.id + 1, random_image['src'], random_image['prompt'])
-        image.active_users = len(feed.active_connections)
         await feed.broadcast(image)
 
 
@@ -45,6 +44,7 @@ async def websocket_endpoint(websocket: WebSocket, client_id: str, feed_id: int)
         await feed.connect(websocket)
 
         try:
+            await feed.broadcast(feed.current_feed_image)
             while True:
                 # receive image reaction
                 reaction_data = await websocket.receive_json()
@@ -58,7 +58,6 @@ async def websocket_endpoint(websocket: WebSocket, client_id: str, feed_id: int)
                             reaction.count += 1
                 else:
                     image.reactions.append(reaction_data)
-                image.active_users = len(feed.active_connections)
                 await feed.broadcast(image)
         except WebSocketDisconnect:
             feed.disconnect(websocket)
