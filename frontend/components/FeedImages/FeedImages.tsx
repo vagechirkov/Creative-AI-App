@@ -3,13 +3,15 @@
 import ImageCard from "../ImageCard";
 import {FC, useCallback, useEffect, useRef, useState} from "react";
 import useWebSocket, {ReadyState} from 'react-use-websocket';
-import {Fab, Grid, LinearProgress} from "@mui/material";
+import {Fab, Grid} from "@mui/material";
 import ScrollBottom from "../ScrollBottom";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 
 interface FeedImageProps {
     wsUrl: string;
+
+    feedId?: number;
 }
 
 export type FeedImageType = {
@@ -21,12 +23,15 @@ export type FeedImageType = {
 }
 
 
-const FeedImages: FC<FeedImageProps> = ({wsUrl}) => {
+const FeedImages: FC<FeedImageProps> = (props) => {
+    const {wsUrl, feedId=0} = props;
+
     const [feedImage, setFeedImage] = useState<FeedImageType | null>(null);
     const [feedHistory, setFeedHistory] = useState<FeedImageType[]>([]);
+    const [feed, setFeed] = useState<number>(feedId);
     const feedEndRef = useRef<null | HTMLDivElement>(null);
 
-    const {sendJsonMessage, lastJsonMessage, readyState} = useWebSocket(wsUrl);
+    const {sendJsonMessage, lastJsonMessage, readyState} = useWebSocket(`${wsUrl}/${feed}`);
 
     const updateReactions = useCallback(
         (emoji: string) => {
@@ -75,6 +80,12 @@ const FeedImages: FC<FeedImageProps> = ({wsUrl}) => {
         scrollToCurrentImage();
     }, [feedImage?.url])
 
+    useEffect(() => {
+        setFeedHistory([]);
+        setFeedImage(null);
+
+        }, [feed])
+
 
     return (
         <>
@@ -111,9 +122,6 @@ const FeedImages: FC<FeedImageProps> = ({wsUrl}) => {
                         </div>
                     </Grid>
                 }
-                <Grid item>
-                    <LinearProgress/>
-                </Grid>
                 <ScrollBottom clickHandler={scrollToCurrentImage}>
                     <Fab size="small" aria-label="scroll back to top">
                         <KeyboardArrowDownIcon/>
@@ -121,7 +129,6 @@ const FeedImages: FC<FeedImageProps> = ({wsUrl}) => {
                 </ScrollBottom>
 
             </Grid>
-
         </>
     )
 }
