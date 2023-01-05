@@ -1,0 +1,9 @@
+version: "3.3"
+
+services:
+  fastapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./app:/app
