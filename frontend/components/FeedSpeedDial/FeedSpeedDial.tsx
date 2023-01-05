@@ -1,20 +1,20 @@
-import Box from '@mui/material/Box';
 import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
-import SaveIcon from '@mui/icons-material/Save';
-import PrintIcon from '@mui/icons-material/Print';
-import ShareIcon from '@mui/icons-material/Share';
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import {NavigateBefore, NavigateNext} from "@mui/icons-material";
 
 const actions = [
-    {icon: <KeyboardArrowDownIcon/>, name: 'Scroll To Bottom'},
-    {icon: <SaveIcon/>, name: 'Next Feed Room'},
-    {icon: <PrintIcon/>, name: 'Print'},
-    {icon: <ShareIcon/>, name: 'Share'},
+    {icon: <KeyboardArrowDownIcon/>, name: 'Scroll To Bottom', id: 'scrollDown'},
+    {icon: <NavigateNext />, name: 'Next Feed Room', id: 'nextFeed'},
+    {icon: <NavigateBefore />, name: 'Previous Feed Room', id: 'preciousFeed'},
 ];
 
-export default function FeedSpeedDial() {
+interface FeedSpeedDialProps {
+    handleClick: (actionId: string) => void;
+}
+
+export default function FeedSpeedDial({handleClick}: FeedSpeedDialProps) {
     return (
         <SpeedDial
             ariaLabel="SpeedDial"
@@ -26,6 +26,7 @@ export default function FeedSpeedDial() {
                     key={action.name}
                     icon={action.icon}
                     tooltipTitle={action.name}
+                    onClick={() => handleClick(action.id)}
                 />
             ))}
         </SpeedDial>

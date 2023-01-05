@@ -3,9 +3,8 @@
 import ImageCard from "../ImageCard";
 import {FC, useCallback, useEffect, useRef, useState} from "react";
 import useWebSocket, {ReadyState} from 'react-use-websocket';
-import {Fab, Grid} from "@mui/material";
-import ScrollBottom from "../ScrollBottom";
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import {Grid} from "@mui/material";
+import FeedSpeedDial from "../FeedSpeedDial";
 
 
 interface FeedImageProps {
@@ -24,7 +23,7 @@ export type FeedImageType = {
 
 
 const FeedImages: FC<FeedImageProps> = (props) => {
-    const {wsUrl, feedId=0} = props;
+    const {wsUrl, feedId = 0} = props;
 
     const [feedImage, setFeedImage] = useState<FeedImageType | null>(null);
     const [feedHistory, setFeedHistory] = useState<FeedImageType[]>([]);
@@ -56,6 +55,26 @@ const FeedImages: FC<FeedImageProps> = (props) => {
             }
         }, [])
 
+    const handleSpeedDialClick = (actionId: string) => {
+        // TODO: avoid hardcoding feed ids
+        if (actionId === 'nextFeed') {
+            if (feed === 3) {
+                setFeed(0);
+            } else {
+                setFeed(feed + 1);
+            }
+        } else if (actionId === 'preciousFeed') {
+            if (feed > 0) {
+                setFeed(feed - 1);
+            } else {
+                setFeed(3);
+            }
+        } else if (actionId === 'scrollDown') {
+            scrollToCurrentImage();
+        }
+    }
+
+
     useEffect(() => {
         if (readyState === ReadyState.OPEN && lastJsonMessage) {
             const data = lastJsonMessage as FeedImageType;
@@ -84,7 +103,7 @@ const FeedImages: FC<FeedImageProps> = (props) => {
         setFeedHistory([]);
         setFeedImage(null);
 
-        }, [feed])
+    }, [feed])
 
 
     return (
@@ -122,13 +141,9 @@ const FeedImages: FC<FeedImageProps> = (props) => {
                         </div>
                     </Grid>
                 }
-                <ScrollBottom clickHandler={scrollToCurrentImage}>
-                    <Fab size="small" aria-label="scroll back to top">
-                        <KeyboardArrowDownIcon/>
-                    </Fab>
-                </ScrollBottom>
-
             </Grid>
+            <FeedSpeedDial handleClick={handleSpeedDialClick}/>
+
         </>
     )
 }
