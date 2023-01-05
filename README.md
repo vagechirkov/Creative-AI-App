@@ -93,3 +93,10 @@ npx tailwindcss init -p
 npm i nanoid
 
 ```
+
+
+## Deployment
+
+### ⚠️ IMPORTANT ⚠️
+
+It is necessary to export backend URL in the `build.env` file in `.gitlab-ci-front.yml`. This is necessary for the frontend to be able to connect to the backend.
