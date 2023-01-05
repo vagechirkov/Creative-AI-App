@@ -97,3 +97,8 @@ async def websocket_endpoint(websocket: WebSocket, client_id: str):
             await manager.broadcast(image)
     except WebSocketDisconnect:
         manager.disconnect(websocket)
+
+
+@app.get("/home")
+async def home():
+    return {'message': 'Hello World'}
