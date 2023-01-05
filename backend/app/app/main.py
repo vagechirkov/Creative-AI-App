@@ -1,3 +1,5 @@
+import random
+
 import requests
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi_restful.tasks import repeat_every
@@ -16,15 +18,13 @@ lexica_art_api = 'https://lexica.art/api/v1/search?q='
 @repeat_every(seconds=10)
 async def startup_event():
     if len(random_images) == 0:
-        random_images.extend(requests.get(f'{lexica_art_api}something').json()['images'])
-    elif len(random_images) <= len(feeds):
-        random_images.extend(requests.get(f"{lexica_art_api}{random_images[0]['src']}").json()['images'])
-        random_images.reverse()
+        query = f'{lexica_art_api}something {random.randint(0, 100_000)}'
+        random_images.extend(requests.get(query).json()['images'])
         print(random_images[0])
 
     if not feeds:
         # create the all feeds and set up the connection manager for each feed
-        for i in range(1, 4):
+        for i in range(4):
             random_image = random_images.pop()
             image = create_feed_image(0, random_image['src'], random_image['prompt'])
             feed = ConnectionManager(image, feed_id=i)
