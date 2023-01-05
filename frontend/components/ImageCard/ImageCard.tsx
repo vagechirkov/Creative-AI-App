@@ -1,7 +1,7 @@
 'use client';
 
 import {FC} from "react";
-import {Avatar, Badge, Card, CardContent, CardHeader, CardMedia, IconButton, Stack} from "@mui/material";
+import {Avatar, Badge, Card, CardContent, CardHeader, CardMedia, IconButton, Stack, Tooltip} from "@mui/material";
 import {red} from "@mui/material/colors";
 import {FeedImageType} from "../FeedImages/FeedImages";
 import {People} from "@mui/icons-material";
@@ -29,8 +29,15 @@ const ImageCard: FC<ImageCardProps> = (props) => {
                 }
                 action={
                     interactive &&
-                    <Badge badgeContent={activeUsers} color="error">
-                        <People/>
+
+                    <Badge badgeContent={activeUsers} color="error" overlap="circular">
+                        <Tooltip title={"Active users"} placement="left">
+                            <span>
+                                <IconButton disabled size="small">
+                                    <People/>
+                                </IconButton>
+                            </span>
+                        </Tooltip>
                     </Badge> || null
                 }
                 title="Artist 1"
