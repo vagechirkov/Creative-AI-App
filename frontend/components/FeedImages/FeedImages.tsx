@@ -133,13 +133,14 @@ const FeedImages: FC<FeedImageProps> = (props) => {
                 {feedImage &&
                     <Grid item>
                         <div ref={feedEndRef}>
+
                             <ImageCard
                                 imageUrl={feedImage.url}
                                 altText={feedImage.alt_text}
                                 reactions={feedImage.reactions}
                                 interactive={true}
                                 onReaction={updateReactions}
-
+                                activeUsers={feedImage.active_users}
                             />
                         </div>
                     </Grid>

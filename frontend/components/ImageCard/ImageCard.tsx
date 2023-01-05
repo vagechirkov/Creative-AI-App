@@ -1,18 +1,10 @@
 'use client';
 
 import {FC} from "react";
-import {
-    Avatar,
-    Card,
-    CardContent,
-    CardHeader,
-    CardMedia,
-    IconButton,
-    Stack
-} from "@mui/material";
+import {Avatar, Badge, Card, CardContent, CardHeader, CardMedia, IconButton, Stack} from "@mui/material";
 import {red} from "@mui/material/colors";
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {FeedImageType} from "../FeedImages/FeedImages";
+import {People} from "@mui/icons-material";
 
 
 interface ImageCardProps {
@@ -21,10 +13,11 @@ interface ImageCardProps {
     reactions: FeedImageType['reactions'];
     onReaction: (emoji: string) => void;
     interactive?: boolean;
+    activeUsers?: number;
 }
 
 const ImageCard: FC<ImageCardProps> = (props) => {
-    const {imageUrl, altText, reactions, onReaction, interactive = true} = props;
+    const {imageUrl, altText, reactions, onReaction, interactive = true, activeUsers} = props;
     return (
 
         <Card sx={{width: 300}}>
@@ -35,9 +28,10 @@ const ImageCard: FC<ImageCardProps> = (props) => {
                     </Avatar>
                 }
                 action={
-                    <IconButton aria-label="settings">
-                        <MoreVertIcon/>
-                    </IconButton>
+                    interactive &&
+                    <Badge badgeContent={activeUsers} color="error">
+                        <People/>
+                    </Badge> || null
                 }
                 title="Artist 1"
             />
