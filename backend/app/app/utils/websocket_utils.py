@@ -31,6 +31,7 @@ class ConnectionManager:
 async def broadcast_new_feed_image(manager: ConnectionManager, image: FeedImage):
     await manager.broadcast(image)
 
+
 def create_feed_image(image_id: int, url: str, alt_text: str) -> FeedImage:
     return FeedImage(
         id=image_id,

@@ -17,13 +17,14 @@ import {FeedImageType} from "../FeedImages/FeedImages";
 
 interface ImageCardProps {
     imageUrl: string;
+    altText: string;
     reactions: FeedImageType['reactions'];
     onReaction: (emoji: string) => void;
     interactive?: boolean;
 }
 
 const ImageCard: FC<ImageCardProps> = (props) => {
-    const {imageUrl, reactions, onReaction, interactive = true} = props;
+    const {imageUrl, altText, reactions, onReaction, interactive = true} = props;
     return (
 
         <Card sx={{width: 300}}>
@@ -44,6 +45,7 @@ const ImageCard: FC<ImageCardProps> = (props) => {
                 component="img"
                 height="500"
                 src={imageUrl}
+                alt={altText}
                 loading="lazy"
             />
             <CardContent>

@@ -11,5 +11,6 @@ class ImageReaction(BaseModel):
 class FeedImage(BaseModel):
     id: int
     url: str
+    alt_text: str
     reactions: List[ImageReaction]
     active_users: int = 0

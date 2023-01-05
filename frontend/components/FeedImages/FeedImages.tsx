@@ -16,6 +16,7 @@ interface FeedImageProps {
 export type FeedImageType = {
     id: number;
     url: string;
+    alt_text: string;
     // list of emojis and their counts
     reactions: { emoji: string, count: number }[];
     active_users: number;
@@ -120,6 +121,7 @@ const FeedImages: FC<FeedImageProps> = (props) => {
                     <Grid item key={`${index}-${value.url}`}>
                         <ImageCard
                             imageUrl={value.url}
+                            altText={value.alt_text}
                             reactions={value.reactions}
                             onReaction={(emoji) => null}
                             interactive={false}
@@ -133,6 +135,7 @@ const FeedImages: FC<FeedImageProps> = (props) => {
                         <div ref={feedEndRef}>
                             <ImageCard
                                 imageUrl={feedImage.url}
+                                altText={feedImage.alt_text}
                                 reactions={feedImage.reactions}
                                 interactive={true}
                                 onReaction={updateReactions}
