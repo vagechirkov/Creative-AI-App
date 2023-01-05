@@ -9,14 +9,16 @@ app = FastAPI()
 
 feeds = []
 random_images = []
-lexica_art_api = 'https://lexica.art/api/v1/search?q= '
+lexica_art_api = 'https://lexica.art/api/v1/search?q='
 
 
 @app.on_event("startup")
 @repeat_every(seconds=10)
 async def startup_event():
-    if not random_images:
-        random_images.extend(requests.get(lexica_art_api).json()['images'])
+    if len(random_images) == 1:
+        random_images.extend(requests.get(f"{lexica_art_api}{random_images[0]['src']}").json()['images'])
+    elif len(random_images) == 0:
+        random_images.extend(requests.get(f'{lexica_art_api}something').json()['images'])
 
     if not feeds:
         # create the all feeds and set up the connection manager for each feed
