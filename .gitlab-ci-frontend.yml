@@ -7,6 +7,7 @@ variables:
   APP_NAME: creative-ai-app-frontend
   WEB_PORT: 3000
   REPLICA_COUNT: 1
+  NEXT_PUBLIC_BACKEND_API: "wss://creative-ai-app-backend.eks-test-default.mpg-chm.com/ws/"
 
 stages:
   - init
