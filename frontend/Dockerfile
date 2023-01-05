@@ -34,6 +34,9 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+# Neccessary to setup backend url via env variable
+COPY build.env .env.production
+
 RUN npm run build
 
 # Production image, copy all the files and run next
