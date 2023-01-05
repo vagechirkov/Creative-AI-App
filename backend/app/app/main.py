@@ -1,3 +1,4 @@
+import requests
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi_restful.tasks import repeat_every
 
@@ -6,35 +7,29 @@ from app.utils.websocket_utils import ConnectionManager, create_feed_image
 
 app = FastAPI()
 
-
-urls = [
-    'https://lexica-serve-encoded-images2.sharif.workers.dev/md/3761c6dd-a10f-4a76-bec5-27d508698840',
-    'https://lexica-serve-encoded-images2.sharif.workers.dev/full_jpg/16b67559-5c64-4520-83a9-201dc87259da',
-    'https://lexica-serve-encoded-images2.sharif.workers.dev/md/5fd57d99-24dd-4c59-b93f-022aedba7638',
-    'https://lexica-serve-encoded-images2.sharif.workers.dev/full_jpg/4eacb26e-062f-4499-a082-524cd1c2ea5a',
-    'https://lexica-serve-encoded-images2.sharif.workers.dev/full_jpg/c5ed451d-4351-4047-abf3-fc190c9bf4e5',
-    'https://lexica-serve-encoded-images2.sharif.workers.dev/full_jpg/d2e6f8f0-d191-44f2-b1cb-e4fed429ae66',
-    'https://lexica-serve-encoded-images2.sharif.workers.dev/full_jpg/3fd1799f-0139-419e-889c-59f22faa2e16',
-    'https://lexica-serve-encoded-images2.sharif.workers.dev/full_jpg/cfd33cc3-778f-4c11-9546-a36bbdf71a6c',
-    'https://lexica-serve-encoded-images2.sharif.workers.dev/full_jpg/0fe9b428-033b-44c3-a97c-dec8e3d42a8c'
-]
-
 feeds = []
+random_images = []
+lexica_art_api = 'https://lexica.art/api/v1/search?q= '
 
 
 @app.on_event("startup")
-def startup_event():
-    # create the all feeds and set up the connection manager for each feed
-    for i in range(1, 4):
-        feed = ConnectionManager(create_feed_image(i, urls[i - 1]), feed_id=i)
-        feeds.append(feed)
+@repeat_every(seconds=10)
+async def startup_event():
+    if not random_images:
+        random_images.extend(requests.get(lexica_art_api).json()['images'])
 
+    if not feeds:
+        # create the all feeds and set up the connection manager for each feed
+        for i in range(1, 4):
+            random_image = random_images.pop()
+            image = create_feed_image(0, random_image['src'], random_image['prompt'])
+            feed = ConnectionManager(image, feed_id=i)
+            feeds.append(feed)
 
-@repeat_every(seconds=15)
-async def broadcast_all_feeds():
     # broadcast the new feed image to all feeds
     for feed in feeds:
-        image = create_feed_image(feed.current_feed_image.id + 1, urls[feed.current_feed_image.id])
+        random_image = random_images.pop()
+        image = create_feed_image(feed.current_feed_image.id + 1, random_image['src'], random_image['prompt'])
         await feed.broadcast(image)
 
 
@@ -62,6 +57,3 @@ async def websocket_endpoint(websocket: WebSocket, client_id: str, feed_id: int)
                 await feed.broadcast(image)
         except WebSocketDisconnect:
             feed.disconnect(websocket)
-
-
-
