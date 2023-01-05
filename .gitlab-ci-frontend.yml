@@ -7,7 +7,6 @@ variables:
   APP_NAME: creative-ai-app-frontend
   WEB_PORT: 3000
   REPLICA_COUNT: 1
-  NEXT_PUBLIC_BACKEND_API: "wss://creative-ai-app-backend.eks-test-default.mpg-chm.com/ws/"
 
 stages:
   - init
@@ -27,7 +26,9 @@ init:
     - cp -r $CHILD_PIPELINE_EXECUTION_CONTEXT/* ./
     - rm -rf frontend
     - rm -rf backend
-    #    - ls -R
+    - echo "NEXT_PUBLIC_BACKEND_API=wss://creative-ai-app-backend.eks-test-default.mpg-chm.com/ws/" >>build.env
+    # - cat build.env
+    # - ls -R
   artifacts:
     paths:
       - ./
