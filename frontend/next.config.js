@@ -4,6 +4,16 @@ const nextConfig = {
     appDir: true,
   },
   output: 'standalone',
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'lexica-serve-encoded-images**',
+        port: '',
+        pathname: '**/**',
+      },
+    ],
+  },
 }
 
 module.exports = nextConfig

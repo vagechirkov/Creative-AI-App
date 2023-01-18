@@ -1,6 +1,7 @@
 'use client';
 
 import {FC} from "react";
+import Image from 'next/image';
 import {Avatar, Badge, Card, CardContent, CardHeader, CardMedia, IconButton, Stack, Tooltip} from "@mui/material";
 import {red} from "@mui/material/colors";
 import {FeedImageType} from "../FeedImages/FeedImages";
@@ -18,57 +19,71 @@ interface ImageCardProps {
 
 const ImageCard: FC<ImageCardProps> = (props) => {
     const {imageUrl, altText, reactions, onReaction, interactive = true, activeUsers} = props;
+
     return (
-
-        <Card sx={{width: 300}}>
-            <CardHeader
-                avatar={
-                    <Avatar sx={{bgcolor: red[500]}} aria-label="recipe">
-                        A
-                    </Avatar>
-                }
-                action={
-                    interactive &&
-
-                    <Badge badgeContent={activeUsers} color="error" overlap="circular">
-                        <Tooltip title={"Active users"} placement="left">
-                            <span>
-                                <IconButton disabled size="small">
-                                    <People/>
-                                </IconButton>
-                            </span>
-                        </Tooltip>
-                    </Badge> || null
-                }
-                title="Artist 1"
-            />
-            <CardMedia
-                component="img"
-                height="500"
+        <>
+            <Image
                 src={imageUrl}
                 alt={altText}
-                loading="lazy"
+                width={300}
+                height={300}
+
             />
-            <CardContent>
-                <Stack direction="row" spacing={1}>
-                    {reactions &&
-                        reactions.map((value, index) => (
-                                <IconButton
-                                    onClick={() => onReaction(value.emoji)}
-                                    key={`${index}-${imageUrl}`}
-                                    disabled={!interactive}
-                                    size="small"
-                                    color="primary"
-                                >
-                                    {value.emoji} {value.count}
-                                </IconButton>
-                            )
-                        )
-                    }
-                </Stack>
-            </CardContent>
-        </Card>
+
+
+        </>
     );
+
+    // return (
+        // <Card sx={{width: 300}}>
+        //     <CardHeader
+        //         avatar={
+        //             <Avatar sx={{bgcolor: red[500]}} aria-label="recipe">
+        //                 A
+        //             </Avatar>
+        //         }
+        //         action={
+        //             interactive &&
+        //
+        //             <Badge badgeContent={activeUsers} color="error" overlap="circular">
+        //                 <Tooltip title={"Active users"} placement="left">
+        //                     <span>
+        //                         <IconButton disabled size="small">
+        //                             <People/>
+        //                         </IconButton>
+        //                     </span>
+        //                 </Tooltip>
+        //             </Badge> || null
+        //         }
+        //         title="Artist 1"
+        //     />
+        //     <CardMedia
+        //         component="img"
+        //         height="500"
+        //         src={imageUrl}
+        //         alt={altText}
+        //         loading="lazy"
+        //     />
+        //     <CardContent>
+        //         <Stack direction="row" spacing={1}>
+        //             {reactions &&
+        //                 reactions.map((value, index) => (
+        //                         <IconButton
+        //                             onClick={() => onReaction(value.emoji)}
+        //                             key={`${index}-${imageUrl}`}
+        //                             disabled={!interactive}
+        //                             size="small"
+        //                             color="primary"
+        //                         >
+        //                             {value.emoji} {value.count}
+        //                         </IconButton>
+        //                     )
+        //                 )
+        //             }
+        //         </Stack>
+        //     </CardContent>
+        // </Card>
+    // );
 };
 
 export default ImageCard;
