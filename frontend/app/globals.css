@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.feed-image {
+    @apply border-black border-2;
+}

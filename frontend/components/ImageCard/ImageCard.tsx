@@ -27,7 +27,7 @@ const ImageCard: FC<ImageCardProps> = (props) => {
                 alt={altText}
                 width={300}
                 height={300}
-
+                className={"feed-image"}
             />
 
 
