@@ -5,3 +5,12 @@
 .feed-image {
     @apply relative border-black border-2;
 }
+
+@layer base {
+    body {
+        @apply font-plexmono
+    }
+    p {
+        @apply text-inter;
+    }
+}
