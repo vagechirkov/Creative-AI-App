@@ -17,8 +17,8 @@ const Template: ComponentStory<typeof ImageCard> = (args) => {
 export const Active = Template.bind({});
 
 Active.args = {
-    imageUrl: "https://lexica-serve-encoded-images2.sharif.workers.dev/full_jpg/2117aa24-a983-42e9-a910-912e6ac5ce1f",
-    altText: "Image 1",
+    imageUrl: "https://lexica-serve-encoded-images2.sharif.workers.dev/full_jpg/ccc12d51-5cb1-4c4c-9355-71a35188b0dd",
+    altText: "(high quality 2d illustration), (closeup of carrot character), (laughing opened mouth), matt furie",
     reactions: [
         { emoji: "🤔", count: 10 },
         { emoji: "😍", count: 2 },
@@ -31,7 +31,7 @@ export const Hoover = Template.bind({});
 
 Hoover.args = {
     imageUrl: "https://lexica-serve-encoded-images2.sharif.workers.dev/full_jpg/250eac75-7fb3-4484-944e-4b11dd9535c4",
-    altText: "Image 1",
+    altText: "Smiling monster made of food",
     reactions: [
         { emoji: "🤔", count: 10 },
         { emoji: "😍", count: 2 },
@@ -45,7 +45,7 @@ export const Tutorial = Template.bind({});
 
 Tutorial.args = {
     imageUrl: "https://lexica-serve-encoded-images2.sharif.workers.dev/full_jpg/4e49ae42-4659-4f05-9ae7-ba5dfecda4d6",
-    altText: "Image 1",
+    altText: "Smiling monster made of food",
     reactions: [
         { emoji: "🤔", count: 10 },
         { emoji: "😍", count: 2 },

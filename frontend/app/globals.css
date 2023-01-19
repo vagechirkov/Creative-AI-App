@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 .feed-image {
-    @apply border-black border-2;
+    @apply relative border-black border-2;
 }
