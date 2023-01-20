@@ -31,7 +31,7 @@ const ImageCard: FC<ImageCardProps> = (props) => {
                 width={384} height={384}
                 className="border-black border-2"
             />
-            <div className="absolute top-0 right-0 pt-3 pr-2">
+            <div className="absolute top-0 right-0 pt-2 pr-2">
                 <ViewerCount count={activeUsers ? activeUsers: 0}/>
             </div>
 

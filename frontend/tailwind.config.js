@@ -9,9 +9,9 @@ module.exports = {
     theme: {
         extend: {},
         fontFamily: {
-            plex: ['"IBM Plex Mono"', 'monospace'],
-            inter: ['Inter', 'sans-serif'],
-            jura: ['Jura', 'sans-serif'],
+            plex: ['var(--font-plex)'],
+            inter: ['var(--font-inter)'],
+            jura: ['var(--font-jura)'],
         }
     },
     plugins: [],
