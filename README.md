@@ -94,6 +94,13 @@ npm i nanoid
 
 ```
 
+#### [React Swipeable](https://www.npmjs.com/package/react-swipeable)
+
+```zsh
+
+npm i react-swipeable
+
+```
 
 ## Deployment
 
