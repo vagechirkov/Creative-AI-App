@@ -18,6 +18,7 @@ const swipeConfig = {
 
 const ImageHover: FC<ImageHoverProps> = (props) => {
     const {imageUrl, altText, onReactions} = props;
+    const [bgColor, setBgColor] = useState('bg-gray-100');
 
     const handlers = useSwipeable({
             onSwiped: (eventData) => handleSwipe(eventData),
@@ -33,7 +34,23 @@ const ImageHover: FC<ImageHoverProps> = (props) => {
     }
 
     const changeBackground = (eventData: SwipeEventData) => {
-
+        console.log(eventData.dir);
+        switch (eventData.dir) {
+            case 'Left':
+                setBgColor('bg-red-100');
+                break;
+            case 'Right':
+                setBgColor('bg-green-100');
+                break;
+            case 'Up':
+                setBgColor('bg-blue-100');
+                break;
+            case 'Down':
+                setBgColor('bg-yellow-100');
+                break;
+            default:
+                setBgColor('bg-gray-100');
+        }
     }
 
     const handleSwipe = (eventData: SwipeEventData) => {
@@ -42,9 +59,12 @@ const ImageHover: FC<ImageHoverProps> = (props) => {
 
 
     return (
-        <div className="fixed h-full w-full flex items-center justify-center  bg-white">
-            <div {...handlers} className="z-10 cursor-pointer">
-                <ImageWithActions imageUrl={imageUrl} altText={altText}/>
+        <div className={`fixed h-full w-full flex ${bgColor}`}>
+            {/* repeat it to fill the screen*/}
+            <div className="fixed h-full w-full flex items-center justify-center">
+                <div {...handlers} className="z-10 cursor-pointer">
+                    <ImageWithActions imageUrl={imageUrl} altText={altText}/>
+                </div>
             </div>
         </div>
 
