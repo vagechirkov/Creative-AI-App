@@ -1,6 +1,6 @@
 'use client';
 
-import {BsFillEyeFill} from "react-icons/all";
+import {BsFillEyeFill} from "react-icons/bs";
 
 interface ViewerCountProps {
     count: number;
