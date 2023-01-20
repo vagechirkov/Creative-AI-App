@@ -123,8 +123,6 @@ const FeedImages: FC<FeedImageProps> = (props) => {
                             imageUrl={value.url}
                             altText={value.alt_text}
                             reactions={value.reactions}
-                            onReaction={(emoji) => null}
-                            interactive={false}
                         />
 
                     </Grid>
@@ -138,8 +136,6 @@ const FeedImages: FC<FeedImageProps> = (props) => {
                                 imageUrl={feedImage.url}
                                 altText={feedImage.alt_text}
                                 reactions={feedImage.reactions}
-                                interactive={true}
-                                onReaction={updateReactions}
                                 activeUsers={feedImage.active_users}
                             />
                         </div>

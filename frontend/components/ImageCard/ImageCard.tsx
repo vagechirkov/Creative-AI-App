@@ -6,7 +6,7 @@ import {FeedImageType} from "../FeedImages/FeedImages";
 import {ImageInfo} from "./ImageInfo";
 
 
-interface ImageCardProps {
+export interface ImageCardProps {
     imageUrl: string;
     altText: string;
     reactions: FeedImageType['reactions'];
