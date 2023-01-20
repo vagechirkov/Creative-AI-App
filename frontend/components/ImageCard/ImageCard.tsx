@@ -24,7 +24,7 @@ const ImageCard: FC<ImageCardProps> = (props) => {
 
     return (
         <>
-            <div className="relative max-w-sm max-h-sm min-w-max text-white text-xs">
+            <div className="relative max-w-sm max-h-sm min-w-max text-white">
                 <Image
                     src={imageUrl}
                     alt={altText}
@@ -40,10 +40,10 @@ const ImageCard: FC<ImageCardProps> = (props) => {
                     bottom-0 px-4 py-2 max-w-sm
                     bg-gradient-to-b from-transparent to-black"
                 >
-                    <p className="text-bold">
+                    <p className="font-plex font-bold uppercase text-sm">
                         {artist}
                     </p>
-                    <p>
+                    <p className="font-inter text-xs">
                         {altText}
                     </p>
                     <div className="flex grid justify-between grid-cols-2 gap-1">

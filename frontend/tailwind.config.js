@@ -11,6 +11,7 @@ module.exports = {
         fontFamily: {
             plex: ['"IBM Plex Mono"', 'monospace'],
             inter: ['Inter', 'sans-serif'],
+            jura: ['Jura', 'sans-serif'],
         }
     },
     plugins: [],
