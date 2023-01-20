@@ -1,16 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Inter:wght@100&display=swap');
 
 .feed-image {
     @apply relative border-black border-2;
 }
 
-@layer base {
-    body {
-        @apply font-plexmono
-    }
-    p {
-        @apply text-inter;
-    }
-}
+/*@layer base {*/
+/*    body {*/
+/*        @apply font-inter;*/
+/*    }*/
+/*}*/

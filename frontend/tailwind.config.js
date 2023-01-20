@@ -9,8 +9,8 @@ module.exports = {
     theme: {
         extend: {},
         fontFamily: {
-            plexmono: ['"IBM Plex Mono"', "monospace"],
-            inter: ['"Inter"', "sans-serif"],
+            plex: ['"IBM Plex Mono"', 'monospace'],
+            inter: ['Inter', 'sans-serif'],
         }
     },
     plugins: [],
