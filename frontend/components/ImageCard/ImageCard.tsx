@@ -12,10 +12,11 @@ interface ImageCardProps {
     reactions: FeedImageType['reactions'];
     activeUsers?: number;
     artist?: string;
+    showTutorial?: boolean;
 }
 
 const ImageCard: FC<ImageCardProps> = (props) => {
-    const {imageUrl, altText, reactions, activeUsers, artist} = props;
+    const {imageUrl, altText, reactions, activeUsers, artist, showTutorial = false} = props;
 
     return (
 
@@ -25,12 +26,16 @@ const ImageCard: FC<ImageCardProps> = (props) => {
                 width={384} height={384}
                 className="border-black border-2"
             />
-            <ImageInfo
-                artist={artist}
-                altText={altText}
-                reactions={reactions}
-                activeUsers={activeUsers}
-            />
+
+            {/* Show info when there is tutorial */}
+            {!showTutorial &&
+                <ImageInfo
+                    artist={artist}
+                    altText={altText}
+                    reactions={reactions}
+                    activeUsers={activeUsers}
+                />
+            }
 
         </div>
 

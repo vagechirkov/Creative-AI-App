@@ -28,21 +28,6 @@ Active.args = {
     activeUsers: 10
 }
 
-export const Hoover = Template.bind({});
-
-Hoover.args = {
-    imageUrl: "https://lexica-serve-encoded-images2.sharif.workers.dev/full_jpg/250eac75-7fb3-4484-944e-4b11dd9535c4",
-    altText: "Smiling monster made of food",
-    reactions: [
-        {emoji: "1", count: 10},
-        {emoji: "2", count: 2},
-        {emoji: "3", count: 10},
-        {emoji: "4", count: 10},
-    ],
-    artist: "Osburn Lyell",
-}
-
-
 export const Tutorial = Template.bind({});
 
 Tutorial.args = {
@@ -55,4 +40,5 @@ Tutorial.args = {
         {emoji: "4", count: 10},
     ],
     artist: "Osburn Lyell",
+    showTutorial: true
 }
