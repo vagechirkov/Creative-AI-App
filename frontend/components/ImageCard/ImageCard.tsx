@@ -46,10 +46,10 @@ const ImageCard: FC<ImageCardProps> = (props) => {
                     {altText}
                 </p>
                 <div className="flex grid justify-between grid-cols-2 gap-1">
-                    <ReactionsCount text={"love it"} count={reactions[0].count}/>
-                    <ReactionsCount text={"curious"} count={reactions[1].count}/>
-                    <ReactionsCount text={"indifferent"} count={reactions[2].count}/>
-                    <ReactionsCount text={"makes me sad"} count={reactions[3].count}/>
+                    <ReactionsCount text={"love it"} count={reactions[0]?.count ? reactions[0].count : 0}/>
+                    <ReactionsCount text={"curious"} count={reactions[1]?.count ? reactions[1].count : 0}/>
+                    <ReactionsCount text={"indifferent"} count={reactions[2]?.count ? reactions[2].count : 0}/>
+                    <ReactionsCount text={"makes me sad"} count={reactions[3]?.count ? reactions[3].count : 0}/>
                 </div>
             </div>
         </div>

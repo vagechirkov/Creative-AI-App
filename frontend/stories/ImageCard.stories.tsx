@@ -23,7 +23,6 @@ Active.args = {
         {emoji: "1", count: 330},
         {emoji: "2", count: 2},
         {emoji: "3", count: 130},
-        {emoji: "4", count: 10},
     ],
     onReaction: (emoji: string) => console.log(emoji),
     interactive: true,
