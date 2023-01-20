@@ -1,4 +1,5 @@
 import "../app/globals.css";
+import "./story.css";
 
 import * as NextImage from "next/image";
 
