@@ -21,6 +21,7 @@ const ImageHover: FC<ImageHoverProps> = (props) => {
 
     const handlers = useSwipeable({
             onSwiped: (eventData) => handleSwipe(eventData),
+            onSwiping: (eventData) => changeBackground(eventData),
             onSwipeStart: (eventData) => handleSwipeStart(eventData),
             ...swipeConfig
         },
@@ -31,14 +32,20 @@ const ImageHover: FC<ImageHoverProps> = (props) => {
         // console.log("Swipe start");
     }
 
+    const changeBackground = (eventData: SwipeEventData) => {
+
+    }
+
     const handleSwipe = (eventData: SwipeEventData) => {
         onReactions(eventData.dir);
     }
 
 
     return (
-        <div {...handlers} className="cursor-pointer w-fit">
-            <ImageWithActions imageUrl={imageUrl} altText={altText}/>
+        <div className="fixed h-full w-full flex items-center justify-center  bg-white">
+            <div {...handlers} className="z-10 cursor-pointer">
+                <ImageWithActions imageUrl={imageUrl} altText={altText}/>
+            </div>
         </div>
 
     );
