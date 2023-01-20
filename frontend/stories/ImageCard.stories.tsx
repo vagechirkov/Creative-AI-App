@@ -24,8 +24,7 @@ Active.args = {
         {emoji: "2", count: 2},
         {emoji: "3", count: 130},
     ],
-    onReaction: (emoji: string) => console.log(emoji),
-    interactive: true,
+    artist: "Osburn Lyell",
     activeUsers: 10
 }
 
@@ -40,8 +39,7 @@ Hoover.args = {
         {emoji: "3", count: 10},
         {emoji: "4", count: 10},
     ],
-    onReaction: (emoji: string) => console.log(emoji),
-    interactive: true,
+    artist: "Osburn Lyell",
 }
 
 
@@ -56,6 +54,5 @@ Tutorial.args = {
         {emoji: "3", count: 10},
         {emoji: "4", count: 10},
     ],
-    onReaction: (emoji: string) => console.log(emoji),
-    interactive: true,
+    artist: "Osburn Lyell",
 }

@@ -10,14 +10,12 @@ interface ImageCardProps {
     imageUrl: string;
     altText: string;
     reactions: FeedImageType['reactions'];
-    onReaction: (emoji: string) => void;
-    interactive?: boolean;
     activeUsers?: number;
+    artist?: string;
 }
 
 const ImageCard: FC<ImageCardProps> = (props) => {
-    const {imageUrl, altText, reactions, onReaction, interactive = true, activeUsers} = props;
-    const artist = "Osburn Lyell";
+    const {imageUrl, altText, reactions, activeUsers, artist} = props;
 
     return (
 

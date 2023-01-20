@@ -6,9 +6,9 @@ import ReactionsCount from "./ReactionsCount";
 import {FC} from "react";
 
 interface ImageInfoProps {
-    artist: string;
-    altText: string;
     reactions: FeedImageType['reactions'];
+    altText?: string;
+    artist?: string;
     activeUsers?: number;
 }
 
@@ -28,10 +28,10 @@ export const ImageInfo: FC<ImageInfoProps> = (props) => {
                     bg-gradient-to-b from-transparent to-black"
             >
                 <p className="font-plex font-bold uppercase text-sm">
-                    {artist}
+                    {artist ? artist : 'anonymous'}
                 </p>
                 <p className="font-inter text-xs pb-4">
-                    {altText}
+                    {altText? altText : ''}
                 </p>
                 <div className="flex grid justify-between grid-cols-2 gap-1">
                     <ReactionsCount text={"love it"} count={reactions[0]?.count ? reactions[0].count : 0}/>
