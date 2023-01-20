@@ -16,7 +16,7 @@ export const ImageInfo: FC<ImageInfoProps> = (props) => {
     const {artist, altText, reactions, activeUsers} = props;
 
     return (
-        <>
+        <div className="text-white">
             <div className="absolute top-0 right-0 pt-2 pr-2">
                 <ViewerCount count={activeUsers ? activeUsers : 0}/>
             </div>
@@ -40,6 +40,6 @@ export const ImageInfo: FC<ImageInfoProps> = (props) => {
                     <ReactionsCount text={"makes me sad"} count={reactions[3]?.count ? reactions[3].count : 0}/>
                 </div>
             </div>
-        </>
+        </div>
     );
 }

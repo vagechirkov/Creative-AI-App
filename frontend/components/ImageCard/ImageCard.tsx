@@ -21,13 +21,18 @@ const ImageCard: FC<ImageCardProps> = (props) => {
 
     return (
 
-        <div className="relative max-w-sm max-h-sm min-w-max text-white">
+        <div className="relative max-w-sm max-h-sm min-w-max min-h-max">
             <Image
                 src={imageUrl} alt={altText}
                 width={384} height={384}
                 className="border-black border-2"
             />
-            <ImageInfo artist={artist} altText={altText} reactions={reactions} activeUsers={activeUsers}/>
+            <ImageInfo
+                artist={artist}
+                altText={altText}
+                reactions={reactions}
+                activeUsers={activeUsers}
+            />
 
         </div>
 
