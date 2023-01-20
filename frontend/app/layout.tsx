@@ -6,18 +6,21 @@ import { Inter, Jura, IBM_Plex_Mono } from '@next/font/google';
 const inter = Inter({
     variable: '--font-inter',
     display: 'optional',
-    weight: "100"
+    weight: '100',
+    subsets: ['latin']
 });
 
 const jura = Jura({
     variable: '--font-jura',
     display: 'optional',
-    weight: "700"
+    weight: '700',
+    subsets: ['latin']
 });
 
 const plex = IBM_Plex_Mono({
     variable: '--font-plex',
-    weight: "700"
+    weight: '700',
+    subsets: ['latin']
 });
 
 
