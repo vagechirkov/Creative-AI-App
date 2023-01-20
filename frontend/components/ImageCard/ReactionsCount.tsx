@@ -6,8 +6,7 @@ interface ReactionsCountProps {
 }
 
 
-const ReactionsCount = (props: ReactionsCountProps) => {
-    const {text, count} = props;
+const ReactionsCount = ({text, count}: ReactionsCountProps) => {
     return (
         <div className="container flex flex-row items-center">
             <span className="pr-3 font-plex font-bold uppercase text-sm"> {text} </span>
