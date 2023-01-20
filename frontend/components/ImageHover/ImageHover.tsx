@@ -1,26 +1,44 @@
-import {FC} from "react";
-import Image from "next/image";
+'use client';
+
+import {FC, useState} from "react";
+import {ImageWithActions} from "./ImageWithActions";
+import {SwipeEventData, useSwipeable} from "react-swipeable";
 
 interface ImageHoverProps {
     imageUrl: string;
+    onReactions: (direction: string) => void;
     altText?: string;
-    onReactions?: (direction: string) => void;
 }
 
 
+const swipeConfig = {
+    trackMouse: true,
+    preventScrollOnSwipe: true,
+}
+
 const ImageHover: FC<ImageHoverProps> = (props) => {
-    const {imageUrl, altText} = props;
+    const {imageUrl, altText, onReactions} = props;
+
+    const handlers = useSwipeable({
+            onSwiped: (eventData) => handleSwipe(eventData),
+            onSwipeStart: (eventData) => handleSwipeStart(eventData),
+            ...swipeConfig
+        },
+    );
+
+    const handleSwipeStart = (eventData: SwipeEventData) => {
+        // setShowActions(true);
+        // console.log("Swipe start");
+    }
+
+    const handleSwipe = (eventData: SwipeEventData) => {
+        onReactions(eventData.dir);
+    }
+
 
     return (
-
-        <div className="relative max-w-sm max-h-sm min-w-max min-h-max">
-            <Image
-                src={imageUrl} alt={altText ? altText : "Image"}
-                width={384} height={384}
-                className="border-black border-2"
-            />
-
-
+        <div {...handlers} className="cursor-pointer w-fit">
+            <ImageWithActions imageUrl={imageUrl} altText={altText}/>
         </div>
 
     );
