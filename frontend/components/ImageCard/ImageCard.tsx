@@ -2,10 +2,7 @@
 
 import {FC} from "react";
 import Image from 'next/image';
-import {Avatar, Badge, Card, CardContent, CardHeader, CardMedia, IconButton, Stack, Tooltip} from "@mui/material";
-import {red} from "@mui/material/colors";
 import {FeedImageType} from "../FeedImages/FeedImages";
-import {People} from "@mui/icons-material";
 import ReactionsCount from "./ReactionsCount";
 import ViewerCount from "./ViewerCount";
 
@@ -49,66 +46,15 @@ const ImageCard: FC<ImageCardProps> = (props) => {
                     {altText}
                 </p>
                 <div className="flex grid justify-between grid-cols-2 gap-1">
-                    <ReactionsCount text={"love it"} count={100}/>
-                    <ReactionsCount text={"curious"} count={100}/>
-                    <ReactionsCount text={"indifferent"} count={100}/>
-                    <ReactionsCount text={"makes me sad"} count={100}/>
+                    <ReactionsCount text={"love it"} count={reactions[0].count}/>
+                    <ReactionsCount text={"curious"} count={reactions[1].count}/>
+                    <ReactionsCount text={"indifferent"} count={reactions[2].count}/>
+                    <ReactionsCount text={"makes me sad"} count={reactions[3].count}/>
                 </div>
             </div>
         </div>
 
     );
-
-    // return (
-    // <Card sx={{width: 300}}>
-    //     <CardHeader
-    //         avatar={
-    //             <Avatar sx={{bgcolor: red[500]}} aria-label="recipe">
-    //                 A
-    //             </Avatar>
-    //         }
-    //         action={
-    //             interactive &&
-    //
-    //             <Badge badgeContent={activeUsers} color="error" overlap="circular">
-    //                 <Tooltip title={"Active users"} placement="left">
-    //                     <span>
-    //                         <IconButton disabled size="small">
-    //                             <People/>
-    //                         </IconButton>
-    //                     </span>
-    //                 </Tooltip>
-    //             </Badge> || null
-    //         }
-    //         title="Artist 1"
-    //     />
-    //     <CardMedia
-    //         component="img"
-    //         height="500"
-    //         src={imageUrl}
-    //         alt={altText}
-    //         loading="lazy"
-    //     />
-    //     <CardContent>
-    //         <Stack direction="row" spacing={1}>
-    //             {reactions &&
-    //                 reactions.map((value, index) => (
-    //                         <IconButton
-    //                             onClick={() => onReaction(value.emoji)}
-    //                             key={`${index}-${imageUrl}`}
-    //                             disabled={!interactive}
-    //                             size="small"
-    //                             color="primary"
-    //                         >
-    //                             {value.emoji} {value.count}
-    //                         </IconButton>
-    //                     )
-    //                 )
-    //             }
-    //         </Stack>
-    //     </CardContent>
-    // </Card>
-    // );
 };
 
 export default ImageCard;
