@@ -13,7 +13,7 @@ export const ImageWithActions: FC<ImageContainerProps> = ({imageUrl, altText}) =
 
     return (
         <div className="max-w-sm max-h-sm min-w-max min-h-max">
-            <div className="grid grid-cols-12 gap-0">
+            <div className="grid grid-cols-12 gap-0 bg-white opacity ">
                 {/* row 1 */}
                 <div className="col-span-12 text-center">
                     <ActionsLabel> i like it </ActionsLabel>
