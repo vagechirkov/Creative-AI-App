@@ -10,23 +10,27 @@ interface ImageHistoryProps {
 
 export const ImageHistory: FC<ImageHistoryProps> = ({feedHistory, currentImage, setShowActions}) => {
     return (
-        <div className="grid grid-flow-row auto-rows-max gap-4 w-fit">
+        <div className="">
             {feedHistory.map((imageCard, index) => (
-                <span key={`card-${index}`}>
+                <div
+                    key={`card-${index}`}
+                    className="snap-center py-4 flex justify-center"
+                >
                     <ImageCard {...imageCard}  />
-                </span>
+                </div>
             ))}
 
-            <span
+            <div
                 key="card-current"
                 onClick={() => setShowActions()}
                 onTouchStart={() => setShowActions()}
+                className="snap-center py-4 flex justify-center"
+
             >
                 <ImageCard
                     {...currentImage}
-
                 />
-            </span>
+            </div>
         </div>
     );
 }

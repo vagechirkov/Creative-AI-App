@@ -14,27 +14,27 @@ const ImageFeed: FC<ImageFeedProps> = ({feedHistory, currentImage}) => {
     const [showActions, setShowActions] = useState<boolean>(false);
 
     return (
-        <>
-            {!showActions &&
-                <ImageHistory
-                    feedHistory={feedHistory}
-                    currentImage={currentImage}
-                    setShowActions={() => setShowActions(true)}
-                />
-            }
-            {/* ImageHover */}
-            {showActions &&
-                <div className="absolute bottom-0 left-0 w-full h-full bg-white">
-                    <ImageHover
-                        imageUrl={currentImage.imageUrl}
-                        onReactions={(direction) => {
-                            console.log(direction)
-                            setShowActions(false);
-                        }}
+            <div className="snap-y snap-mandatory overflow-x-hidden h-screen w-full py-[160px]">
+                {!showActions &&
+                    <ImageHistory
+                        feedHistory={feedHistory}
+                        currentImage={currentImage}
+                        setShowActions={() => setShowActions(true)}
                     />
-                </div>
-            }
-        </>
+                }
+                {/* ImageHover */}
+                {showActions &&
+                    <div className="absolute bottom-0 left-0 w-full h-full bg-white">
+                        <ImageHover
+                            imageUrl={currentImage.imageUrl}
+                            onReactions={(direction) => {
+                                console.log(direction)
+                                setShowActions(false);
+                            }}
+                        />
+                    </div>
+                }
+            </div>
     );
 };
 

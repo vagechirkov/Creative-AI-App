@@ -2,7 +2,7 @@
 
 import {FC, useState} from "react";
 import {ImageWithActions} from "./ImageWithActions";
-import Draggable, {DraggableCore} from 'react-draggable';
+import Draggable from 'react-draggable';
 import {background} from "./background";
 
 type backgroundState = {
