@@ -67,7 +67,7 @@ const ImageHover: FC<ImageHoverProps> = (props) => {
 
             {/* repeat it to fill the screen*/}
             <span
-                className="font-six-caps p-5 text-6xl uppercase underline leading-[76px] break-words"
+                className="font-six_caps pb-5 text-6xl underline leading-[76px] break-words tracking-wide"
                 style={{opacity: bgState.opacity}}
             >
                 {bgState.backgroundText}
