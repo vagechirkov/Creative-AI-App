@@ -12,6 +12,7 @@ module.exports = {
             plex: ['var(--font-plex)'],
             inter: ['var(--font-inter)'],
             jura: ['var(--font-jura)'],
+            six_caps: ['var(--font-six-caps)'],
         }
     },
     plugins: [],

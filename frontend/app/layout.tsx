@@ -1,6 +1,6 @@
 import './globals.css'
 
-import { Inter, Jura, IBM_Plex_Mono } from '@next/font/google';
+import { Inter, Jura, IBM_Plex_Mono, Six_Caps } from '@next/font/google';
 
 
 const inter = Inter({
@@ -23,6 +23,12 @@ const plex = IBM_Plex_Mono({
     subsets: ['latin']
 });
 
+const sixCaps = Six_Caps({
+    variable: '--font-six-caps',
+    weight: '400',
+    subsets: ['latin']
+});
+
 
 export default function RootLayout({
   children,
@@ -30,7 +36,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${jura.variable} ${plex.variable}`}>
+    <html lang="en" className={`${inter.variable} ${jura.variable} ${plex.variable} ${sixCaps.variable}`}>
       {/*
         <head /> will contain the components returned by the nearest parent
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
