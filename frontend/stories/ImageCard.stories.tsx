@@ -1,16 +1,16 @@
 import {ComponentStory, ComponentMeta} from '@storybook/react';
 
-import ImageCard from '../components/ImageCard';
+import ImageWithInfo from '../components/ImageCard';
 
 
 export default {
     title: 'ImageCard',
-    component: ImageCard
-} as ComponentMeta<typeof ImageCard>;
+    component: ImageWithInfo
+} as ComponentMeta<typeof ImageWithInfo>;
 
-const Template: ComponentStory<typeof ImageCard> = (args) => {
+const Template: ComponentStory<typeof ImageWithInfo> = (args) => {
     return (
-        <ImageCard {...args}/>
+        <ImageWithInfo {...args}/>
     )
 };
 

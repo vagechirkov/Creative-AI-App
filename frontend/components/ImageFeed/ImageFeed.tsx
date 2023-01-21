@@ -1,40 +1,46 @@
 'use client';
 
-import {ImageCardProps} from "../ImageCard/ImageCard";
+import ImageWithInfo, {ImageCardProps} from "../ImageCard/ImageWithInfo";
 import {FC, useState} from "react";
-import {ImageHistory} from "./ImageHistory";
-import ImageHover from "../ImageHover";
+import ImageDraggable from "../ImageHover";
+import ImageWithReactions from "../ImageWithReaction";
 
 interface ImageFeedProps {
     feedHistory: ImageCardProps[];
     currentImage: ImageCardProps;
 }
 
+export type DragState = {
+    direction: string;
+    magnitude: number;
+    backgroundText: string;
+}
+
+export const initialDragState: DragState = {direction: '', magnitude: 0, backgroundText: ''};
+
+
 const ImageFeed: FC<ImageFeedProps> = ({feedHistory, currentImage}) => {
-    const [showActions, setShowActions] = useState<boolean>(false);
+    const [dragState, setDragState] = useState<DragState>(initialDragState);
 
     return (
-            <div className="snap-y snap-mandatory overflow-x-hidden h-screen w-full py-[160px]">
-                {!showActions &&
-                    <ImageHistory
-                        feedHistory={feedHistory}
-                        currentImage={currentImage}
-                        setShowActions={() => setShowActions(true)}
-                    />
-                }
-                {/* ImageHover */}
-                {showActions &&
-                    <div className="absolute bottom-0 left-0 w-full h-full bg-white">
-                        <ImageHover
-                            imageUrl={currentImage.imageUrl}
-                            onReactions={(direction) => {
-                                console.log(direction)
-                                setShowActions(false);
-                            }}
-                        />
-                    </div>
-                }
+        <div className="snap-y snap-mandatory overflow-x-hidden h-screen w-full py-[160px]">
+
+            {feedHistory.map((imageCard, index) => (
+                <div key={`card-${index}`} className="snap-center py-4 flex justify-center">
+                    <ImageWithInfo {...imageCard} />
+                </div>
+            ))}
+
+            <div key="card-current" className="snap-center py-4 flex justify-center">
+                <ImageDraggable onReactions={(state) => setDragState(state)}>
+                    {dragState.magnitude === 0 ? (
+                        <ImageWithInfo {...currentImage} />
+                    ) : (
+                        <ImageWithReactions {...currentImage} />
+                    )}
+                </ImageDraggable>
             </div>
+        </div>
     );
 };
 

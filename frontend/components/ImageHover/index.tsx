@@ -1,1 +1,1 @@
-export {default} from "./ImageHover";
+export {default} from "./ImageDraggable";

@@ -15,7 +15,7 @@ export interface ImageCardProps {
     showTutorial?: boolean;
 }
 
-const ImageCard: FC<ImageCardProps> = (props) => {
+const ImageWithInfo: FC<ImageCardProps> = (props) => {
     const {imageUrl, altText, reactions, activeUsers, artist, showTutorial = false} = props;
 
     return (
@@ -42,4 +42,4 @@ const ImageCard: FC<ImageCardProps> = (props) => {
     );
 };
 
-export default ImageCard;
+export default ImageWithInfo;

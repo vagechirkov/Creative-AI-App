@@ -1,6 +1,6 @@
 'use client';
 
-import ImageCard from "../ImageCard";
+import ImageWithInfo from "../ImageCard";
 import {FC, useCallback, useEffect, useRef, useState} from "react";
 import useWebSocket, {ReadyState} from 'react-use-websocket';
 import {Grid} from "@mui/material";
@@ -119,7 +119,7 @@ const FeedImages: FC<FeedImageProps> = (props) => {
                 {/* show all without the current image */}
                 {feedHistory.slice(0, -1).map((value, index) => (
                     <Grid item key={`${index}-${value.url}`}>
-                        <ImageCard
+                        <ImageWithInfo
                             imageUrl={value.url}
                             altText={value.alt_text}
                             reactions={value.reactions}
@@ -132,7 +132,7 @@ const FeedImages: FC<FeedImageProps> = (props) => {
                     <Grid item>
                         <div ref={feedEndRef}>
 
-                            <ImageCard
+                            <ImageWithInfo
                                 imageUrl={feedImage.url}
                                 altText={feedImage.alt_text}
                                 reactions={feedImage.reactions}

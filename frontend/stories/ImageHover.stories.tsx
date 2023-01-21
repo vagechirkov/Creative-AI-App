@@ -1,17 +1,17 @@
 import {ComponentStory, ComponentMeta} from '@storybook/react';
 
-import ImageHover from '../components/ImageHover';
+import ImageDraggable from '../components/ImageHover';
 import {background} from "../components/ImageHover/background";
 
 
 export default {
     title: 'ImageHover',
-    component: ImageHover
-} as ComponentMeta<typeof ImageHover>;
+    component: ImageDraggable
+} as ComponentMeta<typeof ImageDraggable>;
 
-const Template: ComponentStory<typeof ImageHover> = (args) => {
+const Template: ComponentStory<typeof ImageDraggable> = (args) => {
     return (
-        <ImageHover {...args}/>
+        <ImageDraggable {...args}/>
     )
 };
 

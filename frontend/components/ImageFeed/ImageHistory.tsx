@@ -1,5 +1,5 @@
-import ImageCard from "../ImageCard";
-import {ImageCardProps} from "../ImageCard/ImageCard";
+import ImageWithInfo from "../ImageCard";
+import {ImageCardProps} from "../ImageCard/ImageWithInfo";
 import {FC} from "react";
 
 interface ImageHistoryProps {
@@ -16,7 +16,7 @@ export const ImageHistory: FC<ImageHistoryProps> = ({feedHistory, currentImage, 
                     key={`card-${index}`}
                     className="snap-center py-4 flex justify-center"
                 >
-                    <ImageCard {...imageCard}  />
+                    <ImageWithInfo {...imageCard}  />
                 </div>
             ))}
 
@@ -27,7 +27,7 @@ export const ImageHistory: FC<ImageHistoryProps> = ({feedHistory, currentImage, 
                 className="snap-center py-4 flex justify-center"
 
             >
-                <ImageCard
+                <ImageWithInfo
                     {...currentImage}
                 />
             </div>

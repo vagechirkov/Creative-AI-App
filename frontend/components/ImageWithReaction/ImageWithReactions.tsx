@@ -10,7 +10,7 @@ interface ImageContainerProps {
 }
 
 
-export const ImageWithActions: FC<ImageContainerProps> = (props) => {
+export const ImageWithReactions: FC<ImageContainerProps> = (props) => {
     const {imageUrl, altText, actionsOpacity = 1} = props;
     return (
         <div className="max-w-sm max-h-sm min-w-max min-h-max">
@@ -63,4 +63,6 @@ const ActionsLabel = ({children, opacity}: { children: React.ReactNode, opacity:
         </span>
     )
 }
+
+export default ImageWithReactions;
 
