@@ -7,7 +7,7 @@ import {background} from "./background";
 
 type backgroundState = {
     backgroundText: string;
-    opacity: number;
+    opacity: string;
 }
 
 interface ImageHoverProps {
@@ -23,7 +23,7 @@ const swipeConfig = {
 }
 
 const ImageHover: FC<ImageHoverProps> = (props) => {
-    const {imageUrl, altText, onReactions, initialBackground = {backgroundText: '', opacity: 0}} = props;
+    const {imageUrl, altText, onReactions, initialBackground = {backgroundText: '', opacity: '.0'}} = props;
     const [bgState, setBgState] = useState<backgroundState>(initialBackground);
 
     const handleDrag = (event: any, data: any) => {
@@ -53,7 +53,7 @@ const ImageHover: FC<ImageHoverProps> = (props) => {
     }
 
     const handleDragStop = (event: any, data: any) => {
-        console.log(data);
+        console.log(bgState.opacity);
     }
 
 
@@ -62,7 +62,10 @@ const ImageHover: FC<ImageHoverProps> = (props) => {
         <div className={`fixed h-full w-full flex`}>
 
             {/* repeat it to fill the screen*/}
-            <span className="font-six-caps text-4xl uppercase leading-[76px]">
+            <span
+                className="font-six-caps text-4xl uppercase underline leading-[76px] break-words"
+                style={{opacity: bgState.opacity}}
+            >
                 {bgState.backgroundText}
             </span>
 
@@ -107,8 +110,10 @@ const handleResponseMagnitude = ({x, y, maxMagnitude = 200}: { x: number, y: num
     let magnitude = Math.sqrt(x * x + y * y);
 
     // normalize magnitude to [0, 1]
-    if (magnitude > maxMagnitude) return 100;
-    return (magnitude / maxMagnitude) * 100;
+    if (magnitude > maxMagnitude) magnitude = 1;
+    else magnitude /= maxMagnitude;
+
+    return magnitude.toPrecision(2);
 }
 
 export default ImageHover;
