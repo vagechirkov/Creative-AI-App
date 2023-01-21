@@ -5,10 +5,16 @@ import {ImageWithActions} from "./ImageWithActions";
 import {SwipeEventData, useSwipeable} from "react-swipeable";
 import {background} from "./background";
 
+type backgroundState = {
+    backgroundText: string;
+    opacity: number;
+}
+
 interface ImageHoverProps {
     imageUrl: string;
     onReactions: (direction: string) => void;
     altText?: string;
+    initialBackground?: backgroundState;
 }
 
 const swipeConfig = {
@@ -16,19 +22,9 @@ const swipeConfig = {
     preventScrollOnSwipe: true,
 }
 
-type backgroundState = {
-    backgroundText: string;
-    opacity: number;
-}
-
-const initialBackgroundState: backgroundState = {
-    backgroundText: "",
-    opacity: 0,
-}
-
 const ImageHover: FC<ImageHoverProps> = (props) => {
-    const {imageUrl, altText, onReactions} = props;
-    const [bgState, setBgState] = useState<backgroundState>(initialBackgroundState);
+    const {imageUrl, altText, onReactions, initialBackground = {backgroundText: '', opacity: 0}} = props;
+    const [bgState, setBgState] = useState<backgroundState>(initialBackground);
 
     const handlers = useSwipeable({
             onSwiped: (eventData) => handleSwipe(eventData),
@@ -59,7 +55,7 @@ const ImageHover: FC<ImageHoverProps> = (props) => {
                 setBgState({backgroundText: background.Down, opacity: 1});
                 break;
             default:
-                setBgState(initialBackgroundState);
+                setBgState(initialBackground);
         }
     }
 
@@ -73,7 +69,7 @@ const ImageHover: FC<ImageHoverProps> = (props) => {
         <div className={`fixed h-full w-full flex`}>
 
             {/* repeat it to fill the screen*/}
-            <span className="font-six-caps text-4xl uppercase">
+            <span className="font-six-caps text-4xl uppercase leading-[76px]">
                 {bgState.backgroundText}
             </span>
 
