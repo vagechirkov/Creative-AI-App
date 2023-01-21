@@ -24,11 +24,12 @@ export const ImageWithActions: FC<ImageContainerProps> = ({imageUrl, altText}) =
                     <ActionsLabel> it inspires me </ActionsLabel>
                 </div>
 
-                <div className="col-start-2 col-end-12">
+                <div className="col-start-2 col-end-12 w-320 h-320">
                     <Image
                         src={imageUrl} alt={altText ? altText : "Image"}
                         width={320} height={320}
                         className="border-black border-2 "
+                        draggable="false"
                     />
                 </div>
 
