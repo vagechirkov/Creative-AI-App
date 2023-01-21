@@ -1,9 +1,8 @@
 'use client';
 
-import {FC, useState, ReactNode} from "react";
+import {FC, ReactNode} from "react";
 import Draggable from 'react-draggable';
-import {background} from "./background";
-import {DragState, initialDragState} from "../ImageFeed/ImageFeed";
+import {background, DragState, initialDragState} from "../ImageFeed/ImageFeed";
 
 interface ImageDraggableProps {
     onReactions: (state: DragState) => void;
@@ -36,37 +35,14 @@ const ImageDraggable: FC<ImageDraggableProps> = ({onReactions, children}) => {
     }
 
     return (
-
-        // <div className={`fixed h-full w-full flex`}>
-        //
-        //     {/* repeat it to fill the screen*/}
-        //     <span
-        //         className="font-six_caps pb-5 text-6xl underline leading-[76px] break-words tracking-wide"
-        //         style={{opacity: bgState.opacity}}
-        //     >
-        //         {bgState.backgroundText}
-        //     </span>
-        //
-        //     {/* image with actions */}
-        //     <div className="fixed h-full w-full flex items-center justify-center">
         <Draggable
             position={{x: 0, y: 0}}
             allowAnyClick={true}
             onStop={() => onReactions(initialDragState)}
             onDrag={handleDrag}
         >
-            <div className="cursor-move">
-                {/*<ImageWithActions*/}
-                {/*    imageUrl={imageUrl}*/}
-                {/*    altText={altText}*/}
-                {/*    actionsOpacity={bgState.opacity > 0.2 ? 0 : 1}*/}
-                {/*/>*/}
-                {children}
-            </div>
+            {children}
         </Draggable>
-        //     </div>
-        // </div>
-
     );
 };
 

@@ -1,7 +1,7 @@
 'use client';
 
 import Image from "next/image";
-import React, {FC} from "react";
+import {FC, ReactNode} from "react";
 
 interface ImageContainerProps {
     imageUrl: string;
@@ -14,9 +14,7 @@ export const ImageWithReactions: FC<ImageContainerProps> = (props) => {
     const {imageUrl, altText, actionsOpacity = 1} = props;
     return (
         <div className="max-w-sm max-h-sm min-w-max min-h-max">
-            <div
-                className="grid grid-cols-12 gap-0"
-            >
+            <div className="grid grid-cols-12 gap-0">
                 {/* row 1 */}
                 <div className="col-span-12 text-center">
                     <ActionsLabel opacity={actionsOpacity}> i like it </ActionsLabel>
@@ -53,7 +51,7 @@ export const ImageWithReactions: FC<ImageContainerProps> = (props) => {
 }
 
 
-const ActionsLabel = ({children, opacity}: { children: React.ReactNode, opacity: number }) => {
+const ActionsLabel = ({children, opacity}: { children: ReactNode, opacity: number }) => {
     return (
         <span
             className="inline-block font-jura font-bold uppercase text-lg text-center"
