@@ -94,11 +94,11 @@ npm i nanoid
 
 ```
 
-#### [React Swipeable](https://www.npmjs.com/package/react-swipeable)
+#### [React-Draggable](https://www.npmjs.com/package/react-draggable)
 
 ```zsh
 
-npm i react-swipeable
+npm i react-draggable
 
 ```
 
