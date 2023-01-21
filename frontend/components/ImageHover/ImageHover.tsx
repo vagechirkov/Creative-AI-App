@@ -7,7 +7,8 @@ import {background} from "./background";
 
 type backgroundState = {
     backgroundText: string;
-    opacity: string;
+    direction: string;
+    opacity: number;
 }
 
 interface ImageHoverProps {
@@ -17,13 +18,14 @@ interface ImageHoverProps {
     initialBackground?: backgroundState;
 }
 
-const swipeConfig = {
-    trackMouse: true,
-    preventScrollOnSwipe: false,
-}
 
 const ImageHover: FC<ImageHoverProps> = (props) => {
-    const {imageUrl, altText, onReactions, initialBackground = {backgroundText: '', opacity: '.0'}} = props;
+    const {
+        imageUrl,
+        altText,
+        onReactions,
+        initialBackground = {backgroundText: '', opacity: 0, direction: 'Up'}
+    } = props;
     const [bgState, setBgState] = useState<backgroundState>(initialBackground);
 
     const handleDrag = (event: any, data: any) => {
@@ -32,16 +34,16 @@ const ImageHover: FC<ImageHoverProps> = (props) => {
 
         switch (direction) {
             case 'Left':
-                setBgState({backgroundText: background.Left, opacity: magnitude});
+                setBgState({backgroundText: background.Left, opacity: magnitude, direction: direction});
                 break;
             case 'Right':
-                setBgState({backgroundText: background.Right, opacity: magnitude});
+                setBgState({backgroundText: background.Right, opacity: magnitude, direction: direction});
                 break;
             case 'Up':
-                setBgState({backgroundText: background.Up, opacity: magnitude});
+                setBgState({backgroundText: background.Up, opacity: magnitude, direction: direction});
                 break;
             case 'Down':
-                setBgState({backgroundText: background.Down, opacity: magnitude});
+                setBgState({backgroundText: background.Down, opacity: magnitude, direction: direction});
                 break;
             default:
                 setBgState(initialBackground);
@@ -53,7 +55,9 @@ const ImageHover: FC<ImageHoverProps> = (props) => {
     }
 
     const handleDragStop = (event: any, data: any) => {
-        console.log(bgState.opacity);
+        setBgState(initialBackground);
+        if (bgState.opacity > 0.5) onReactions(bgState.direction);
+
     }
 
 
@@ -63,7 +67,7 @@ const ImageHover: FC<ImageHoverProps> = (props) => {
 
             {/* repeat it to fill the screen*/}
             <span
-                className="font-six-caps text-4xl uppercase underline leading-[76px] break-words"
+                className="font-six-caps p-5 text-6xl uppercase underline leading-[76px] break-words"
                 style={{opacity: bgState.opacity}}
             >
                 {bgState.backgroundText}
@@ -72,13 +76,11 @@ const ImageHover: FC<ImageHoverProps> = (props) => {
             {/* image with actions */}
             <div className="fixed h-full w-full flex items-center justify-center">
                 <Draggable
-                    defaultPosition={{x: 0, y: 0}}
                     position={{x: 0, y: 0}}
                     onStop={handleDragStop}
                     onDrag={handleDrag}
                 >
-                    <div className="z-10 cursor-pointer">
-
+                    <div className="cursor-move">
                         <ImageWithActions imageUrl={imageUrl} altText={altText}/>
                     </div>
                 </Draggable>
@@ -113,7 +115,7 @@ const handleResponseMagnitude = ({x, y, maxMagnitude = 200}: { x: number, y: num
     if (magnitude > maxMagnitude) magnitude = 1;
     else magnitude /= maxMagnitude;
 
-    return magnitude.toPrecision(2);
+    return magnitude;
 }
 
 export default ImageHover;
