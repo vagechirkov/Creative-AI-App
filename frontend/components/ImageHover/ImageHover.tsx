@@ -2,7 +2,7 @@
 
 import {FC, useState} from "react";
 import {ImageWithActions} from "./ImageWithActions";
-import Draggable from 'react-draggable';
+import Draggable, {DraggableCore} from 'react-draggable';
 import {background} from "./background";
 
 type backgroundState = {
@@ -77,11 +77,16 @@ const ImageHover: FC<ImageHoverProps> = (props) => {
             <div className="fixed h-full w-full flex items-center justify-center">
                 <Draggable
                     position={{x: 0, y: 0}}
+                    allowAnyClick={true}
                     onStop={handleDragStop}
                     onDrag={handleDrag}
                 >
                     <div className="cursor-move">
-                        <ImageWithActions imageUrl={imageUrl} altText={altText}/>
+                        <ImageWithActions
+                            imageUrl={imageUrl}
+                            altText={altText}
+                            actionsOpacity={bgState.opacity > 0.2 ? 0 : 1}
+                        />
                     </div>
                 </Draggable>
             </div>
