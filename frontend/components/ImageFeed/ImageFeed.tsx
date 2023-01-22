@@ -1,13 +1,14 @@
 'use client';
 
-import ImageWithInfo, {ImageCardProps} from "../ImageCard/ImageWithInfo";
+import ImageWithInfo, {ImageWithInfoProps} from "../ImageCard/ImageWithInfo";
 import {FC, useCallback, useEffect, useRef, useState} from "react";
 import ImageDraggable from "../ImageHover";
 import ImageWithReactions from "../ImageWithReaction";
+import {ImageCard} from "../ImageCard/ImageCard";
 
 interface ImageFeedProps {
-    feedHistory: ImageCardProps[];
-    currentImage: ImageCardProps;
+    feedHistory: ImageWithInfoProps[];
+    currentImage: ImageWithInfoProps;
 }
 
 export type DragState = {
@@ -65,18 +66,19 @@ const ImageFeed: FC<ImageFeedProps> = ({feedHistory, currentImage}) => {
             <div className="snap-y snap-mandatory overflow-x-hidden h-full w-full py-[160px] bg-transparent">
                 {/* history */}
                 {feedHistory.map((imageCard, index) => (
-                    <div key={`card-${index}`} className="snap-center py-4 flex justify-center">
-                        <ImageWithInfo {...imageCard} />
-                    </div>
+                    <ImageCard key={`card-${index}`} imageProps={imageCard}/>
                 ))}
 
                 {/* current image */}
-                <div className="snap-center py-4 flex justify-center">
+                <div key={`card-current`} className="snap-center py-4 flex justify-center">
                     <ImageDraggable onReactions={handleDrag}>
-                        <div className="cursor-move w-fit">
-                            {dragState.isDragging && <ImageWithReactions {...currentImage} />}
-                            {!dragState.isDragging && <ImageWithInfo {...currentImage} />}
-                        </div>
+                        <ImageCard
+                            imageProps={currentImage}
+                            isCurrentImage={true}
+                            isTutorial={false}
+                            isDragged={dragState.isDragging}
+                            hideActions={dragState.magnitude >= 0.2}
+                        />
                     </ImageDraggable>
                 </div>
 

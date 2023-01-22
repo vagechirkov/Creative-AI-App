@@ -33,7 +33,9 @@ const ImageDraggable: FC<ImageDraggableProps> = ({onReactions, children}) => {
             onStop={() => onReactions(initialDragState)}
             onDrag={handleDrag}
         >
-            {children}
+            <span>
+                {children}
+            </span>
         </Draggable>
     );
 };

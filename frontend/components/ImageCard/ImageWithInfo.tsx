@@ -6,7 +6,7 @@ import {FeedImageType} from "../FeedImages/FeedImages";
 import {ImageInfo} from "./ImageInfo";
 
 
-export interface ImageCardProps {
+export interface ImageWithInfoProps {
     imageUrl: string;
     altText: string;
     reactions: FeedImageType['reactions'];
@@ -15,7 +15,7 @@ export interface ImageCardProps {
     showTutorial?: boolean;
 }
 
-const ImageWithInfo: FC<ImageCardProps> = (props) => {
+const ImageWithInfo: FC<ImageWithInfoProps> = (props) => {
     const {imageUrl, altText, reactions, activeUsers, artist, showTutorial = false} = props;
 
     return (
