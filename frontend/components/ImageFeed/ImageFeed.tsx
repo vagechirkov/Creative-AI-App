@@ -1,6 +1,6 @@
 'use client';
 
-import {FC, useCallback, useEffect, useRef, useState} from "react";
+import {FC, useCallback, useEffect, useRef} from "react";
 import ImageDraggable from "../ImageDraggable";
 import ImageWithReactions from "../ImageCard/ImageWithReactions";
 import useFeedContext from "../FeedContext";
@@ -34,12 +34,12 @@ const ImageFeed: FC = () => {
 
     return (
         <div
-            className="min-h-screen min-w-screen flex justify-center justify-items-center items-end"
+            className="min-h-screen min-w-screen flex justify-center"
             style={{overflow: feedState?.dragState && feedState.dragState.isDragging ? 'hidden' : 'auto',}}
         >
             <div
-                className="snap-y snap-mandatory overflow-x-hidden overflow-y-scroll bg-transparent flex flex-col w-full">
-                {/* history */}
+                className="snap-y snap-mandatory overflow-auto flex flex-col h-screen w-screen">
+                {/* history h-screen w-screen */}
                 {feedState?.feedHistory && !feedState.dragState.isDragging &&
                     feedState.feedHistory.map((imageCard, index) => (
                     <div key={`card-${index}`} className="snap-center flex justify-center bg-transparent">
@@ -48,7 +48,7 @@ const ImageFeed: FC = () => {
                 ))}
 
                 {/* current image */}
-                <div key={`card-current`} className="snap-center pb-[160px] flex justify-center">
+                <div key={`card-current`} className="snap-center pb-[160px] flex justify-center mt-auto">
                     {feedState?.currentImage &&
                         <ImageDraggable onReactions={handleDrag} dragState={feedState.dragState}>
                             <div className="cursor-move w-fit">
