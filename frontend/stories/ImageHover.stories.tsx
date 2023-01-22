@@ -1,7 +1,7 @@
 import {ComponentStory, ComponentMeta} from '@storybook/react';
 
-import ImageDraggable from '../components/ImageHover';
-import {background} from "../components/ImageHover/background";
+import ImageDraggable from '../components/ImageDraggable';
+import {background} from "../components/ImageDraggable/background";
 
 
 export default {

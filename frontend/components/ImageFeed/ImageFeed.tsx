@@ -1,10 +1,9 @@
 'use client';
 
-import ImageWithInfo, {ImageWithInfoProps} from "../ImageCard/ImageWithInfo";
+import {ImageWithInfoProps} from "../ImageCard/ImageWithInfo";
 import {FC, useCallback, useEffect, useRef, useState} from "react";
-import ImageDraggable from "../ImageHover";
-import ImageWithReactions from "../ImageWithReaction";
-import {ImageCard} from "../ImageCard/ImageCard";
+import ImageDraggable from "../ImageDraggable";
+import ImageWithReactions from "../ImageCard/ImageWithReactions";
 
 interface ImageFeedProps {
     feedHistory: ImageWithInfoProps[];
@@ -57,26 +56,23 @@ const ImageFeed: FC<ImageFeedProps> = ({feedHistory, currentImage}) => {
             {/* TODO: add sticky header*/}
             {/* background text on reaction */}
             <span className="absolute top-1/2 inset-x-0" style={{opacity: dragState.magnitude}}>
-                <span
-                    className="font-six_caps pb-5 text-6xl underline leading-[76px] break-all"
-                >
+                <span className="font-six_caps pb-5 text-6xl underline leading-[76px] break-all">
                     {dragState.backgroundText}
                 </span>
             </span>
             <div className="snap-y snap-mandatory overflow-x-hidden h-full w-full py-[160px] bg-transparent">
                 {/* history */}
                 {feedHistory.map((imageCard, index) => (
-                    <ImageCard key={`card-${index}`} imageProps={imageCard}/>
+                    <div key={`card-${index}`} className="snap-center py-4 flex justify-center">
+                        <ImageWithReactions imageProps={imageCard}/>
+                    </div>
                 ))}
 
                 {/* current image */}
                 <div key={`card-current`} className="snap-center py-4 flex justify-center">
                     <ImageDraggable onReactions={handleDrag}>
                         <div className="cursor-move w-fit">
-                        <ImageWithReactions
-                            imageProps={currentImage}
-                            dragMagnitude={dragState.magnitude}
-                        />
+                            <ImageWithReactions imageProps={currentImage} dragMagnitude={dragState.magnitude}/>
                         </div>
                     </ImageDraggable>
                 </div>
