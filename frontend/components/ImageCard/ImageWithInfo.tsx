@@ -24,7 +24,7 @@ const ImageWithInfo: FC<ImageWithInfoProps> = (props) => {
         <div className="relative max-w-sm max-h-sm min-w-max min-h-max">
             <Image
                 src={imageUrl} alt={altText}
-                width={384} height={384}
+                width={280} height={280}
                 className="border-black border-2"
                 draggable="false"
             />

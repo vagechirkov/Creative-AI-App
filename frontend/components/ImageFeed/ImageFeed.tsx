@@ -52,8 +52,8 @@ const ImageFeed: FC<ImageFeedProps> = ({feedHistory, currentImage}) => {
 
     return (
         <div
-            className="min-h-screen w-full flex justify-center justify-items-center items-end"
-            style={{overflow: dragState.isDragging  ? 'hidden' : 'auto'}}
+            className="min-h-screen min-w-screen flex justify-center justify-items-center items-end"
+            style={{overflow: dragState.isDragging ? 'hidden' : 'auto',}}
         >
             <div className="absolute -bottom-52 inset-x-0 " style={{opacity: dragState.magnitude}}>
                 <div className="font-six_caps text-justify text-6xl underline leading-[76px] break-all ">

@@ -13,6 +13,10 @@ module.exports = {
             inter: ['var(--font-inter)'],
             jura: ['var(--font-jura)'],
             six_caps: ['var(--font-six-caps)'],
+        },
+        screens: {
+            'xs': '280px',
+            'sm': '320px',
         }
     },
     plugins: [],
