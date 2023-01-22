@@ -64,16 +64,28 @@ const feedReducer = (state: FeedState, action: any) => {
         case FEED_ACTIONS.SET_HISTORY_AND_CURRENT_IMAGE:
             return {...state, feedHistory: action.payload.feedHistory, currentImage: action.payload.currentImage};
         case FEED_ACTIONS.SET_DRAG_STATE:
-            const text = background[action.payload.direction as keyof typeof background];
+            if (action.payload.isDragging) {
+                const text = background[action.payload.direction as keyof typeof background];
 
-            return {...state,
-                dragState: {
-                    direction: action.payload.direction,
-                    magnitude: action.payload.magnitude,
-                    backgroundText: text,
-                    isDragging: action.payload.isDragging
-                }
-            };
+                return {...state,
+                    dragState: {
+                        direction: action.payload.direction,
+                        magnitude: action.payload.magnitude,
+                        backgroundText: text,
+                        isDragging: action.payload.isDragging
+                    }
+                };
+            } else {
+                return {...state,
+                    dragState: {
+                        direction: '',
+                        magnitude: 0,
+                        backgroundText: '',
+                        isDragging: false
+                    }
+                };
+            }
+
         default:
             return state;
     }
