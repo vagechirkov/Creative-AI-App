@@ -40,7 +40,13 @@ const ImageFeed: FC = () => {
                 {feedState?.feedHistory && !feedState.dragState.isDragging &&
                     feedState.feedHistory.map((imageCard, index) => (
                     <div key={`card-${index}`} className="snap-center flex justify-center bg-transparent">
-                        <ImageWithReactions imageProps={imageCard}/>
+                        <ImageWithReactions imageProps={{
+                            imageUrl: imageCard.url,
+                            altText: imageCard.alt_text,
+                            reactions: imageCard.reactions,
+                            activeUsers: imageCard.active_users,
+                        }}
+                        />
                     </div>
                 ))}
 
@@ -50,7 +56,11 @@ const ImageFeed: FC = () => {
                         <ImageDraggable onReactions={handleDrag} dragState={feedState.dragState}>
                             <div className="cursor-move w-fit">
                                 <ImageWithReactions
-                                    imageProps={feedState.currentImage}
+                                    imageProps={{
+                                        imageUrl: feedState.currentImage.url,
+                                        altText: feedState.currentImage.alt_text,
+                                        reactions: feedState.currentImage.reactions}}
+
                                     dragMagnitude={feedState.dragState.magnitude}
                                 />
                             </div>

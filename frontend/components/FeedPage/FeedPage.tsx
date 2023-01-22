@@ -2,21 +2,46 @@
 
 import useFeedContext from "../FeedContext";
 import ImageFeed from "../ImageFeed";
-import {FC} from "react";
+import {FC, useEffect} from "react";
 import FeedHeader from "../FeedImages/FeedHeader";
 import BackgroundText from "../FeedImages/BackgroundText";
 import FeedFooter from "../FeedImages/FeedFooter";
+import useWebSocket, {ReadyState} from "react-use-websocket";
+import {FeedImageType} from "../FeedImages/FeedImages";
+import {FEED_ACTIONS} from "../FeedContext/FeedContext";
 
 
-const FeedPage: FC = () => {
+interface FeedPageProps {
+    feedId: number;
+    wsUrl: string;
+}
+
+const FeedPage: FC<FeedPageProps> = ({wsUrl, feedId = 0}) => {
     const {feedState, feedDispatch} = useFeedContext();
+
+    const {sendJsonMessage, lastJsonMessage, readyState} = useWebSocket(`${wsUrl}/${feedId}`);
+
+    useEffect(() => {
+        console.log("FeedPage: useEffect: lastJsonMessage", lastJsonMessage);
+        if (readyState === ReadyState.OPEN && lastJsonMessage) {
+            feedDispatch({
+                type: FEED_ACTIONS.SET_CURRENT_IMAGE,
+                payload: {currentImage: lastJsonMessage as FeedImageType}
+            });
+        }
+    }, [lastJsonMessage]);
 
     return (
         <>
-            <FeedHeader/>
-            <BackgroundText/>
-            <ImageFeed/>
+            {readyState === ReadyState.OPEN && feedState?.currentImage &&
+                <>
+                    <FeedHeader/>
+                    <BackgroundText/>
+                    <ImageFeed/>
+                </>
+            }
             {/*<FeedFooter/>*/}
+
         </>
     );
 

@@ -1,8 +1,8 @@
 'use client';
 
-import {ImageWithInfoProps} from "../ImageCard/ImageWithInfo";
 import {createContext, useContext, useReducer} from "react";
 import {DragState} from "../ImageDraggable/ImageDraggable";
+import {FeedImageType} from "../FeedImages/FeedImages";
 
 
 export const FEED_ACTIONS = {
@@ -13,8 +13,8 @@ export const FEED_ACTIONS = {
 }
 
 type FeedState = {
-    feedHistory: ImageWithInfoProps[] | undefined;
-    currentImage: ImageWithInfoProps | undefined;
+    feedHistory: FeedImageType[] | undefined;
+    currentImage: FeedImageType | undefined;
     dragState: DragState;
 }
 
@@ -60,7 +60,24 @@ const feedReducer = (state: FeedState, action: any) => {
         case FEED_ACTIONS.SET_FEED_HISTORY:
             return {...state, feedHistory: action.payload.feedHistory};
         case FEED_ACTIONS.SET_CURRENT_IMAGE:
-            return {...state, currentImage: action.payload.currentImage};
+            const currentImage = action.payload.currentImage;
+            if (!currentImage) return state;
+
+            let feedHistory = state.feedHistory ? state.feedHistory : [];
+            const imageInx = feedHistory.findIndex((i) => i.id === currentImage.id);
+
+            if (imageInx !== -1) {
+                // update existing image
+                feedHistory = [...feedHistory.slice(0, -1), currentImage];
+            } else {
+                // remove the oldest image if we have more than 10
+                if (feedHistory.length > 10) {
+                    feedHistory.shift();
+                }
+                feedHistory = [...feedHistory, currentImage];
+            }
+            return {...state, currentImage: currentImage, feedHistory: feedHistory};
+
         case FEED_ACTIONS.SET_HISTORY_AND_CURRENT_IMAGE:
             return {...state, feedHistory: action.payload.feedHistory, currentImage: action.payload.currentImage};
         case FEED_ACTIONS.SET_DRAG_STATE:
@@ -68,7 +85,8 @@ const feedReducer = (state: FeedState, action: any) => {
                 // TODO: set decision when drag is done
                 const text = background[action.payload.direction as keyof typeof background];
 
-                return {...state,
+                return {
+                    ...state,
                     dragState: {
                         direction: action.payload.direction,
                         magnitude: action.payload.magnitude,
@@ -77,7 +95,8 @@ const feedReducer = (state: FeedState, action: any) => {
                     }
                 };
             } else {
-                return {...state,
+                return {
+                    ...state,
                     dragState: {
                         direction: '',
                         magnitude: 0,

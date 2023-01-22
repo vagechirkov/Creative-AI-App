@@ -9,7 +9,7 @@ export default async function Feed() {
     const userId: string = nanoid();
     return (
         <main>
-            <FeedPage />
+            <FeedPage wsUrl={`${WSBasePath}${userId}`} feedId={0} />
         </main>
     )
 }
