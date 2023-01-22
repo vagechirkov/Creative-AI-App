@@ -1,8 +1,9 @@
 'use client';
 
 import {ImageWithInfoProps} from "../ImageCard/ImageWithInfo";
-import {createContext, ReactNode, useContext, useReducer} from "react";
-import {DragState} from "../ImageFeed/ImageFeed";
+import {createContext, useContext, useReducer} from "react";
+import {DragState} from "../ImageDraggable/ImageDraggable";
+
 
 export const FEED_ACTIONS = {
     SET_FEED_HISTORY: 'SET_FEED_HISTORY',
@@ -10,7 +11,6 @@ export const FEED_ACTIONS = {
     SET_HISTORY_AND_CURRENT_IMAGE: 'SET_HISTORY_AND_CURRENT_IMAGE',
     SET_DRAG_STATE: 'SET_DRAG_STATE',
 }
-
 
 type FeedState = {
     feedHistory: ImageWithInfoProps[] | undefined;
@@ -23,7 +23,7 @@ export type FeedContextType = {
     feedDispatch: (action: any) => void;
 }
 
-export const FeedContext = createContext<FeedContextType|null>(null);
+export const FeedContext = createContext<FeedContextType | null>(null);
 
 
 const initialState: FeedState = {
@@ -47,6 +47,14 @@ export const FeedContextProvider = (({children}: any) => {
     )
 });
 
+const background = {
+    "Up": "i like it\u00A0\u00A0\u00A0\u00A0\u00A0".repeat(300),
+    "Left": "it inspires me\u00A0\u00A0\u00A0\u00A0\u00A0".repeat(300),
+    "Right": "it surprises me\u00A0\u00A0\u00A0\u00A0\u00A0".repeat(300),
+    "Down": "it terrifies me\u00A0\u00A0\u00A0\u00A0\u00A0".repeat(300),
+}
+
+
 const feedReducer = (state: FeedState, action: any) => {
     switch (action.type) {
         case FEED_ACTIONS.SET_FEED_HISTORY:
@@ -56,11 +64,22 @@ const feedReducer = (state: FeedState, action: any) => {
         case FEED_ACTIONS.SET_HISTORY_AND_CURRENT_IMAGE:
             return {...state, feedHistory: action.payload.feedHistory, currentImage: action.payload.currentImage};
         case FEED_ACTIONS.SET_DRAG_STATE:
-            return {...state, dragState: action.payload.dragState};
+            const text = background[action.payload.direction as keyof typeof background];
+
+            return {...state,
+                dragState: {
+                    direction: action.payload.direction,
+                    magnitude: action.payload.magnitude,
+                    backgroundText: text,
+                    isDragging: action.payload.isDragging
+                }
+            };
         default:
             return state;
     }
 }
 
 
-export const useFeedContext = () => useContext(FeedContext) as FeedContextType;
+const useFeedContext = () => useContext(FeedContext) as FeedContextType;
+
+export default useFeedContext;

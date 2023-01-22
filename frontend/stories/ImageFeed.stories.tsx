@@ -1,12 +1,7 @@
 import {ComponentStory, ComponentMeta} from '@storybook/react';
 
 import ImageFeed from '../components/ImageFeed';
-import {
-    FEED_ACTIONS,
-    FeedContextProvider,
-    FeedContextType,
-    useFeedContext
-} from "../components/FeedContext/FeedContext";
+import useFeedContext, {FEED_ACTIONS, FeedContextProvider,} from "../components/FeedContext/FeedContext";
 import {useEffect} from "react";
 
 const feedHistory = [

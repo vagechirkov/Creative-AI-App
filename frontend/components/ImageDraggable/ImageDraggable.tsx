@@ -2,35 +2,35 @@
 
 import {FC, ReactNode} from "react";
 import Draggable from 'react-draggable';
-import {background, DragState, initialDragState} from "../ImageFeed/ImageFeed";
+
+export type DragState = {
+    direction: string;
+    magnitude: number;
+    backgroundText: string;
+    isDragging: boolean;
+}
 
 interface ImageDraggableProps {
-    onReactions: (state: DragState) => void;
+    onReactions: (direction: string, magnitude: number, isDragging: boolean) => void;
+    dragState: DragState;
     children: ReactNode;
 }
 
 
-const ImageDraggable: FC<ImageDraggableProps> = ({onReactions, children}) => {
+const ImageDraggable: FC<ImageDraggableProps> = ({onReactions, dragState, children}) => {
 
     const handleDrag = (event: any, data: any) => {
-        const direction = handleResponseDirection({x: data.x, y: data.y}) as keyof typeof background;
+        const direction = handleResponseDirection({x: data.x, y: data.y}) as string;
         const magnitude = handleResponseMagnitude({x: data.x, y: data.y, maxMagnitude: 200});
-        let backgroundText = background[direction];
 
-        onReactions({
-                backgroundText: backgroundText,
-                magnitude: magnitude,
-                direction: direction,
-                isDragging: true
-            }
-        );
+        onReactions(direction, magnitude, true);
     }
 
     return (
         <Draggable
             position={{x: 0, y: 0}}
             allowAnyClick={true}
-            onStop={() => onReactions(initialDragState)}
+            onStop={() => onReactions(dragState.direction, dragState.magnitude, false)}
             onDrag={handleDrag}
         >
             <span>
