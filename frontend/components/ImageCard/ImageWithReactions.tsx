@@ -29,7 +29,7 @@ export const ImageWithReactions: FC<ImageContainerProps> = (props) => {
                     </ActionsLabel>
                 </div>
 
-                <div className="col-start-2 col-end-12" style={{opacity: 1}}>
+                <div className="col-start-2 col-end-12 bg-black" style={{opacity: 1}}>
                     <ImageWithInfo {...props.imageProps} showInfo={dragMagnitude < 0.01}/>
                 </div>
 
