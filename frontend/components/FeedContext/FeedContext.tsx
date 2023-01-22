@@ -2,8 +2,15 @@
 
 import {createContext, useContext, useReducer} from "react";
 import {DragState} from "../ImageDraggable/ImageDraggable";
-import {FeedImageType} from "../FeedImages/FeedImages";
 
+export type FeedImageType = {
+    id: number;
+    url: string;
+    alt_text: string;
+    // list of emojis and their counts
+    reactions: { emoji: string, count: number }[];
+    active_users: number;
+}
 
 export const FEED_ACTIONS = {
     SET_FEED_HISTORY: 'SET_FEED_HISTORY',
@@ -60,7 +67,7 @@ const feedReducer = (state: FeedState, action: any) => {
         case FEED_ACTIONS.SET_FEED_HISTORY:
             return {...state, feedHistory: action.payload.feedHistory};
         case FEED_ACTIONS.SET_CURRENT_IMAGE:
-            const currentImage = action.payload.currentImage;
+            const currentImage = action.payload.currentImage as FeedImageType;
             if (!currentImage) return state;
 
             let feedHistory = state.feedHistory ? state.feedHistory : [];

@@ -7,7 +7,6 @@ import FeedHeader from "../FeedImages/FeedHeader";
 import BackgroundText from "../FeedImages/BackgroundText";
 import FeedFooter from "../FeedImages/FeedFooter";
 import useWebSocket, {ReadyState} from "react-use-websocket";
-import {FeedImageType} from "../FeedImages/FeedImages";
 import {FEED_ACTIONS} from "../FeedContext/FeedContext";
 
 
@@ -26,7 +25,7 @@ const FeedPage: FC<FeedPageProps> = ({wsUrl, feedId = 0}) => {
         if (readyState === ReadyState.OPEN && lastJsonMessage) {
             feedDispatch({
                 type: FEED_ACTIONS.SET_CURRENT_IMAGE,
-                payload: {currentImage: lastJsonMessage as FeedImageType}
+                payload: {currentImage: lastJsonMessage}
             });
         }
     }, [lastJsonMessage]);
