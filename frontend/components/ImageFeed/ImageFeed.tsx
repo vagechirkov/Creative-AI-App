@@ -4,6 +4,7 @@ import {ImageWithInfoProps} from "../ImageCard/ImageWithInfo";
 import {FC, useCallback, useEffect, useRef, useState} from "react";
 import ImageDraggable from "../ImageDraggable";
 import ImageWithReactions from "../ImageCard/ImageWithReactions";
+import {FeedContextType, useFeedContext} from "../FeedContext/FeedContext";
 
 interface ImageFeedProps {
     feedHistory: ImageWithInfoProps[];
@@ -27,8 +28,9 @@ export const background = {
 }
 
 
-const ImageFeed: FC<ImageFeedProps> = ({feedHistory, currentImage}) => {
+const ImageFeed: FC = () => {
     const [dragState, setDragState] = useState<DragState>(initialDragState);
+    const {feedState, feedDispatch} = useFeedContext();
     const feedEndRef = useRef<null | HTMLDivElement>(null);
 
     const scrollToCurrentImage = useCallback(
@@ -43,12 +45,14 @@ const ImageFeed: FC<ImageFeedProps> = ({feedHistory, currentImage}) => {
 
     useEffect(() => {
         scrollToCurrentImage();
-    }, [currentImage]);
+    }, [feedState?.currentImage]);
 
     const handleDrag = (state: DragState) => {
         // scrollToCurrentImage();
         setDragState(state);
     }
+
+    if(!feedState?.currentImage || !feedState.feedHistory) return null;
 
     return (
         <div
@@ -64,17 +68,17 @@ const ImageFeed: FC<ImageFeedProps> = ({feedHistory, currentImage}) => {
             <div
                 className="snap-y snap-mandatory overflow-x-hidden overflow-y-scroll bg-transparent flex flex-col w-full">
                 {/* history */}
-                {!dragState.isDragging && feedHistory.map((imageCard, index) => (
-                    <div key={`card-${index}`} className="snap-center py-4 flex justify-center">
+                {!dragState.isDragging && feedState.feedHistory.map((imageCard, index) => (
+                    <div key={`card-${index}`} className="snap-center flex justify-center bg-gray-200">
                         <ImageWithReactions imageProps={imageCard}/>
                     </div>
                 ))}
 
                 {/* current image */}
-                <div key={`card-current`} className="snap-center pt-4 pb-[160px] flex justify-center">
+                <div key={`card-current`} className="snap-center pb-[160px] flex justify-center bg-green-200">
                     <ImageDraggable onReactions={handleDrag}>
                         <div className="cursor-move w-fit">
-                            <ImageWithReactions imageProps={currentImage} dragMagnitude={dragState.magnitude}/>
+                            <ImageWithReactions imageProps={feedState.currentImage} dragMagnitude={dragState.magnitude}/>
                         </div>
                     </ImageDraggable>
                 </div>
