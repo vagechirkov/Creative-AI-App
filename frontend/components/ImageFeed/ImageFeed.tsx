@@ -10,6 +10,7 @@ import {FEED_ACTIONS} from "../FeedContext/FeedContext";
 const ImageFeed: FC = () => {
     const {feedState, feedDispatch} = useFeedContext();
     const feedEndRef = useRef<null | HTMLDivElement>(null);
+    const nodeRef = useRef<null | HTMLDivElement>(null);
 
     const scrollToCurrentImage = useCallback(
         () => {
@@ -53,8 +54,8 @@ const ImageFeed: FC = () => {
                 {/* current image */}
                 <div key={`card-current`} className="snap-center pb-[160px] flex justify-center mt-auto">
                     {feedState?.currentImage &&
-                        <ImageDraggable onReactions={handleDrag} dragState={feedState.dragState}>
-                            <div className="cursor-move w-fit">
+                        <ImageDraggable onReactions={handleDrag} dragState={feedState.dragState} nodeRef={nodeRef}>
+                            <div ref={nodeRef} className="cursor-move w-fit">
                                 <ImageWithReactions
                                     imageProps={{
                                         imageUrl: feedState.currentImage.url,

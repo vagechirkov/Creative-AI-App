@@ -14,10 +14,12 @@ interface ImageDraggableProps {
     onReactions: (direction: string, magnitude: number, isDragging: boolean) => void;
     dragState: DragState;
     children: ReactNode;
+    nodeRef: any;
 }
 
 
-const ImageDraggable: FC<ImageDraggableProps> = ({onReactions, dragState, children}) => {
+const ImageDraggable: FC<ImageDraggableProps> = (props) => {
+    const {onReactions, dragState, children, nodeRef} = props;
 
     const handleDrag = (event: any, data: any) => {
         const direction = handleResponseDirection({x: data.x, y: data.y}) as string;
@@ -32,6 +34,7 @@ const ImageDraggable: FC<ImageDraggableProps> = ({onReactions, dragState, childr
             allowAnyClick={true}
             onStop={() => onReactions(dragState.direction, dragState.magnitude, false)}
             onDrag={handleDrag}
+            nodeRef={nodeRef}
         >
             <span>
                 {children}
