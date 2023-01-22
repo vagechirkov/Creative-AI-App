@@ -72,13 +72,12 @@ const ImageFeed: FC<ImageFeedProps> = ({feedHistory, currentImage}) => {
                 {/* current image */}
                 <div key={`card-current`} className="snap-center py-4 flex justify-center">
                     <ImageDraggable onReactions={handleDrag}>
-                        <ImageCard
+                        <div className="cursor-move w-fit">
+                        <ImageWithReactions
                             imageProps={currentImage}
-                            isCurrentImage={true}
-                            isTutorial={false}
-                            isDragged={dragState.isDragging}
-                            hideActions={dragState.magnitude >= 0.2}
+                            dragMagnitude={dragState.magnitude}
                         />
+                        </div>
                     </ImageDraggable>
                 </div>
 

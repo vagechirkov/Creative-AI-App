@@ -10,13 +10,14 @@ interface ImageInfoProps {
     altText?: string;
     artist?: string;
     activeUsers?: number;
+    isVisible?: boolean;
 }
 
 export const ImageInfo: FC<ImageInfoProps> = (props) => {
-    const {artist, altText, reactions, activeUsers} = props;
+    const {artist, altText, reactions, activeUsers, isVisible=true} = props;
 
     return (
-        <div className="text-white">
+        <div className="text-white" style={{opacity: isVisible ? 1 : 0}}>
             <div className="absolute top-0 right-0 pt-2 pr-2">
                 <ViewerCount count={activeUsers ? activeUsers : 0}/>
             </div>
