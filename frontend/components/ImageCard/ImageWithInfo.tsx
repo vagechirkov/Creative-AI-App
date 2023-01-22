@@ -2,8 +2,8 @@
 
 import {FC} from "react";
 import Image from 'next/image';
-import {FeedImageType} from "../FeedImages/FeedImages";
 import {ImageInfo} from "./ImageInfo";
+import {FeedImageType} from "../FeedContext/FeedContext";
 
 
 export interface ImageWithInfoProps {
