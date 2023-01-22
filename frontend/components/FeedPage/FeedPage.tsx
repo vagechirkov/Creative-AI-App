@@ -7,7 +7,7 @@ import FeedHeader from "../FeedImages/FeedHeader";
 import BackgroundText from "../FeedImages/BackgroundText";
 import FeedFooter from "../FeedImages/FeedFooter";
 import useWebSocket, {ReadyState} from "react-use-websocket";
-import {FEED_ACTIONS} from "../FeedContext/FeedContext";
+import {FEED_ACTIONS} from "../FeedContext/FeedReducer";
 
 
 interface FeedPageProps {

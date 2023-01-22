@@ -4,7 +4,7 @@ import {FC, useCallback, useEffect, useRef} from "react";
 import ImageDraggable from "../ImageDraggable";
 import ImageWithReactions from "../ImageCard/ImageWithReactions";
 import useFeedContext from "../FeedContext";
-import {FEED_ACTIONS} from "../FeedContext/FeedContext";
+import {FEED_ACTIONS} from "../FeedContext/FeedReducer";
 
 
 const ImageFeed: FC = () => {
