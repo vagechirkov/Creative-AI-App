@@ -13,7 +13,7 @@ interface FeedImageProps {
     feedId?: number;
 }
 
-export type FeedImageType = {
+type FeedImageType = {
     id: number;
     url: string;
     alt_text: string;

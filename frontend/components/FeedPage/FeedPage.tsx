@@ -21,7 +21,7 @@ const FeedPage: FC<FeedPageProps> = ({wsUrl, feedId = 0}) => {
     const {sendJsonMessage, lastJsonMessage, readyState} = useWebSocket(`${wsUrl}/${feedId}`);
 
     useEffect(() => {
-        console.log("FeedPage: useEffect: lastJsonMessage", lastJsonMessage);
+        // console.log("FeedPage: useEffect: lastJsonMessage", lastJsonMessage);
         if (readyState === ReadyState.OPEN && lastJsonMessage) {
             feedDispatch({
                 type: FEED_ACTIONS.SET_CURRENT_IMAGE,
