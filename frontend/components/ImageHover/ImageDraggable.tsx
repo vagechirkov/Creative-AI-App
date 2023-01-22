@@ -13,25 +13,17 @@ interface ImageDraggableProps {
 const ImageDraggable: FC<ImageDraggableProps> = ({onReactions, children}) => {
 
     const handleDrag = (event: any, data: any) => {
-        const direction = handleResponseDirection({x: data.x, y: data.y});
+        const direction = handleResponseDirection({x: data.x, y: data.y}) as keyof typeof background;
         const magnitude = handleResponseMagnitude({x: data.x, y: data.y, maxMagnitude: 200});
+        let backgroundText = background[direction];
 
-        switch (direction) {
-            case 'Left':
-                onReactions({backgroundText: background.Left, magnitude: magnitude, direction: direction});
-                break;
-            case 'Right':
-                onReactions({backgroundText: background.Right, magnitude: magnitude, direction: direction});
-                break;
-            case 'Up':
-                onReactions({backgroundText: background.Up, magnitude: magnitude, direction: direction});
-                break;
-            case 'Down':
-                onReactions({backgroundText: background.Down, magnitude: magnitude, direction: direction});
-                break;
-            default:
-                onReactions(initialDragState);
-        }
+        onReactions({
+                backgroundText: backgroundText,
+                magnitude: magnitude,
+                direction: direction,
+                isDragging: true
+            }
+        );
     }
 
     return (

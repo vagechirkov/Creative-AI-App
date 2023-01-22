@@ -14,15 +14,16 @@ export type DragState = {
     direction: string;
     magnitude: number;
     backgroundText: string;
+    isDragging: boolean;
 }
 
-export const initialDragState: DragState = {direction: '', magnitude: 0, backgroundText: ''};
+export const initialDragState: DragState = {direction: '', magnitude: 0, backgroundText: '', isDragging: false};
 
 export const background = {
-    "Up": "i like it\t\t\t".repeat(300),
-    "Left": "it inspires me\t\t\t".repeat(300),
-    "Right": "it surprises me\t\t\t".repeat(300),
-    "Down": "it terrifies me\t\t\t".repeat(300),
+    "Up": "i like it\u00A0\u00A0\u00A0\u00A0\u00A0".repeat(300),
+    "Left": "it inspires me\u00A0\u00A0\u00A0\u00A0\u00A0".repeat(300),
+    "Right": "it surprises me\u00A0\u00A0\u00A0\u00A0\u00A0".repeat(300),
+    "Down": "it terrifies me\u00A0\u00A0\u00A0\u00A0\u00A0".repeat(300),
 }
 
 
@@ -44,39 +45,41 @@ const ImageFeed: FC<ImageFeedProps> = ({feedHistory, currentImage}) => {
         scrollToCurrentImage();
     }, [currentImage]);
 
+    const handleDrag = (state: DragState) => {
+        // scrollToCurrentImage();
+        setDragState(state);
+    }
 
     return (
         <div>
+            {/*className="flex h-screen justify-center"*/}
             {/* TODO: add sticky header*/}
             {/* background text on reaction */}
-            <span
-                className="font-six_caps pb-5 text-6xl underline leading-[76px] break-words tracking-wide overflow-hidden"
-                style={{opacity: dragState.magnitude}}
-            >
-                {dragState.backgroundText}
+            <span className="absolute top-1/2 inset-x-0" style={{opacity: dragState.magnitude}}>
+                <span
+                    className="font-six_caps pb-5 text-6xl underline leading-[76px] break-all"
+                >
+                    {dragState.backgroundText}
+                </span>
             </span>
-            <div
-                className="snap-y snap-mandatory overflow-x-hidden h-full w-full pb-[160px] flex flex-col justify-start">
+            <div className="snap-y snap-mandatory overflow-x-hidden h-full w-full py-[160px] bg-transparent">
                 {/* history */}
-                {dragState.magnitude === 0 && feedHistory.map((imageCard, index) => (
+                {feedHistory.map((imageCard, index) => (
                     <div key={`card-${index}`} className="snap-center py-4 flex justify-center">
                         <ImageWithInfo {...imageCard} />
                     </div>
                 ))}
 
                 {/* current image */}
+                <div className="snap-center py-4 flex justify-center">
+                    <ImageDraggable onReactions={handleDrag}>
+                        <div className="cursor-move w-fit">
+                            {dragState.isDragging && <ImageWithReactions {...currentImage} />}
+                            {!dragState.isDragging && <ImageWithInfo {...currentImage} />}
+                        </div>
+                    </ImageDraggable>
+                </div>
 
-                <ImageDraggable onReactions={(state) => setDragState(state)}>
-                    {dragState.magnitude === 0 ? (
-                        <div className="cursor-move snap-center py-4 flex justify-center">
-                            <ImageWithInfo {...currentImage} />
-                        </div>
-                    ) : (
-                        <div className="absolute top-1/2 inset-x-0 cursor-move w-fit">
-                            <ImageWithReactions {...currentImage} />
-                        </div>
-                    )}
-                </ImageDraggable>
 
             </div>
             <div ref={feedEndRef}>
