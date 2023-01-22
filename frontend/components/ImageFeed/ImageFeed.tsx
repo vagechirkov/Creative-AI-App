@@ -10,7 +10,7 @@ import {FEED_ACTIONS} from "../FeedContext/FeedContext";
 const ImageFeed: FC = () => {
     const {feedState, feedDispatch} = useFeedContext();
     const feedEndRef = useRef<null | HTMLDivElement>(null);
-    const nodeRef = useRef<null | HTMLDivElement>(null);
+
 
     const scrollToCurrentImage = useCallback(
         () => {
@@ -37,9 +37,9 @@ const ImageFeed: FC = () => {
         <div className="min-h-screen min-w-screen flex justify-center">
             <div
                 className="snap-y snap-mandatory overflow-auto flex flex-col h-screen w-screen pt-20">
-                {/* history */}
+                {/* history (NOTE: the last one is the duplicate of the current image)*/}
                 {feedState?.feedHistory && !feedState.dragState.isDragging &&
-                    feedState.feedHistory.map((imageCard, index) => (
+                    feedState.feedHistory.slice(0, -1).map((imageCard, index) => (
                     <div key={`card-${index}`} className="snap-center flex justify-center bg-transparent">
                         <ImageWithReactions imageProps={{
                             imageUrl: imageCard.url,
@@ -54,8 +54,8 @@ const ImageFeed: FC = () => {
                 {/* current image */}
                 <div key={`card-current`} className="snap-center pb-[160px] flex justify-center mt-auto">
                     {feedState?.currentImage &&
-                        <ImageDraggable onReactions={handleDrag} dragState={feedState.dragState} nodeRef={nodeRef}>
-                            <div ref={nodeRef} className="cursor-move w-fit">
+                        <ImageDraggable onReactions={handleDrag} dragState={feedState.dragState}>
+                            <div className="cursor-move w-fit">
                                 <ImageWithReactions
                                     imageProps={{
                                         imageUrl: feedState.currentImage.url,

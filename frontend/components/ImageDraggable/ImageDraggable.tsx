@@ -1,6 +1,6 @@
 'use client';
 
-import {FC, ReactNode} from "react";
+import {FC, ReactNode, useRef} from "react";
 import Draggable from 'react-draggable';
 
 export type DragState = {
@@ -14,12 +14,12 @@ interface ImageDraggableProps {
     onReactions: (direction: string, magnitude: number, isDragging: boolean) => void;
     dragState: DragState;
     children: ReactNode;
-    nodeRef: any;
 }
 
 
 const ImageDraggable: FC<ImageDraggableProps> = (props) => {
-    const {onReactions, dragState, children, nodeRef} = props;
+    const {onReactions, dragState, children} = props;
+    const nodeRef = useRef<null | HTMLDivElement>(null);
 
     const handleDrag = (event: any, data: any) => {
         const direction = handleResponseDirection({x: data.x, y: data.y}) as string;
@@ -36,9 +36,9 @@ const ImageDraggable: FC<ImageDraggableProps> = (props) => {
             onDrag={handleDrag}
             nodeRef={nodeRef}
         >
-            <span>
+            <div ref={nodeRef}>
                 {children}
-            </span>
+            </div>
         </Draggable>
     );
 };
