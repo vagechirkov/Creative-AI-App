@@ -65,6 +65,7 @@ const feedReducer = (state: FeedState, action: any) => {
             return {...state, feedHistory: action.payload.feedHistory, currentImage: action.payload.currentImage};
         case FEED_ACTIONS.SET_DRAG_STATE:
             if (action.payload.isDragging) {
+                // TODO: set decision when drag is done
                 const text = background[action.payload.direction as keyof typeof background];
 
                 return {...state,

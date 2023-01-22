@@ -1,8 +1,8 @@
 import {ComponentStory, ComponentMeta} from '@storybook/react';
 
-import ImageFeed from '../components/ImageFeed';
 import useFeedContext, {FEED_ACTIONS, FeedContextProvider,} from "../components/FeedContext/FeedContext";
 import {useEffect} from "react";
+import FeedPage from "../components/FeedPage";
 
 const feedHistory = [
     {
@@ -54,8 +54,8 @@ const currentImage = {
 }
 
 export default {
-    title: 'ImageFeed',
-    component: ImageFeed,
+    title: 'Feed',
+    component: FeedPage,
     decorators: [
         (ComponentStory) => {
             return (
@@ -65,9 +65,9 @@ export default {
             );
         },
     ]
-} as ComponentMeta<typeof ImageFeed>;
+} as ComponentMeta<typeof FeedPage>;
 
-const Template: ComponentStory<typeof ImageFeed> = (args) => {
+const Template: ComponentStory<typeof FeedPage> = (args) => {
     const {feedState, feedDispatch} = useFeedContext();
 
 
@@ -82,7 +82,7 @@ const Template: ComponentStory<typeof ImageFeed> = (args) => {
     }, [])
 
     return (
-        <ImageFeed {...args}/>
+        <FeedPage {...args}/>
     )
 };
 
