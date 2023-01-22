@@ -1,6 +1,8 @@
 import './globals.css'
 
-import { Inter, Jura, IBM_Plex_Mono, Six_Caps } from '@next/font/google';
+import {Inter, Jura, IBM_Plex_Mono, Six_Caps} from '@next/font/google';
+import {FeedContextProvider} from "../components/FeedContext/FeedContext";
+import {ReactNode} from "react";
 
 
 const inter = Inter({
@@ -30,19 +32,19 @@ const sixCaps = Six_Caps({
 });
 
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return (
-    <html lang="en" className={`${inter.variable} ${jura.variable} ${plex.variable} ${sixCaps.variable}`}>
-      {/*
+export default function RootLayout({children,}: { children: ReactNode }) {
+    return (
+        <html lang="en" className={`${inter.variable} ${jura.variable} ${plex.variable} ${sixCaps.variable}`}>
+        {/*
         <head /> will contain the components returned by the nearest parent
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
-      <head />
-      <body>{children}</body>
-    </html>
-  )
+        <head/>
+        <body>
+        <FeedContextProvider>
+            {children}
+        </FeedContextProvider>
+        </body>
+        </html>
+    )
 }

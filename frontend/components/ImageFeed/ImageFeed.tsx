@@ -33,13 +33,10 @@ const ImageFeed: FC = () => {
     }
 
     return (
-        <div
-            className="min-h-screen min-w-screen flex justify-center"
-            style={{overflow: feedState?.dragState && feedState.dragState.isDragging ? 'hidden' : 'auto',}}
-        >
+        <div className="min-h-screen min-w-screen flex justify-center">
             <div
-                className="snap-y snap-mandatory overflow-auto flex flex-col h-screen w-screen">
-                {/* history h-screen w-screen */}
+                className="snap-y snap-mandatory overflow-auto flex flex-col h-screen w-screen pt-20">
+                {/* history */}
                 {feedState?.feedHistory && !feedState.dragState.isDragging &&
                     feedState.feedHistory.map((imageCard, index) => (
                     <div key={`card-${index}`} className="snap-center flex justify-center bg-transparent">

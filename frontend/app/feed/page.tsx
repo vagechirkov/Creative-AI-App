@@ -1,6 +1,6 @@
 import {nanoid} from 'nanoid'
 
-import FeedImages from "../../components/FeedImages";
+import FeedPage from "../../components/FeedPage";
 
 
 export default async function Feed() {
@@ -9,7 +9,7 @@ export default async function Feed() {
     const userId: string = nanoid();
     return (
         <main>
-            <FeedImages wsUrl={`${WSBasePath}${userId}`} feedId={0}/>
+            <FeedPage />
         </main>
     )
 }
