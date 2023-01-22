@@ -11,7 +11,7 @@ interface ImageContainerProps {
 
 
 export const ImageWithReactions: FC<ImageContainerProps> = (props) => {
-    const {dragMagnitude = 0, dragMagnitudeThreshold = 0.1} = props;
+    const {dragMagnitude = 0, dragMagnitudeThreshold = 0.2} = props;
     return (
         <div className="max-w-sm max-h-sm min-w-max min-h-max">
             <div className="grid grid-cols-12 gap-0">

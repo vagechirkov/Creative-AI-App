@@ -55,14 +55,15 @@ const ImageFeed: FC<ImageFeedProps> = ({feedHistory, currentImage}) => {
             {/* className="flex h-screen flex-col justify-end" */}
             {/* TODO: add sticky header*/}
             {/* background text on reaction */}
-            <span className="absolute bottom-0 inset-x-0" style={{opacity: dragState.magnitude}}>
-                <span className="font-six_caps pb-5 text-6xl underline leading-[76px] break-all">
-                    {dragState.backgroundText}
-                </span>
-            </span>
+
             <div className="min-h-screen w-full flex justify-center justify-items-center items-end">
-                <div
-                    className="snap-y snap-mandatory overflow-x-hidden overflow-y-scroll py-[160px] bg-transparent flex flex-col w-full">
+                <div className="absolute -bottom-52 inset-x-0 " style={{opacity: dragState.magnitude}}>
+                    <div className="font-six_caps text-justify text-6xl underline leading-[76px] break-all ">
+                        {dragState.backgroundText}
+                    </div>
+                </div>
+
+                <div className="snap-y snap-mandatory overflow-x-hidden overflow-y-scroll bg-transparent flex flex-col w-full">
                     {/* history */}
                     {!dragState.isDragging && feedHistory.map((imageCard, index) => (
                         <div key={`card-${index}`} className="snap-center py-4 flex justify-center">
@@ -71,19 +72,17 @@ const ImageFeed: FC<ImageFeedProps> = ({feedHistory, currentImage}) => {
                     ))}
 
                     {/* current image */}
-                    <div key={`card-current`} className="snap-center py-4 flex justify-center">
+                    <div key={`card-current`} className="snap-center pt-4 pb-[160px] flex justify-center">
                         <ImageDraggable onReactions={handleDrag}>
                             <div className="cursor-move w-fit">
                                 <ImageWithReactions imageProps={currentImage} dragMagnitude={dragState.magnitude}/>
                             </div>
                         </ImageDraggable>
                     </div>
-
-
                 </div>
                 <div ref={feedEndRef}>
-
                 </div>
+
             </div>
             {/* TODO: add input field*/}
         </div>
