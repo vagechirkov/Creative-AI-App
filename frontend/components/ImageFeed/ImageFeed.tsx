@@ -52,35 +52,38 @@ const ImageFeed: FC<ImageFeedProps> = ({feedHistory, currentImage}) => {
 
     return (
         <div>
-            {/*className="flex h-screen justify-center"*/}
+            {/* className="flex h-screen flex-col justify-end" */}
             {/* TODO: add sticky header*/}
             {/* background text on reaction */}
-            <span className="absolute top-1/2 inset-x-0" style={{opacity: dragState.magnitude}}>
+            <span className="absolute bottom-0 inset-x-0" style={{opacity: dragState.magnitude}}>
                 <span className="font-six_caps pb-5 text-6xl underline leading-[76px] break-all">
                     {dragState.backgroundText}
                 </span>
             </span>
-            <div className="snap-y snap-mandatory overflow-x-hidden h-full w-full py-[160px] bg-transparent">
-                {/* history */}
-                {feedHistory.map((imageCard, index) => (
-                    <div key={`card-${index}`} className="snap-center py-4 flex justify-center">
-                        <ImageWithReactions imageProps={imageCard}/>
-                    </div>
-                ))}
-
-                {/* current image */}
-                <div key={`card-current`} className="snap-center py-4 flex justify-center">
-                    <ImageDraggable onReactions={handleDrag}>
-                        <div className="cursor-move w-fit">
-                            <ImageWithReactions imageProps={currentImage} dragMagnitude={dragState.magnitude}/>
+            <div className="min-h-screen w-full flex justify-center justify-items-center items-end">
+                <div
+                    className="snap-y snap-mandatory overflow-x-hidden overflow-y-scroll py-[160px] bg-transparent flex flex-col w-full">
+                    {/* history */}
+                    {!dragState.isDragging && feedHistory.map((imageCard, index) => (
+                        <div key={`card-${index}`} className="snap-center py-4 flex justify-center">
+                            <ImageWithReactions imageProps={imageCard}/>
                         </div>
-                    </ImageDraggable>
+                    ))}
+
+                    {/* current image */}
+                    <div key={`card-current`} className="snap-center py-4 flex justify-center">
+                        <ImageDraggable onReactions={handleDrag}>
+                            <div className="cursor-move w-fit">
+                                <ImageWithReactions imageProps={currentImage} dragMagnitude={dragState.magnitude}/>
+                            </div>
+                        </ImageDraggable>
+                    </div>
+
+
                 </div>
+                <div ref={feedEndRef}>
 
-
-            </div>
-            <div ref={feedEndRef}>
-
+                </div>
             </div>
             {/* TODO: add input field*/}
         </div>
