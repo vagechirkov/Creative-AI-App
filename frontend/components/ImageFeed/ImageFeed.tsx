@@ -39,7 +39,7 @@ const ImageFeed: FC = () => {
                 className="snap-y snap-mandatory overflow-auto flex flex-col h-screen w-screen pt-20">
                 {/* history (NOTE: the last one is the duplicate of the current image)*/}
                 {feedState?.feedHistory && !feedState.dragState.isDragging &&
-                    feedState.feedHistory.slice(0, -1).map((imageCard, index) => (
+                    feedState.feedHistory.map((imageCard, index) => (
                     <div key={`card-${index}`} className="snap-center flex justify-center bg-transparent">
                         <ImageWithReactions imageProps={{
                             imageUrl: imageCard.url,
