@@ -24,6 +24,8 @@ init:
 
   after_script:
     - cp -r $CHILD_PIPELINE_EXECUTION_CONTEXT/* ./
+    - rm -rf stories
+    - rm -rf .storybook
     - rm -rf frontend
     - rm -rf backend
     - echo "NEXT_PUBLIC_BACKEND_API=wss://creative-ai-app-backend.eks-test-default.mpg-chm.com/ws/" >>build.env
