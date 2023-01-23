@@ -16,6 +16,7 @@ export type FeedImageType = {
 export type FeedState = {
     feedHistory: FeedImageType[] | undefined;
     currentImage: FeedImageType | undefined;
+    userReaction: string | undefined;
     dragState: DragState;
 }
 
@@ -30,6 +31,7 @@ export const FeedContext = createContext<FeedContextType | null>(null);
 const initialState: FeedState = {
     feedHistory: undefined,
     currentImage: undefined,
+    userReaction: undefined,
     dragState: {direction: '', magnitude: 0, backgroundText: '', isDragging: false},
 }
 

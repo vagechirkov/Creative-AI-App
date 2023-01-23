@@ -3,9 +3,9 @@
 import useFeedContext from "../FeedContext";
 import ImageFeed from "../ImageFeed";
 import {FC, useEffect, useState} from "react";
-import FeedHeader from "../FeedImages/FeedHeader";
-import BackgroundText from "../FeedImages/BackgroundText";
-import FeedFooter from "../FeedImages/FeedFooter";
+import FeedHeader from "./FeedHeader";
+import BackgroundText from "./BackgroundText";
+import FeedFooter from "./FeedFooter";
 import useWebSocket, {ReadyState} from "react-use-websocket";
 import {FEED_ACTIONS} from "../FeedContext/FeedReducer";
 
@@ -37,9 +37,16 @@ const FeedPage: FC<FeedPageProps> = ({wsUrl, feedId = 0}) => {
             } else {
                 // Update history
             }
-
         }
     }, [lastJsonMessage]);
+
+    useEffect(() => {
+        if (readyState === ReadyState.OPEN && feedState?.userReaction) {
+            sendJsonMessage({emoji: feedState.userReaction, count: 1});
+        }
+
+    }, [feedState?.userReaction]);
+
 
     return (
         <>

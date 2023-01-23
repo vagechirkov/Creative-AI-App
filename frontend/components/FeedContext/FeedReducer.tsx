@@ -5,6 +5,7 @@ export const FEED_ACTIONS = {
     SET_CURRENT_IMAGE: 'SET_CURRENT_IMAGE',
     SET_HISTORY_AND_CURRENT_IMAGE: 'SET_HISTORY_AND_CURRENT_IMAGE',
     SET_DRAG_STATE: 'SET_DRAG_STATE',
+    SET_USER_REACTION: 'SET_USER_REACTION',
 }
 const background = {
     "Up": "i like it\u00A0\u00A0\u00A0\u00A0\u00A0".repeat(300),
@@ -12,6 +13,14 @@ const background = {
     "Right": "it surprises me\u00A0\u00A0\u00A0\u00A0\u00A0".repeat(300),
     "Down": "it terrifies me\u00A0\u00A0\u00A0\u00A0\u00A0".repeat(300),
 }
+
+export const reactionMap = {
+    "Up": "👍",
+    "Left": "🤯",
+    "Right": "😮",
+    "Down": "😱",
+}
+
 export const feedReducer = (state: FeedState, action: any) => {
     switch (action.type) {
         case FEED_ACTIONS.SET_FEED_HISTORY:
@@ -38,7 +47,6 @@ export const feedReducer = (state: FeedState, action: any) => {
             return {...state, feedHistory: action.payload.feedHistory, currentImage: action.payload.currentImage};
         case FEED_ACTIONS.SET_DRAG_STATE:
             if (action.payload.isDragging) {
-                // TODO: set decision when drag is done
                 const text = background[action.payload.direction as keyof typeof background];
 
                 return {
@@ -58,9 +66,12 @@ export const feedReducer = (state: FeedState, action: any) => {
                         magnitude: 0,
                         backgroundText: '',
                         isDragging: false
-                    }
+                    },
+                    userReaction: reactionMap[action.payload.direction as keyof typeof reactionMap]
                 };
             }
+        case FEED_ACTIONS.SET_USER_REACTION:
+            return {...state, userReaction: action.payload.userReaction};
 
         default:
             return state;
