@@ -16,7 +16,7 @@ const FeedFooter = () => {
             className="fixed bottom-0 inset-x-0 z-50 h-20 flex justify-center items-center bg-white overflow-hidden"
             style={{opacity: feedState?.dragState && feedState.dragState.magnitude > 0 ? 0 : 1}}
         >
-            <div className="grid grid-cols-4 items-center justify-center">
+            <div className="grid grid-cols-4 items-center justify-center border-t border-black">
                 <div className="col-span-3">
                     <span className="font-plex font-normal">
                     <input id="new_prompts"
@@ -24,13 +24,14 @@ const FeedFooter = () => {
                            placeholder="Enter your prompt here"
                            value={newPrompt}
                            onChange={(e) => setNewPrompt(e.target.value)}
+                           autoComplete="off"
                     />
                     </span>
                 </div>
 
                 <div className="text-center col-span-1 pl-2">
                     <button
-                        className="w-fit h-fit border border-black bg-black hover:bg-white text-white hover:text-black"
+                        className="w-fit h-fit border border-black bg-black hover:bg-white text-white hover:text-black px-1"
                         onClick={onPromptSubmit}
                     >
                         <div className="font-jura ">
