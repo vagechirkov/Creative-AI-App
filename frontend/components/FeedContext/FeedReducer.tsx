@@ -59,7 +59,8 @@ export const feedReducer = (state: FeedState, action: any) => {
                         magnitude: action.payload.magnitude,
                         backgroundText: text,
                         isDragging: action.payload.isDragging
-                    }
+                    },
+                    tutorial: false // disable tutorial after first dragging event
                 };
             } else {
                 const newReaction = reactionMap[action.payload.direction as keyof typeof reactionMap];

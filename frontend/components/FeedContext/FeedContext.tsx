@@ -20,6 +20,7 @@ export type FeedState = {
     currentImage: FeedImageType | undefined;
     userReaction: { reaction: string, imageId: number } | undefined;
     userPrompt: string | undefined;
+    tutorial: boolean;
     dragState: DragState;
 }
 
@@ -36,6 +37,7 @@ const initialState: FeedState = {
     currentImage: undefined,
     userReaction: undefined,
     userPrompt: undefined,
+    tutorial: true,
     dragState: {direction: '', magnitude: 0, backgroundText: '', isDragging: false},
 }
 

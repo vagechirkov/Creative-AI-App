@@ -69,6 +69,7 @@ const ImageFeed: FC<ImageFeedProps> = ({isCurrentImageUpdated = false}) => {
                                     reactions={feedState.currentImage.reactions}
                                     activeUsers={feedState.currentImage.active_users}
                                     artist={feedState.currentImage.artist}
+                                    showTutorial={feedState.tutorial}
                                     dragMagnitude={feedState.dragState.magnitude}
                                     dragMagnitudeActionLabelsThreshold={0.5}
                                 />
