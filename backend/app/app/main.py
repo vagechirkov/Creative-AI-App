@@ -13,6 +13,9 @@ feeds = []
 random_images = []
 lexica_art_api = 'https://lexica.art/api/v1/search?q='
 
+artists = ['Aydan Sabia', 'Odalric Mufaddal', 'Cathleen Marise', 'Tara Purushottam', 'Remigiusz Ruslan',
+           'Rhodopis Cephalus', 'Dùbhghlas Ivaylo', 'Elias Kincső' 'Niko Lycus']
+
 
 @app.on_event("startup")
 @repeat_every(seconds=10)
@@ -26,14 +29,26 @@ async def startup_event():
         # create the all feeds and set up the connection manager for each feed
         for i in range(4):
             random_image = random_images.pop()
-            image = create_feed_image(0, random_image['src'], random_image['prompt'])
+            image = create_feed_image(
+                0, random_image['src'], random_image['prompt'], artist=artists[0], n_artists=len(artists))
             feed = ConnectionManager(image, feed_id=i)
             feeds.append(feed)
+
+            # move artist to end
+            artists.append(artists[0])
+            artists.pop()
 
     # broadcast the new feed image to all feeds
     for feed in feeds:
         random_image = random_images.pop()
-        image = create_feed_image(feed.current_feed_image.id + 1, random_image['src'], random_image['prompt'])
+        image = create_feed_image(
+            feed.current_feed_image.id + 1,
+            random_image['src'], random_image['prompt'],
+            artist=artists[0],
+            n_artists=len(artists)
+        )
+        artists.append(artists[0])
+        artists.pop()
         await feed.broadcast(image)
 
 

@@ -52,6 +52,7 @@ const ImageFeed: FC<ImageFeedProps> = ({isCurrentImageUpdated = false}) => {
                                 altText={imageCard.alt_text}
                                 reactions={imageCard.reactions}
                                 activeUsers={imageCard.active_users}
+                                artist={imageCard.artist}
                             />
                         </div>
                     ))}
@@ -69,6 +70,7 @@ const ImageFeed: FC<ImageFeedProps> = ({isCurrentImageUpdated = false}) => {
                                     altText={feedState.currentImage.alt_text}
                                     reactions={feedState.currentImage.reactions}
                                     activeUsers={feedState.currentImage.active_users}
+                                    artist={feedState.currentImage.artist}
                                     dragMagnitude={feedState.dragState.magnitude}
                                     dragMagnitudeActionLabelsThreshold={0.5}
                                 />

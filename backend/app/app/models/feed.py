@@ -15,3 +15,5 @@ class FeedImage(BaseModel):
     alt_text: str
     reactions: List[ImageReaction]
     active_users: int = 0
+    artist: Optional[str]
+    n_artists: Optional[int]
