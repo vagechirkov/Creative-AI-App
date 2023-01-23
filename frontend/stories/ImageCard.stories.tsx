@@ -12,7 +12,7 @@ const Template: ComponentStory<typeof ImageWithInfo> = (args) => {
     return (
         <div className="flex flex-col w-screen h-screen justify-center">
             <div className="grid grid-cols-12 gap-0 justify-items-center">
-                <div className="col-span-12 text-center">
+                <div className="col-span-12 bg-black">
                     <ImageWithInfo {...args}/>
                 </div>
             </div>

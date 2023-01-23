@@ -22,7 +22,7 @@ const ImageWithInfo: FC<ImageWithInfoProps> = (props) => {
     return (
 
         <div className="relative max-w-sm max-h-sm min-w-max min-h-max">
-            <div className="object-none h-[300px] w-[300px] overflow-hidden">
+            <div className="object-none overflow-hidden h-[300px] w-[300px]">
             <Image
                 src={imageUrl} alt={altText}
                 width={300} height={300}
