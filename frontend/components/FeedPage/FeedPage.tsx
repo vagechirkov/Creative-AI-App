@@ -2,7 +2,7 @@
 
 import useFeedContext from "../FeedContext";
 import ImageFeed from "../ImageFeed";
-import {FC, useEffect} from "react";
+import {FC, useEffect, useState} from "react";
 import FeedHeader from "../FeedImages/FeedHeader";
 import BackgroundText from "../FeedImages/BackgroundText";
 import FeedFooter from "../FeedImages/FeedFooter";
@@ -16,6 +16,7 @@ interface FeedPageProps {
 }
 
 const FeedPage: FC<FeedPageProps> = ({wsUrl, feedId = 0}) => {
+    const [newImageArrived, setNewImageArrived] = useState<boolean>(false);
     const {feedState, feedDispatch} = useFeedContext();
 
     const {sendJsonMessage, lastJsonMessage, readyState} = useWebSocket(`${wsUrl}/${feedId}`);
@@ -29,6 +30,10 @@ const FeedPage: FC<FeedPageProps> = ({wsUrl, feedId = 0}) => {
                     type: FEED_ACTIONS.SET_CURRENT_IMAGE,
                     payload: {currentImage: lastJsonMessage}
                 });
+                setNewImageArrived(true);
+                setTimeout(() => {
+                    setNewImageArrived(false);
+                }, 300);
             } else {
                 // Update history
             }
@@ -42,7 +47,7 @@ const FeedPage: FC<FeedPageProps> = ({wsUrl, feedId = 0}) => {
                 <>
                     <FeedHeader/>
                     <BackgroundText/>
-                    <ImageFeed/>
+                    <ImageFeed isCurrentImageUpdated={newImageArrived}/>
                 </>
             }
             {/*<FeedFooter/>*/}

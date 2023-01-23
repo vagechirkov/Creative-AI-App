@@ -31,15 +31,14 @@ const feedHistory = [
         activeUsers: 10
     },
     {
-        url: "https://lexica-serve-encoded-images2.sharif.workers.dev/full_jpg/4e49ae42-4659-4f05-9ae7-ba5dfecda4d6",
-        alt_text: "Smiling monster made of food",
+        url: "https://lexica-serve-encoded-images2.sharif.workers.dev/full_jpg/4aade2e1-6a7d-43ae-a05c-d3587bf78a44",
+        alt_text: "A realistic san-francisco cityscape, from the roof, tall terrace, hills, golden gate, houses, parks, and hell bursting in style of wayne thiebaud and bosch",
         reactions: [
             {emoji: "1", count: 10},
             {emoji: "2", count: 2},
             {emoji: "3", count: 10},
             {emoji: "4", count: 10},
         ],
-        artist: "Osburn Lyell"
     }
 ];
 
@@ -95,4 +94,8 @@ const Template: ComponentStory<typeof ImageFeed> = (args) => {
 
 export const Default = Template.bind({});
 
-Default.args = {}
+Default.args = {
+    isCurrentImageUpdated: false,
+};
+
+
