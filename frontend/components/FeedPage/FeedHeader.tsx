@@ -15,7 +15,8 @@ const FeedHeader = () => {
                 </div>
                 <div className="text-center col-span-1">
                         <span className="font-plex font-bold uppercase text-lg">
-                             42
+                             {feedState?.currentImage && feedState?.currentImage.n_artists ?
+                                 feedState.currentImage.n_artists : 10}
                         </span>
                     <span className="font-jura font-bold uppercase ">
                             artists
@@ -23,7 +24,8 @@ const FeedHeader = () => {
                 </div>
                 <div className="text-center col-span-1">
                         <span className="font-plex font-bold uppercase text-lg">
-                             597
+                               {feedState?.currentImage && feedState?.currentImage.id ?
+                                   feedState.currentImage.id : 10}
                         </span>
                     <span className="font-jura font-bold uppercase ">
                             artworks

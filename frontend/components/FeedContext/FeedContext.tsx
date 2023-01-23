@@ -12,6 +12,7 @@ export type FeedImageType = {
     reactions: { emoji: string, count: number }[];
     active_users: number;
     artist?: string;
+    n_artists?: number;
 }
 
 export type FeedState = {
