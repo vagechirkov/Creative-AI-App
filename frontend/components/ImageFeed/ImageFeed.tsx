@@ -41,8 +41,7 @@ const ImageFeed: FC<ImageFeedProps> = ({isCurrentImageUpdated = false}) => {
 
     return (
         <div className="min-h-screen min-w-screen flex justify-center">
-            <div
-                className="snap-y snap-mandatory overflow-auto flex flex-col h-screen w-screen pt-20">
+            <div className="snap-y snap-mandatory overflow-auto flex flex-col h-screen w-screen pt-20 pb-[160px]">
                 {/* history (NOTE: the last one is the duplicate of the current image)*/}
                 {feedState?.feedHistory && !feedState.dragState.isDragging &&
                     feedState.feedHistory.map((imageCard, index) => (
@@ -58,7 +57,7 @@ const ImageFeed: FC<ImageFeedProps> = ({isCurrentImageUpdated = false}) => {
                     ))}
 
                 {/* current image */}
-                <div key={`card-current`} className="snap-center pb-[160px] flex justify-center mt-auto">
+                <div key={`card-current`} className="snap-center flex justify-center mt-auto">
                     <span
                         className={`transition-all duration-200 ${isCurrentImageUpdated ? "opacity-0" : "opacity-100"}`}
                     >
