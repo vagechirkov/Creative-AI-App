@@ -22,12 +22,14 @@ const ImageWithInfo: FC<ImageWithInfoProps> = (props) => {
     return (
 
         <div className="relative max-w-sm max-h-sm min-w-max min-h-max">
+            <div className="object-none h-[300px] w-[300px] overflow-hidden">
             <Image
                 src={imageUrl} alt={altText}
-                width={280} height={280}
-                className="border-black border-2"
+                width={300} height={300}
+                className="border-black border-2 "
                 draggable="false"
             />
+            </div>
 
             {/* hide info when there is tutorial */}
             <ImageInfo
