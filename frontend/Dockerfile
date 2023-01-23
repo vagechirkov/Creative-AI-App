@@ -13,7 +13,7 @@ WORKDIR /app
 
 # Install dependencies based on the preferred package manager
 COPY package.json ./
-RUN  npm install --production
+RUN  npm install --omit=dev
 
 
 # Rebuild the source code only when needed
