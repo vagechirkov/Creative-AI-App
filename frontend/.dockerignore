@@ -1,0 +1,3 @@
+# remove storybook from the project
+.storybook
+stories
