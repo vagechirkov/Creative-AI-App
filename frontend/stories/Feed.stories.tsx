@@ -20,6 +20,8 @@ const feedHistory = [
         ],
         artist: "Osburn Lyell"
     },
+    "high quality 2d illustration), (closeup of carrot character), (",
+    "Smiling monster made of foo",
     {
         url: "https://lexica-serve-encoded-images2.sharif.workers.dev/full_jpg/ccc12d51-5cb1-4c4c-9355-71a35188b0dd",
         alt_text: "(high quality 2d illustration), (closeup of carrot character), (laughing opened mouth), matt furie",
@@ -40,7 +42,8 @@ const feedHistory = [
             {emoji: "3", count: 10},
             {emoji: "4", count: 10},
         ],
-    }
+    },
+    'A realistic san-francisco cityscape, from the roof, tall terrace, hills, golden gate, houses, parks, and hell bursting in style of wayne thiebaud and bosch'
 ];
 
 

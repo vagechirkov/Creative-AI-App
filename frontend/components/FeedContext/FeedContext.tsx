@@ -16,9 +16,10 @@ export type FeedImageType = {
 }
 
 export type FeedState = {
-    feedHistory: FeedImageType[] | undefined;
+    feedHistory: (FeedImageType | string) [] | undefined;
     currentImage: FeedImageType | undefined;
     userReaction: { reaction: string, imageId: number } | undefined;
+    userPrompt: string | undefined;
     dragState: DragState;
 }
 
@@ -34,6 +35,7 @@ const initialState: FeedState = {
     feedHistory: undefined,
     currentImage: undefined,
     userReaction: undefined,
+    userPrompt: undefined,
     dragState: {direction: '', magnitude: 0, backgroundText: '', isDragging: false},
 }
 

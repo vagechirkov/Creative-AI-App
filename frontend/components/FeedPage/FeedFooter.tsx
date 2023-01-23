@@ -1,13 +1,17 @@
 import useFeedContext from "../FeedContext";
 import {useState} from "react";
+import {FEED_ACTIONS} from "../FeedContext/FeedReducer";
 
 
 const FeedFooter = () => {
     const [newPrompt, setNewPrompt] = useState<string>('');
-    const {feedState} = useFeedContext();
+    const {feedState, feedDispatch} = useFeedContext();
 
     const onPromptSubmit = () => {
-        console.log(newPrompt);
+        feedDispatch({
+            type: FEED_ACTIONS.ADD_USER_PROMPT_TO_HISTORY,
+            payload: {userPrompt: newPrompt}
+        })
         setNewPrompt('');
     }
 

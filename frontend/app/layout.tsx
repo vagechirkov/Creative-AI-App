@@ -8,7 +8,7 @@ import {ReactNode} from "react";
 const inter = Inter({
     variable: '--font-inter',
     display: 'optional',
-    weight: '100',
+    weight: ['100','300','400','700'],
     subsets: ['latin']
 });
 

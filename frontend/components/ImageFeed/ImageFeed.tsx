@@ -5,6 +5,7 @@ import ImageDraggable from "../ImageDraggable";
 import ImageWithReactions from "../ImageCard/ImageWithReactions";
 import useFeedContext from "../FeedContext";
 import {FEED_ACTIONS} from "../FeedContext/FeedReducer";
+import {FeedImageType} from "../FeedContext/FeedContext";
 
 interface ImageFeedProps {
     isCurrentImageUpdated?: boolean;
@@ -44,17 +45,15 @@ const ImageFeed: FC<ImageFeedProps> = ({isCurrentImageUpdated = false}) => {
             <div className="snap-y snap-mandatory overflow-auto flex flex-col h-screen w-screen pt-20 pb-[160px]">
                 {/* history (NOTE: the last one is the duplicate of the current image)*/}
                 {feedState?.feedHistory && !feedState.dragState.isDragging &&
-                    feedState.feedHistory.map((imageCard, index) => (
-                        <div key={`card-${index}`} className="snap-center flex justify-center bg-transparent">
-                            <ImageWithReactions
-                                imageUrl={imageCard.url}
-                                altText={imageCard.alt_text}
-                                reactions={imageCard.reactions}
-                                activeUsers={imageCard.active_users}
-                                artist={imageCard.artist}
-                            />
-                        </div>
-                    ))}
+                    (
+                        feedState.feedHistory.map((imageCard, index) => (
+                                <div key={`card-${index}`} className="snap-center flex justify-center bg-transparent">
+                                    <HistoryItem imageCard={imageCard} index={index}/>
+                                </div>
+                            )
+                        )
+                    )
+                }
 
                 {/* current image */}
                 <div key={`card-current`} className="snap-center flex justify-center mt-auto">
@@ -85,5 +84,38 @@ const ImageFeed: FC<ImageFeedProps> = ({isCurrentImageUpdated = false}) => {
         </div>
     );
 };
+
+
+const HistoryItem = ({imageCard, index}: { imageCard: FeedImageType | string, index: number }) => {
+    // if the imageCard is a string, it means it's a prompt
+    if (typeof imageCard === 'string') {
+        return (
+            <div className="relative max-w-xs max-h-xs min-w-max min-h-max bg-black my-2">
+                <div className="text-center text-xs w-[300px] text-white py-2">
+                    <span className="font-bold font-inter pr-1">
+                        Prompt:
+                    </span>
+                    <span className="font-inter font-light">
+                    {imageCard}
+                    </span>
+                </div>
+            </div>
+        )
+    } else {
+        return (
+
+            <ImageWithReactions
+                imageUrl={imageCard.url}
+                altText={imageCard.alt_text}
+                reactions={imageCard.reactions}
+                activeUsers={imageCard.active_users}
+                artist={imageCard.artist}
+            />
+
+        );
+    }
+
+
+}
 
 export default ImageFeed;

@@ -31,7 +31,7 @@ export const ImageInfo: FC<ImageInfoProps> = (props) => {
                 <p className="font-plex font-bold uppercase text-sm">
                     {artist ? artist : 'anonymous'}
                 </p>
-                <p className="font-inter text-xs pb-4">
+                <p className="font-inter font-light text-xs pb-4">
                     {altText? altText : ''}
                 </p>
                 <div className="flex grid justify-between grid-cols-2 gap-1">
