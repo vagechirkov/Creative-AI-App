@@ -44,12 +44,11 @@ const ImageFeed: FC<ImageFeedProps> = ({isCurrentImageUpdated=false}) => {
                 {feedState?.feedHistory && !feedState.dragState.isDragging &&
                     feedState.feedHistory.map((imageCard, index) => (
                     <div key={`card-${index}`} className="snap-center flex justify-center bg-transparent">
-                        <ImageWithReactions imageProps={{
-                            imageUrl: imageCard.url,
-                            altText: imageCard.alt_text,
-                            reactions: imageCard.reactions,
-                            activeUsers: imageCard.active_users,
-                        }}
+                        <ImageWithReactions
+                            imageUrl={imageCard.url}
+                            altText={imageCard.alt_text}
+                            reactions={imageCard.reactions}
+                            activeUsers={imageCard.active_users}
                         />
                     </div>
                 ))}
@@ -64,11 +63,10 @@ const ImageFeed: FC<ImageFeedProps> = ({isCurrentImageUpdated=false}) => {
                         <ImageDraggable onReactions={handleDrag} dragState={feedState.dragState}>
                             <div className="cursor-move w-fit">
                                 <ImageWithReactions
-                                    imageProps={{
-                                        imageUrl: feedState.currentImage.url,
-                                        altText: feedState.currentImage.alt_text,
-                                        reactions: feedState.currentImage.reactions}}
-
+                                    imageUrl={feedState.currentImage.url}
+                                    altText={feedState.currentImage.alt_text}
+                                    reactions={feedState.currentImage.reactions}
+                                    activeUsers={feedState.currentImage.active_users}
                                     dragMagnitude={feedState.dragState.magnitude}
                                 />
                             </div>

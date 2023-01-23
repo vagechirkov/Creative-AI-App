@@ -3,14 +3,13 @@
 import {FC, ReactNode} from "react";
 import ImageWithInfo, {ImageWithInfoProps} from "../ImageCard/ImageWithInfo";
 
-interface ImageContainerProps {
-    imageProps: ImageWithInfoProps;
+interface ImageWithReactionsProps extends ImageWithInfoProps{
     dragMagnitude?: number;
     dragMagnitudeThreshold?: number;
 }
 
 
-export const ImageWithReactions: FC<ImageContainerProps> = (props) => {
+export const ImageWithReactions: FC<ImageWithReactionsProps> = (props) => {
     const {dragMagnitude = 0, dragMagnitudeThreshold = 0.2} = props;
     return (
         <div className="max-w-sm max-h-sm min-w-max min-h-max">
@@ -30,7 +29,7 @@ export const ImageWithReactions: FC<ImageContainerProps> = (props) => {
                 </div>
 
                 <div className="col-start-2 col-end-12 bg-black" style={{opacity: 1}}>
-                    <ImageWithInfo {...props.imageProps} showInfo={dragMagnitude < 0.01}/>
+                    <ImageWithInfo {...props} showInfo={dragMagnitude < 0.01}/>
                 </div>
 
                 <div className="text-center col-start-12 col-span-1 transform rotate-360 [writing-mode:vertical-lr]">
