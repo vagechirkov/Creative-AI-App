@@ -21,7 +21,7 @@ const jura = Jura({
 
 const plex = IBM_Plex_Mono({
     variable: '--font-plex',
-    weight: '700',
+    weight: ['400', '700'],
     subsets: ['latin']
 });
 
