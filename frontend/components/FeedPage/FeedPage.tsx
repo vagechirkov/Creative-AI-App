@@ -73,6 +73,9 @@ const FeedPage: FC<FeedPageProps> = ({wsUrl, feedId = 0}) => {
                 count: 1,
                 image_id: feedState.userReaction.imageId
             });
+
+            // clear user reaction
+            feedDispatch({type: FEED_ACTIONS.CLEAR_USER_REACTION});
         }
 
     }, [feedState?.userReaction]);

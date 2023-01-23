@@ -6,6 +6,7 @@ export const FEED_ACTIONS = {
     SET_HISTORY_AND_CURRENT_IMAGE: 'SET_HISTORY_AND_CURRENT_IMAGE',
     SET_DRAG_STATE: 'SET_DRAG_STATE',
     SET_USER_REACTION: 'SET_USER_REACTION',
+    CLEAR_USER_REACTION: 'CLEAR_USER_REACTION',
     ADD_USER_PROMPT_TO_HISTORY: 'ADD_USER_PROMPT_TO_HISTORY',
 }
 
@@ -78,6 +79,8 @@ export const feedReducer = (state: FeedState, action: any) => {
             }
         case FEED_ACTIONS.SET_USER_REACTION:
             return {...state, userReaction: action.payload.userReaction};
+        case FEED_ACTIONS.CLEAR_USER_REACTION:
+            return {...state, userReaction: undefined};
         case FEED_ACTIONS.ADD_USER_PROMPT_TO_HISTORY:
             const newPrompt = action.payload.userPrompt;
             if(!newPrompt) return state;
