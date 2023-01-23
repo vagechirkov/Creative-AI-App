@@ -8,6 +8,7 @@ import BackgroundText from "./BackgroundText";
 import FeedFooter from "./FeedFooter";
 import useWebSocket, {ReadyState} from "react-use-websocket";
 import {FEED_ACTIONS} from "../FeedContext/FeedReducer";
+import {FeedImageType} from "../FeedContext/FeedContext";
 
 
 interface FeedPageProps {
@@ -22,20 +23,25 @@ const FeedPage: FC<FeedPageProps> = ({wsUrl, feedId = 0}) => {
     const {sendJsonMessage, lastJsonMessage, readyState} = useWebSocket(`${wsUrl}/${feedId}`);
 
     useEffect(() => {
-        // console.log("FeedPage: useEffect: lastJsonMessage", lastJsonMessage);
-        if (readyState === ReadyState.OPEN && lastJsonMessage) {
+        if (readyState === ReadyState.OPEN && lastJsonMessage as FeedImageType) {
             if (!feedState?.dragState.isDragging)
             {
+                const newImage = lastJsonMessage as FeedImageType;
+
+                // show transition effect if the image is updated
+                if (newImage?.id && feedState?.currentImage?.id !== newImage.id) {
+                    setNewImageArrived(true);
+                    setTimeout(() => {
+                        setNewImageArrived(false);
+                    }, 300);
+                }
+
                 feedDispatch({
                     type: FEED_ACTIONS.SET_CURRENT_IMAGE,
-                    payload: {currentImage: lastJsonMessage}
+                    payload: {currentImage: newImage}
                 });
-                setNewImageArrived(true);
-                setTimeout(() => {
-                    setNewImageArrived(false);
-                }, 300);
             } else {
-                // Update history
+                // TODO: update history while dragging
             }
         }
     }, [lastJsonMessage]);
