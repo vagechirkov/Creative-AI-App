@@ -5,25 +5,25 @@ import ImageWithInfo, {ImageWithInfoProps} from "../ImageCard/ImageWithInfo";
 
 interface ImageWithReactionsProps extends ImageWithInfoProps{
     dragMagnitude?: number;
-    dragMagnitudeThreshold?: number;
+    dragMagnitudeActionLabelsThreshold?: number;
 }
 
 
 export const ImageWithReactions: FC<ImageWithReactionsProps> = (props) => {
-    const {dragMagnitude = 0, dragMagnitudeThreshold = 0.2} = props;
+    const {dragMagnitude = 0, dragMagnitudeActionLabelsThreshold = 0.2} = props;
     return (
         <div className="max-w-sm max-h-sm min-w-max min-h-max">
             <div className="grid grid-cols-12 gap-0">
                 {/* row 1 */}
                 <div className="col-span-12 text-center">
-                    <ActionsLabel opacity={dragMagnitude} threshold={dragMagnitudeThreshold}>
+                    <ActionsLabel opacity={dragMagnitude} threshold={dragMagnitudeActionLabelsThreshold}>
                         i like it
                     </ActionsLabel>
                 </div>
 
                 {/* row 2 */}
                 <div className="text-center col-start-1 col-span-1 transform rotate-180 [writing-mode:vertical-lr]">
-                    <ActionsLabel opacity={dragMagnitude} threshold={dragMagnitudeThreshold}>
+                    <ActionsLabel opacity={dragMagnitude} threshold={dragMagnitudeActionLabelsThreshold}>
                         it inspires me
                     </ActionsLabel>
                 </div>
@@ -33,14 +33,14 @@ export const ImageWithReactions: FC<ImageWithReactionsProps> = (props) => {
                 </div>
 
                 <div className="text-center col-start-12 col-span-1 transform rotate-360 [writing-mode:vertical-lr]">
-                    <ActionsLabel opacity={dragMagnitude} threshold={dragMagnitudeThreshold}>
+                    <ActionsLabel opacity={dragMagnitude} threshold={dragMagnitudeActionLabelsThreshold}>
                         it surprises me
                     </ActionsLabel>
                 </div>
 
                 {/* row 3 */}
                 <div className="col-span-12 text-center">
-                    <ActionsLabel opacity={dragMagnitude} threshold={dragMagnitudeThreshold}>
+                    <ActionsLabel opacity={dragMagnitude} threshold={dragMagnitudeActionLabelsThreshold}>
                         it terrifies me
                     </ActionsLabel>
                 </div>

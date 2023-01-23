@@ -68,6 +68,7 @@ const ImageFeed: FC<ImageFeedProps> = ({isCurrentImageUpdated=false}) => {
                                     reactions={feedState.currentImage.reactions}
                                     activeUsers={feedState.currentImage.active_users}
                                     dragMagnitude={feedState.dragState.magnitude}
+                                    dragMagnitudeActionLabelsThreshold={0.5}
                                 />
                             </div>
                         </ImageDraggable>
