@@ -6,10 +6,10 @@ const FeedHeader = () => {
 
     return (
         <div
-            className="fixed top-0 inset-x-0 z-50 h-20 flex justify-center items-center bg-white overflow-hidden"
+            className="fixed top-0 inset-x-0 z-50 h-20 pt-2 flex justify-center items-center bg-white overflow-hidden"
             style={{opacity: feedState?.dragState && feedState.dragState.magnitude > 0 ? 0 : 1}}
         >
-            <div className="grid grid-cols-2">
+            <div className="grid grid-cols-2 pb-2">
                 <div className="font-six_caps uppercase text-center text-5xl col-span-2">
                     creative artificial intelligence
                 </div>
