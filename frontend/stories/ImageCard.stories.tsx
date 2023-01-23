@@ -10,7 +10,13 @@ export default {
 
 const Template: ComponentStory<typeof ImageWithInfo> = (args) => {
     return (
-        <ImageWithInfo {...args}/>
+        <div className="flex flex-col w-screen h-screen justify-center">
+            <div className="grid grid-cols-12 gap-0 justify-items-center">
+                <div className="col-span-12 text-center">
+                    <ImageWithInfo {...args}/>
+                </div>
+            </div>
+        </div>
     )
 };
 
