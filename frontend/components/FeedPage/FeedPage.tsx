@@ -68,9 +68,9 @@ const FeedPage: FC<FeedPageProps> = ({wsUrl, feedId = 0}) => {
                     <FeedHeader/>
                     <BackgroundText/>
                     <ImageFeed isCurrentImageUpdated={newImageArrived}/>
+                    <FeedFooter/>
                 </>
             }
-            {/*<FeedFooter/>*/}
 
         </>
     );
