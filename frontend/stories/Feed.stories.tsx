@@ -6,6 +6,7 @@ import ImageFeed from "../components/ImageFeed/ImageFeed";
 import FeedHeader from "../components/FeedPage/FeedHeader";
 import BackgroundText from "../components/FeedPage/BackgroundText";
 import {FEED_ACTIONS} from "../components/FeedContext/FeedReducer";
+import FeedFooter from "../components/FeedPage/FeedFooter";
 
 const feedHistory = [
     {
@@ -88,6 +89,7 @@ const Template: ComponentStory<typeof ImageFeed> = (args) => {
             <FeedHeader/>
             <BackgroundText/>
             <ImageFeed {...args}/>
+            <FeedFooter/>
         </>
     )
 };
