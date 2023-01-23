@@ -10,11 +10,11 @@ const FeedHeader = () => {
             style={{opacity: feedState?.dragState && feedState.dragState.magnitude > 0 ? 0 : 1}}
         >
             <div className="grid grid-cols-2">
-                <div className="font-six_caps uppercase text-center text-4xl col-span-2">
+                <div className="font-six_caps uppercase text-center text-5xl col-span-2">
                     creative artificial intelligence
                 </div>
                 <div className="text-center col-span-1">
-                        <span className="font-plex font-bold uppercase text-lg">
+                        <span className="font-plex font-bold uppercase text-lg pr-2">
                              {feedState?.currentImage && feedState?.currentImage.n_artists ?
                                  feedState.currentImage.n_artists : 10}
                         </span>
@@ -23,7 +23,7 @@ const FeedHeader = () => {
                         </span>
                 </div>
                 <div className="text-center col-span-1">
-                        <span className="font-plex font-bold uppercase text-lg">
+                        <span className="font-plex font-bold uppercase text-lg pr-2">
                                {feedState?.currentImage && feedState?.currentImage.id ?
                                    feedState.currentImage.id : 10}
                         </span>
