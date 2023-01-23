@@ -47,8 +47,15 @@ const FeedPage: FC<FeedPageProps> = ({wsUrl, feedId = 0}) => {
     }, [lastJsonMessage]);
 
     useEffect(() => {
-        if (readyState === ReadyState.OPEN && feedState?.userReaction) {
-            sendJsonMessage({emoji: feedState.userReaction, count: 1});
+        if (readyState === ReadyState.OPEN &&
+            feedState?.userReaction &&
+            feedState?.currentImage &&
+            feedState?.currentImage.id === feedState.userReaction.imageId) {
+
+            sendJsonMessage({
+                emoji: feedState.userReaction.reaction,
+                count: 1,
+                image_id: feedState.userReaction.imageId});
         }
 
     }, [feedState?.userReaction]);

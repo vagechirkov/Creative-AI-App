@@ -12,13 +12,12 @@ export type DragState = {
 
 interface ImageDraggableProps {
     onReactions: (direction: string, magnitude: number, isDragging: boolean) => void;
-    dragState: DragState;
     children: ReactNode;
 }
 
 
 const ImageDraggable: FC<ImageDraggableProps> = (props) => {
-    const {onReactions, dragState, children} = props;
+    const {onReactions, children} = props;
     const nodeRef = useRef<null | HTMLDivElement>(null);
 
     const handleDrag = (event: any, data: any) => {
@@ -28,11 +27,18 @@ const ImageDraggable: FC<ImageDraggableProps> = (props) => {
         onReactions(direction, magnitude, true);
     }
 
+    const handleDragStop = (event: any, data: any) => {
+        const direction = handleResponseDirection({x: data.x, y: data.y}) as string;
+        const magnitude = handleResponseMagnitude({x: data.x, y: data.y, maxMagnitude: 200});
+
+        onReactions(direction, magnitude, false);
+    }
+
     return (
         <Draggable
             position={{x: 0, y: 0}}
             allowAnyClick={true}
-            onStop={() => onReactions(dragState.direction, dragState.magnitude, false)}
+            onStop={handleDragStop}
             onDrag={handleDrag}
             nodeRef={nodeRef}
         >

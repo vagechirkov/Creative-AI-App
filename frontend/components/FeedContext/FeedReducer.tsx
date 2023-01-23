@@ -59,6 +59,10 @@ export const feedReducer = (state: FeedState, action: any) => {
                     }
                 };
             } else {
+                const newReaction = reactionMap[action.payload.direction as keyof typeof reactionMap];
+                const imageId = state.currentImage ? state.currentImage.id : -1;
+
+                // end of drag
                 return {
                     ...state,
                     dragState: {
@@ -67,7 +71,7 @@ export const feedReducer = (state: FeedState, action: any) => {
                         backgroundText: '',
                         isDragging: false
                     },
-                    userReaction: reactionMap[action.payload.direction as keyof typeof reactionMap]
+                    userReaction: {reaction: newReaction, imageId: imageId}
                 };
             }
         case FEED_ACTIONS.SET_USER_REACTION:

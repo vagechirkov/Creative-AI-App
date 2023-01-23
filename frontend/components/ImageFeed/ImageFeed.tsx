@@ -14,7 +14,6 @@ const ImageFeed: FC<ImageFeedProps> = ({isCurrentImageUpdated=false}) => {
     const {feedState, feedDispatch} = useFeedContext();
     const feedEndRef = useRef<null | HTMLDivElement>(null);
 
-
     const scrollToCurrentImage = useCallback(
         () => {
             if (feedEndRef.current) {
@@ -32,7 +31,11 @@ const ImageFeed: FC<ImageFeedProps> = ({isCurrentImageUpdated=false}) => {
     const handleDrag = (direction: string, magnitude: number, isDragging: boolean) => {
         feedDispatch({
             type: FEED_ACTIONS.SET_DRAG_STATE,
-            payload: {direction: direction, magnitude: magnitude, isDragging: isDragging,}
+            payload: {
+                direction: direction,
+                magnitude: magnitude,
+                isDragging: isDragging,
+            }
         });
     }
 
@@ -60,7 +63,7 @@ const ImageFeed: FC<ImageFeedProps> = ({isCurrentImageUpdated=false}) => {
                             "transform translate-y-full opacity-0" : 
                             "transition-all duration-200 opacity-100 transform translate-y-0"}`}>
                     {feedState?.currentImage &&
-                        <ImageDraggable onReactions={handleDrag} dragState={feedState.dragState}>
+                        <ImageDraggable onReactions={handleDrag}>
                             <div className="cursor-move w-fit">
                                 <ImageWithReactions
                                     imageUrl={feedState.currentImage.url}

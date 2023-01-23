@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from pydantic import BaseModel
 
@@ -6,6 +6,7 @@ from pydantic import BaseModel
 class ImageReaction(BaseModel):
     emoji: str
     count: int
+    image_id: Optional[int]
 
 
 class FeedImage(BaseModel):
