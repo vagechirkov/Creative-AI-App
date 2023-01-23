@@ -1,9 +1,9 @@
 'use client';
 
-import {FeedImageType} from "../FeedImages/FeedImages";
 import ViewerCount from "./ViewerCount";
 import ReactionsCount from "./ReactionsCount";
 import {FC} from "react";
+import {FeedImageType} from "../FeedContext/FeedContext";
 
 interface ImageInfoProps {
     reactions: FeedImageType['reactions'];
