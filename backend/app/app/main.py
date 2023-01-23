@@ -68,15 +68,19 @@ async def websocket_endpoint(websocket: WebSocket, client_id: str, feed_id: int)
                 # update feed image reactions
                 image = feed.current_feed_image
 
-                # continue if the image is not current
-                if reaction_data.image_id == image.id:
-                    if reaction_data.emoji in [reaction.emoji for reaction in image.reactions]:
-                        for reaction in image.reactions:
-                            if reaction.emoji == reaction_data.emoji:
-                                reaction.count += 1
-                    else:
-                        image.reactions.append(reaction_data)
+                if reaction_data.new_prompt != '':
+                    # broadcast new prompt
+                    await feed.broadcast(reaction_data.new_prompt)
+                else:
+                    # continue if the image is not current
+                    if reaction_data.image_id == image.id:
+                        if reaction_data.emoji in [reaction.emoji for reaction in image.reactions]:
+                            for reaction in image.reactions:
+                                if reaction.emoji == reaction_data.emoji:
+                                    reaction.count += 1
+                        else:
+                            image.reactions.append(reaction_data)
 
-                await feed.broadcast(image)
+                    await feed.broadcast(image)
         except WebSocketDisconnect:
             feed.disconnect(websocket)

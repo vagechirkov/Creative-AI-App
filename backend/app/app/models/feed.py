@@ -7,6 +7,7 @@ class ImageReaction(BaseModel):
     emoji: str
     count: int
     image_id: Optional[int]
+    new_prompt: Optional[str] = ''
 
 
 class FeedImage(BaseModel):

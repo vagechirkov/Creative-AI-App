@@ -27,7 +27,7 @@ const ImageFeed: FC<ImageFeedProps> = ({isCurrentImageUpdated = false}) => {
 
     useEffect(() => {
         scrollToCurrentImage();
-    }, [feedState?.currentImage]);
+    }, [feedState?.currentImage?.id]);
 
     const handleDrag = (direction: string, magnitude: number, isDragging: boolean) => {
         feedDispatch({
@@ -78,9 +78,9 @@ const ImageFeed: FC<ImageFeedProps> = ({isCurrentImageUpdated = false}) => {
                     </span>
 
                 </div>
+                <div ref={feedEndRef}/>
             </div>
-            <div ref={feedEndRef}>
-            </div>
+
         </div>
     );
 };

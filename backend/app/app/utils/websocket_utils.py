@@ -22,11 +22,15 @@ class ConnectionManager:
     def disconnect(self, websocket: WebSocket):
         self.active_connections.remove(websocket)
 
-    async def broadcast(self, message: FeedImage):
-        message.active_users = len(self.active_connections)
-        self.current_feed_image = message
-        for connection in self.active_connections:
-            await connection.send_json(message.dict())
+    async def broadcast(self, message: FeedImage or str):
+        if isinstance(message, str):
+            for connection in self.active_connections:
+                await connection.send_json({'prompt': message})
+        else:
+            message.active_users = len(self.active_connections)
+            self.current_feed_image = message
+            for connection in self.active_connections:
+                await connection.send_json(message.dict())
 
 
 def create_feed_image(image_id: int, url: str, alt_text: str, artist: str, n_artists: int) -> FeedImage:
