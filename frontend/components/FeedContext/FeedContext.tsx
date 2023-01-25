@@ -22,6 +22,7 @@ export type FeedState = {
     userPrompt: string | undefined;
     tutorial: boolean;
     dragState: DragState;
+    feedType: "live" | "history" | "reacting";
 }
 
 export type FeedContextType = {
@@ -37,6 +38,7 @@ const initialState: FeedState = {
     currentImage: undefined,
     userReaction: undefined,
     userPrompt: undefined,
+    feedType: "live",
     tutorial: true,
     dragState: {direction: '', magnitude: 0, backgroundText: '', isDragging: false},
 }

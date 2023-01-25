@@ -17,12 +17,7 @@ const ImageFeed: FC<ImageFeedProps> = ({isCurrentImageUpdated = false}) => {
 
     const scrollToCurrentImage = useCallback(
         () => {
-            if (feedEndRef.current) {
-                feedEndRef.current.scrollIntoView({
-                    behavior: "smooth",
-                    block: 'center',
-                });
-            }
+            if (feedEndRef.current) feedEndRef.current.scrollIntoView({behavior: "smooth", block: 'center',});
         }, [])
 
     useEffect(() => {
@@ -32,11 +27,7 @@ const ImageFeed: FC<ImageFeedProps> = ({isCurrentImageUpdated = false}) => {
     const handleDrag = (direction: string, magnitude: number, isDragging: boolean) => {
         feedDispatch({
             type: FEED_ACTIONS.SET_DRAG_STATE,
-            payload: {
-                direction: direction,
-                magnitude: magnitude,
-                isDragging: isDragging,
-            }
+            payload: {direction: direction, magnitude: magnitude, isDragging: isDragging,}
         });
     }
 
@@ -115,8 +106,6 @@ const HistoryItem = ({imageCard, index}: { imageCard: FeedImageType | string, in
 
         );
     }
-
-
 }
 
 export default ImageFeed;
