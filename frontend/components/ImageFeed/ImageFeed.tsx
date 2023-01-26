@@ -15,14 +15,13 @@ const ImageFeed: FC<ImageFeedProps> = ({isCurrentImageUpdated = false}) => {
     const {feedState, feedDispatch} = useFeedContext();
     const feedEndRef = useRef<null | HTMLDivElement>(null);
 
-    const scrollToCurrentImage = useCallback(
-        () => {
-            if (feedEndRef.current) feedEndRef.current.scrollIntoView({behavior: "smooth", block: 'center',});
-        }, [])
-
-    useEffect(() => {
-        scrollToCurrentImage();
-    }, [feedState?.currentImage?.id]);
+    // const scrollToCurrentImage = useCallback(
+    //     () => {
+    //         if (feedEndRef.current) feedEndRef.current.scrollIntoView({behavior: "smooth", block: 'center',});
+    //     }, [])
+    // useEffect(() => {
+    //     scrollToCurrentImage();
+    // }, [feedState?.currentImage?.id]);
 
     const handleDrag = (direction: string, magnitude: number, isDragging: boolean) => {
         feedDispatch({
@@ -33,19 +32,9 @@ const ImageFeed: FC<ImageFeedProps> = ({isCurrentImageUpdated = false}) => {
 
     return (
         <div className="min-h-screen min-w-screen flex justify-center">
-            <div className="snap-y snap-mandatory overflow-auto flex flex-col h-screen w-screen pt-20 pb-[160px]">
-                {/* history (NOTE: the last one is the duplicate of the current image)*/}
-                {feedState?.feedHistory && !feedState.dragState.isDragging &&
-                    (
-                        feedState.feedHistory.map((imageCard, index) => (
-                                <div key={`card-${index}`} className="snap-center flex justify-center bg-transparent">
-                                    <HistoryItem imageCard={imageCard} index={index}/>
-                                </div>
-                            )
-                        )
-                    )
-                }
-
+            <div className={feedState?.feedType === "history" ? "feed-container-history" : "feed-container-live"}>
+                {/* NOTE: the order is reversed */}
+                <div ref={feedEndRef}/>
                 {/* current image */}
                 <div key={`card-current`} className="snap-center flex justify-center mt-auto">
                     <span
@@ -70,7 +59,21 @@ const ImageFeed: FC<ImageFeedProps> = ({isCurrentImageUpdated = false}) => {
                     </span>
 
                 </div>
-                <div ref={feedEndRef}/>
+
+                {/* history (NOTE: the last one is the duplicate of the current image)*/}
+                {feedState?.feedHistory && !feedState.dragState.isDragging &&
+                    (
+                        // NOTE: the order is reversed; we want to make a shallow copy of the array to avoid mutating
+                        // the original array
+                        [...feedState.feedHistory].reverse().map((imageCard, index) => (
+                                <div key={`card-${index}`} className="snap-center flex justify-center bg-transparent">
+                                    <HistoryItem imageCard={imageCard} index={index}/>
+                                </div>
+                            )
+                        )
+                    )
+                }
+
             </div>
 
         </div>
@@ -95,13 +98,8 @@ const HistoryItem = ({imageCard, index}: { imageCard: FeedImageType | string, in
         )
     } else {
         return (
-
-            <ImageWithReactions
-                imageUrl={imageCard.url}
-                altText={imageCard.alt_text}
-                reactions={imageCard.reactions}
-                activeUsers={imageCard.active_users}
-                artist={imageCard.artist}
+            <ImageWithReactions imageUrl={imageCard.url} altText={imageCard.alt_text} reactions={imageCard.reactions}
+                                activeUsers={imageCard.active_users} artist={imageCard.artist}
             />
 
         );
