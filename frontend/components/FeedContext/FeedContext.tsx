@@ -22,7 +22,12 @@ export type FeedState = {
     userPrompt: string | undefined;
     tutorial: boolean;
     dragState: DragState;
-    feedType: "live" | "history" | "reacting";
+    // Scrolling allows to see older images; Live shows only the latest images/prompt;
+    // scrolling/live -> voting: holding the thumb
+    // voting -> live: releasing the thumb
+    // live -> scrolling: moving the thumb with holding it
+    // scrolling -> live: pressing the button: “Follow the latest artworks”
+    feedType: "live" | "scrolling" | "voting";
 }
 
 export type FeedContextType = {

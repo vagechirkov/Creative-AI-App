@@ -30,9 +30,16 @@ const ImageFeed: FC<ImageFeedProps> = ({isCurrentImageUpdated = false}) => {
         });
     }
 
+    const handleDragDisabled = () => {
+        feedDispatch({
+            type: FEED_ACTIONS.SET_FEED_TYPE,
+            payload: {feedType: "scrolling",}
+        });
+    }
+
     return (
         <div className="min-h-screen min-w-screen flex justify-center">
-            <div className={feedState?.feedType === "history" ? "feed-container-history" : "feed-container-live"}>
+            <div className={feedState?.feedType === "scrolling" ? "feed-container-history" : "feed-container-live"}>
                 {/* NOTE: the order is reversed */}
                 <div ref={feedEndRef}/>
                 {/* current image */}
@@ -41,8 +48,12 @@ const ImageFeed: FC<ImageFeedProps> = ({isCurrentImageUpdated = false}) => {
                         className={`transition-all duration-200 ${isCurrentImageUpdated ? "opacity-0" : "opacity-100"}`}
                     >
                     {feedState?.currentImage &&
-                        <ImageDraggable onReactions={handleDrag}>
-                            <div className="cursor-move w-fit">
+                        <ImageDraggable
+                            onReactions={handleDrag}
+                            onDisable={handleDragDisabled}
+                            isLiveFeedState={feedState.feedType === "live"}
+                        >
+                            <div className="w-fit">
                                 <ImageWithReactions
                                     imageUrl={isCurrentImageUpdated ? '/images/black_square.png' : feedState.currentImage.url}
                                     altText={feedState.currentImage.alt_text}

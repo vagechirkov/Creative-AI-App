@@ -8,6 +8,7 @@ export const FEED_ACTIONS = {
     SET_USER_REACTION: 'SET_USER_REACTION',
     CLEAR_USER_REACTION: 'CLEAR_USER_REACTION',
     ADD_USER_PROMPT_TO_HISTORY: 'ADD_USER_PROMPT_TO_HISTORY',
+    SET_FEED_TYPE: 'SET_FEED_TYPE',
 }
 
 const background = {
@@ -90,6 +91,9 @@ export const feedReducer = (state: FeedState, action: any) => {
             let feedHistoryOld = state.feedHistory ? state.feedHistory : [];
 
             return {...state, feedHistory: [...feedHistoryOld, newPrompt], userPrompt: newPrompt};
+
+        case FEED_ACTIONS.SET_FEED_TYPE:
+            return {...state, feedType: action.payload.feedType};
 
         default:
             return state;
