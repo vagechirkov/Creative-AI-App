@@ -50,6 +50,7 @@ export const feedReducer = (state: FeedState, action: any) => {
         case FEED_ACTIONS.SET_HISTORY_AND_CURRENT_IMAGE:
             return {...state, feedHistory: action.payload.feedHistory, currentImage: action.payload.currentImage};
         case FEED_ACTIONS.SET_DRAG_STATE:
+            console.log("set drag state", action.payload);
             if (action.payload.isDragging) {
                 const text = background[action.payload.direction as keyof typeof background];
 
@@ -62,11 +63,15 @@ export const feedReducer = (state: FeedState, action: any) => {
                         isDragging: action.payload.isDragging
                     },
                     tutorial: false, // disable tutorial after first dragging event
-                    feedType: "voting" as FeedState["feedType"],
                 };
             } else {
-                const newReaction = reactionMap[action.payload.direction as keyof typeof reactionMap];
-                const imageId = state.currentImage ? state.currentImage.id : -1;
+                let userReaction = undefined;
+                if (action.payload.magnitude > 0.5) {
+                    userReaction = {
+                        reaction: reactionMap[action.payload.direction as keyof typeof reactionMap],
+                        imageId: state.currentImage ? state.currentImage.id : -1
+                    }
+                }
 
                 // end of drag
                 return {
@@ -77,7 +82,7 @@ export const feedReducer = (state: FeedState, action: any) => {
                         backgroundText: '',
                         isDragging: false
                     },
-                    userReaction: {reaction: newReaction, imageId: imageId}
+                    userReaction: userReaction
                 };
             }
         case FEED_ACTIONS.SET_USER_REACTION:
@@ -86,8 +91,8 @@ export const feedReducer = (state: FeedState, action: any) => {
             return {...state, userReaction: undefined};
         case FEED_ACTIONS.ADD_USER_PROMPT_TO_HISTORY:
             const newPrompt = action.payload.userPrompt;
-            if(!newPrompt) return state;
-            if(newPrompt === state.userPrompt) return state;
+            if (!newPrompt) return state;
+            if (newPrompt === state.userPrompt) return state;
 
             let feedHistoryOld = state.feedHistory ? state.feedHistory : [];
 
