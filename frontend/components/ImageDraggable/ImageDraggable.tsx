@@ -1,6 +1,6 @@
 'use client';
 
-import {FC, ReactNode, useEffect, useRef, useState} from "react";
+import {FC, ReactNode, useRef} from "react";
 import Draggable from 'react-draggable';
 
 export type DragState = {
@@ -13,113 +13,43 @@ export type DragState = {
 interface ImageDraggableProps {
     onReactions: (direction: string, magnitude: number, isDragging: boolean) => void;
     children: ReactNode;
-    onDisable: () => void;
-    isLiveFeedState?: boolean;
 }
 
 const DRAG_THRESHOLD: number = 2;
 const COUNTER_THRESHOLD: number = 50;// 100 * 10ms = 1000ms
 
 const ImageDraggable: FC<ImageDraggableProps> = (props) => {
-    const {onReactions, children, onDisable, isLiveFeedState = false} = props;
-    const [isDisabled, setIsDisabled] = useState<boolean>(false);
-    const [counter, setCounter] = useState<number>(0);
+    const {onReactions, children} = props;
     const nodeRef = useRef<null | HTMLDivElement>(null);
-    const intervalIsDisablesRef = useRef<any>(null);
-    const intervalCounterRef = useRef<any>(null);
 
-
-    // enable the drag after 500 ms
-    useEffect(() => {
-        if (isDisabled) {
-            console.log("resetting isDisabled");
-            stopCounter();
-            onDisable();
-            if (intervalIsDisablesRef.current) {
-                clearInterval(intervalIsDisablesRef.current);
-                intervalIsDisablesRef.current = null;
-            }
-            intervalIsDisablesRef.current = setInterval(() => {
-                setIsDisabled(false);
-            }, 500);
-        }
-    }, [isDisabled]);
-
-
-    const handleDragStart = () => {
-        // console.log("drag start");
-        startCounter();
-    }
 
     const handleDrag = (event: any, data: any) => {
         const direction = responseDirection({x: data.x, y: data.y}) as string;
         const magnitude = responseMagnitude({x: data.x, y: data.y, maxMagnitude: 200});
-        const dist = responseDist({dx: data.deltaX, dy: data.deltaY});
-
-        if (dist > DRAG_THRESHOLD && counter < COUNTER_THRESHOLD) {
-            setIsDisabled(true);
-            return;
-        }
-
-        if (counter > COUNTER_THRESHOLD) {
-            onReactions(direction, magnitude, true);
-        }
+        onReactions(direction, magnitude, true);
     }
 
     const handleDragStop = (event: any, data: any) => {
         // console.log("drag stop");
         const direction = responseDirection({x: data.x, y: data.y}) as string;
         const magnitude = responseMagnitude({x: data.x, y: data.y, maxMagnitude: 200});
-        stopCounter();
         onReactions(direction, magnitude, false);
     }
 
-    const startCounter = () => {
-        // console.log("start counter");
-        if (intervalCounterRef.current) return;
-        intervalCounterRef.current = setInterval(() => {
-            setCounter((prevCounter) => prevCounter + 1);
-        }, 10);
-    };
-
-    const stopCounter = () => {
-        if (intervalCounterRef.current) {
-            clearInterval(intervalCounterRef.current);
-            intervalCounterRef.current = null;
-        }
-        setCounter(0);
-    };
-
     return (
-        <>
-            {isDisabled ?
-                (
-                    <div>
-                        {children}
-                        {/*<div>{counter}</div>*/}
-                    </div>
-                ) : (
-                    <Draggable
-                        position={{x: 0, y: 0}}
-                        allowAnyClick={true}
-                        onStart={handleDragStart}
-                        onDrag={handleDrag}
-                        onStop={handleDragStop}
-                        nodeRef={nodeRef}
-                        disabled={!isLiveFeedState}
-                    >
-                        <div
-                            ref={nodeRef}
-                            className={counter < COUNTER_THRESHOLD ?
-                                "cursor-default" : "cursor-move drop-shadow-2xl"}
-                        >
-                            {children}
-                            {/*<div>{counter}</div>*/}
-                        </div>
-                    </Draggable>
-                )
-            }
-        </>
+
+        <Draggable
+            position={{x: 0, y: 0}}
+            allowAnyClick={true}
+            onDrag={handleDrag}
+            onStop={handleDragStop}
+            nodeRef={nodeRef}
+        >
+            <div ref={nodeRef} className="cursor-move w-fit drop-shadow-2xl">
+                {children}
+            </div>
+        </Draggable>
+
     );
 };
 
@@ -151,10 +81,5 @@ const responseMagnitude = ({x, y, maxMagnitude = 200}: { x: number, y: number, m
     return magnitude;
 }
 
-const responseDist = ({dx, dy}: { dx: number, dy: number }) => {
-    return Math.sqrt(dx * dx + dy * dy);
-    // console.log(dist);
-    // return dist;
-}
 
 export default ImageDraggable;
