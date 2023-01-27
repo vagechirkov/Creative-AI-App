@@ -7,7 +7,7 @@ export const FEED_ACTIONS = {
     SET_DRAG_STATE: 'SET_DRAG_STATE',
     SET_USER_REACTION: 'SET_USER_REACTION',
     CLEAR_USER_REACTION: 'CLEAR_USER_REACTION',
-    ADD_USER_PROMPT_TO_HISTORY: 'ADD_USER_PROMPT_TO_HISTORY',
+    ADD_PROMPT_TO_HISTORY: 'ADD_USER_PROMPT_TO_HISTORY',
     SET_FEED_TYPE: 'SET_FEED_TYPE',
 }
 
@@ -28,8 +28,12 @@ export const reactionMap = {
 export const feedReducer = (state: FeedState, action: any) => {
     switch (action.type) {
         case FEED_ACTIONS.SET_FEED_HISTORY:
+            if (!action.payload.feedHistory) return state;
             return {...state, feedHistory: action.payload.feedHistory};
         case FEED_ACTIONS.SET_CURRENT_IMAGE:
+            // case when image is in the drag state too long
+            if (state.dragState.isDragging) return state;
+
             const newImage = action.payload.currentImage as FeedImageType;
             if (!newImage) return state;
 
@@ -44,8 +48,8 @@ export const feedReducer = (state: FeedState, action: any) => {
                 // add the current image to the history
                 feedHistory = [...feedHistory, state.currentImage];
             }
-
             return {...state, currentImage: newImage, feedHistory: feedHistory};
+
 
         case FEED_ACTIONS.SET_HISTORY_AND_CURRENT_IMAGE:
             return {...state, feedHistory: action.payload.feedHistory, currentImage: action.payload.currentImage};
@@ -75,12 +79,7 @@ export const feedReducer = (state: FeedState, action: any) => {
                 // end of drag
                 return {
                     ...state,
-                    dragState: {
-                        direction: '',
-                        magnitude: 0,
-                        backgroundText: '',
-                        isDragging: false
-                    },
+                    dragState: {direction: '', magnitude: 0, backgroundText: '', isDragging: false},
                     userReaction: userReaction
                 };
             }
@@ -88,7 +87,7 @@ export const feedReducer = (state: FeedState, action: any) => {
             return {...state, userReaction: action.payload.userReaction};
         case FEED_ACTIONS.CLEAR_USER_REACTION:
             return {...state, userReaction: undefined};
-        case FEED_ACTIONS.ADD_USER_PROMPT_TO_HISTORY:
+        case FEED_ACTIONS.ADD_PROMPT_TO_HISTORY:
             const newPrompt = action.payload.userPrompt;
             if (!newPrompt) return state;
             if (newPrompt === state.userPrompt) return state;

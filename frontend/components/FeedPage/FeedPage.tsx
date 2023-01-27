@@ -24,41 +24,39 @@ const FeedPage: FC<FeedPageProps> = ({wsUrl, feedId = 0}) => {
 
     useEffect(() => {
         if (readyState === ReadyState.OPEN && lastJsonMessage as FeedImageType) {
-            if (!feedState?.dragState.isDragging) {
-                if (!lastJsonMessage) return;
+            if (!lastJsonMessage) return;
 
-                // First parse as {prompt: string}, then as FeedImageType
-                const messagePrompt = lastJsonMessage as { prompt: string };
+            // Parse lastJsonMessage as {prompt: string}
+            const messagePrompt = lastJsonMessage as { prompt: string };
 
-                if (messagePrompt?.prompt) {
+            if (messagePrompt?.prompt) {
 
-                    feedDispatch({
-                        type: FEED_ACTIONS.ADD_USER_PROMPT_TO_HISTORY,
-                        payload: {userPrompt: messagePrompt.prompt}
-                    });
-                    return;
-                }
-
-                const messageImage = lastJsonMessage as FeedImageType;
-                if (messageImage?.id) {
-                    const newImage = lastJsonMessage as FeedImageType;
-
-                    // show transition effect if the image is updated
-                    if (newImage?.id && feedState?.currentImage?.id !== newImage.id) {
-                        setNewImageArrived(true);
-                        setTimeout(() => {
-                            setNewImageArrived(false);
-                        }, 300);
-                    }
-
-                    feedDispatch({
-                        type: FEED_ACTIONS.SET_CURRENT_IMAGE,
-                        payload: {currentImage: newImage}
-                    });
-                }
-            } else {
-                // TODO: update history while dragging
+                feedDispatch({
+                    type: FEED_ACTIONS.ADD_PROMPT_TO_HISTORY,
+                    payload: {userPrompt: messagePrompt.prompt}
+                });
+                return;
             }
+
+            // Parse lastJsonMessage as FeedImageType
+            const messageImage = lastJsonMessage as FeedImageType;
+            if (messageImage?.id) {
+                const newImage = lastJsonMessage as FeedImageType;
+
+                // show transition effect if the image is updated
+                if (feedState?.currentImage?.id !== newImage.id && !feedState?.dragState?.isDragging) {
+                    setNewImageArrived(true);
+                    setTimeout(() => {
+                        setNewImageArrived(false);
+                    }, 300);
+                }
+
+                feedDispatch({
+                    type: FEED_ACTIONS.SET_CURRENT_IMAGE,
+                    payload: {currentImage: newImage}
+                });
+            }
+
         }
     }, [lastJsonMessage]);
 

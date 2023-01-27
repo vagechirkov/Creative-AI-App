@@ -9,7 +9,7 @@ const FeedFooter = () => {
 
     const onPromptSubmit = () => {
         feedDispatch({
-            type: FEED_ACTIONS.ADD_USER_PROMPT_TO_HISTORY,
+            type: FEED_ACTIONS.ADD_PROMPT_TO_HISTORY,
             payload: {userPrompt: newPrompt}
         })
         setNewPrompt('');
