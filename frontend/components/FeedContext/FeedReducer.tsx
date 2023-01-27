@@ -50,7 +50,6 @@ export const feedReducer = (state: FeedState, action: any) => {
         case FEED_ACTIONS.SET_HISTORY_AND_CURRENT_IMAGE:
             return {...state, feedHistory: action.payload.feedHistory, currentImage: action.payload.currentImage};
         case FEED_ACTIONS.SET_DRAG_STATE:
-            console.log("set drag state", action.payload);
             if (action.payload.isDragging) {
                 const text = background[action.payload.direction as keyof typeof background];
 

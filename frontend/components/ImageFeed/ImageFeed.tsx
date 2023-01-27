@@ -31,45 +31,22 @@ const ImageFeed: FC<ImageFeedProps> = ({isCurrentImageUpdated = false}) => {
         });
     }
 
-    const handleDragDisabled = () => {
-        feedDispatch({
-            type: FEED_ACTIONS.SET_FEED_TYPE,
-            payload: {feedType: "scrolling",}
-        });
-    }
-
-    const handleScroll = () => {
-        if (feedState?.feedType === "voting") return;
-        feedDispatch({
-            type: FEED_ACTIONS.SET_FEED_TYPE,
-            payload: {feedType: "scrolling",}
-        });
-    }
+    if (!feedState?.currentImage || !feedState.feedType) return <></>;
 
     return (
         <div className="min-h-screen min-w-screen flex justify-center">
-            <div
-                className={feedState?.feedType === "scrolling" ? "feed-container-history" : "feed-container-live"}
-                onMouseDown={handleScroll}
-            >
+            <div className={feedState.feedType === "scrolling" ? "feed-scrolling" : "feed-live"}>
                 {/* NOTE: the order is reversed */}
                 <div ref={feedEndRef}/>
 
                 {/* current image */}
                 <div key={`card-current`} className="snap-center flex justify-center mt-auto">
-                    <span
-                        className={`transition-all duration-200 ${isCurrentImageUpdated ? "opacity-0" : "opacity-100"}`}
-                    >
-                    {feedState?.currentImage &&
-                        <ImageDraggable
-                            onReactions={handleDrag}
-                            onDisable={handleDragDisabled}
-                            isLiveFeedState={feedState.feedType === "live" || feedState.feedType === "voting"}
-                        >
-                            <div className="w-fit">
+                    {feedState.feedType === "live" ?
+                        (
+                            <ImageDraggable onReactions={handleDrag}>
                                 <ImageWithReactions
-                                    imageUrl={isCurrentImageUpdated ?
-                                        '/images/black_square.png' : feedState.currentImage.url}
+                                    isImageUpdating={isCurrentImageUpdated}
+                                    imageUrl={feedState.currentImage.url}
                                     altText={feedState.currentImage.alt_text}
                                     reactions={feedState.currentImage.reactions}
                                     activeUsers={feedState.currentImage.active_users}
@@ -78,20 +55,37 @@ const ImageFeed: FC<ImageFeedProps> = ({isCurrentImageUpdated = false}) => {
                                     dragMagnitude={feedState.dragState.magnitude}
                                     dragMagnitudeActionLabelsThreshold={0.5}
                                 />
+                            </ImageDraggable>
+                        ) : (
+                            <div className="w-fit">
+                                <ImageWithReactions
+                                    isImageUpdating={isCurrentImageUpdated}
+                                    imageUrl={feedState.currentImage.url}
+                                    altText={feedState.currentImage.alt_text}
+                                    reactions={feedState.currentImage.reactions}
+                                    activeUsers={feedState.currentImage.active_users}
+                                    artist={feedState.currentImage.artist}
+                                    showTutorial={false}
+                                    dragMagnitude={feedState.dragState.magnitude}
+                                    dragMagnitudeActionLabelsThreshold={0.5}
+                                />
                             </div>
-                        </ImageDraggable>
+                        )
                     }
-                    </span>
-                </div>
 
+                </div>
                 {/* history */}
-                {feedState?.feedHistory && !feedState.dragState.isDragging &&
+                {feedState?.feedHistory && feedState.feedType === "scrolling" &&
                     (
                         // NOTE: the order is reversed; we want to make a shallow copy of the array to avoid mutating
                         // the original array
                         [...feedState.feedHistory].reverse().map((imageCard, index) => (
-                                <div key={`card-${index}`} className="snap-center flex justify-center bg-transparent">
+                                <div
+                                    key={`card-${index}`}
+                                    className="snap-center flex justify-center bg-transparent"
+                                >
                                     <HistoryItem imageCard={imageCard} index={index}/>
+
                                 </div>
                             )
                         )

@@ -3,10 +3,10 @@
 @tailwind utilities;
 
 
-.feed-container-history {
-    @apply snap-y snap-mandatory overflow-auto flex flex-col-reverse h-screen w-screen pt-20 pb-[160px];
+.feed-scrolling {
+    @apply snap-y snap-mandatory overflow-auto flex flex-col-reverse h-screen w-screen pt-[160px] pb-[160px];
 }
 
-.feed-container-live {
-    @apply overflow-hidden flex flex-col-reverse h-screen w-screen pt-20 pb-[160px];
+.feed-live {
+    @apply overflow-hidden flex flex-col-reverse h-screen w-screen pt-[160px] pb-[160px];
 }
