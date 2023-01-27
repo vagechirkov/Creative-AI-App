@@ -15,9 +15,6 @@ interface ImageDraggableProps {
     children: ReactNode;
 }
 
-const DRAG_THRESHOLD: number = 2;
-const COUNTER_THRESHOLD: number = 50;// 100 * 10ms = 1000ms
-
 const ImageDraggable: FC<ImageDraggableProps> = (props) => {
     const {onReactions, children} = props;
     const nodeRef = useRef<null | HTMLDivElement>(null);
@@ -30,7 +27,6 @@ const ImageDraggable: FC<ImageDraggableProps> = (props) => {
     }
 
     const handleDragStop = (event: any, data: any) => {
-        // console.log("drag stop");
         const direction = responseDirection({x: data.x, y: data.y}) as string;
         const magnitude = responseMagnitude({x: data.x, y: data.y, maxMagnitude: 200});
         onReactions(direction, magnitude, false);
