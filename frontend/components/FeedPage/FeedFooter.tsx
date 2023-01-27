@@ -15,11 +15,19 @@ const FeedFooter = () => {
         setNewPrompt('');
     }
 
+    const onBackToLive = () => {
+        feedDispatch({
+            type: FEED_ACTIONS.SET_FEED_TYPE,
+            payload: {feedType: 'live'}
+        })
+    }
+
     return (
         <div
             className="fixed bottom-0 inset-x-0 z-50 h-20 flex justify-center items-center bg-white overflow-hidden"
             style={{opacity: feedState?.dragState && feedState.dragState.magnitude > 0 ? 0 : 1}}
         >
+            {feedState?.feedType === 'live' ? (
             <div className="grid grid-cols-4 items-center justify-center border-t border-black">
                 <div className="col-span-3">
                     <span className="font-plex font-normal">
@@ -33,17 +41,32 @@ const FeedFooter = () => {
                     </span>
                 </div>
 
-                <div className="text-center col-span-1 pl-2">
+
+                    <div className="text-center col-span-1 pl-2">
+                        <button
+                            className="w-fit h-fit border border-black bg-black hover:bg-white text-white hover:text-black px-1"
+                            onClick={onPromptSubmit}
+                        >
+                            <div className="font-jura ">
+                                Propose
+                            </div>
+                        </button>
+                    </div>
+            </div>
+            ) : (
+                <div className="text-center col-span-2 p-2">
                     <button
                         className="w-fit h-fit border border-black bg-black hover:bg-white text-white hover:text-black px-1"
-                        onClick={onPromptSubmit}
+                        onClick={onBackToLive}
                     >
                         <div className="font-jura ">
-                            Propose
+                            Back to Live
                         </div>
                     </button>
+
                 </div>
-            </div>
+            )
+            }
         </div>
     );
 }

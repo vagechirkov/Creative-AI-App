@@ -61,7 +61,8 @@ export const feedReducer = (state: FeedState, action: any) => {
                         backgroundText: text,
                         isDragging: action.payload.isDragging
                     },
-                    tutorial: false // disable tutorial after first dragging event
+                    tutorial: false, // disable tutorial after first dragging event
+                    feedType: "voting" as FeedState["feedType"],
                 };
             } else {
                 const newReaction = reactionMap[action.payload.direction as keyof typeof reactionMap];
@@ -93,7 +94,7 @@ export const feedReducer = (state: FeedState, action: any) => {
             return {...state, feedHistory: [...feedHistoryOld, newPrompt], userPrompt: newPrompt};
 
         case FEED_ACTIONS.SET_FEED_TYPE:
-            return {...state, feedType: action.payload.feedType};
+            return {...state, feedType: action.payload.feedType as FeedState["feedType"]};
 
         default:
             return state;

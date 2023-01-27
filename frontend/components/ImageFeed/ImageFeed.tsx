@@ -15,13 +15,14 @@ const ImageFeed: FC<ImageFeedProps> = ({isCurrentImageUpdated = false}) => {
     const {feedState, feedDispatch} = useFeedContext();
     const feedEndRef = useRef<null | HTMLDivElement>(null);
 
-    // const scrollToCurrentImage = useCallback(
-    //     () => {
-    //         if (feedEndRef.current) feedEndRef.current.scrollIntoView({behavior: "smooth", block: 'center',});
-    //     }, [])
-    // useEffect(() => {
-    //     scrollToCurrentImage();
-    // }, [feedState?.currentImage?.id]);
+    const scrollToCurrentImage = useCallback(
+        () => {
+            if (feedEndRef.current) feedEndRef.current.scrollIntoView({behavior: "smooth", block: 'center',});
+        }, [])
+
+    useEffect(() => {
+        scrollToCurrentImage();
+    }, [feedState?.feedType]);
 
     const handleDrag = (direction: string, magnitude: number, isDragging: boolean) => {
         feedDispatch({
@@ -37,11 +38,23 @@ const ImageFeed: FC<ImageFeedProps> = ({isCurrentImageUpdated = false}) => {
         });
     }
 
+    const handleScroll = () => {
+        if (feedState?.feedType === "voting") return;
+        feedDispatch({
+            type: FEED_ACTIONS.SET_FEED_TYPE,
+            payload: {feedType: "scrolling",}
+        });
+    }
+
     return (
         <div className="min-h-screen min-w-screen flex justify-center">
-            <div className={feedState?.feedType === "scrolling" ? "feed-container-history" : "feed-container-live"}>
+            <div
+                className={feedState?.feedType === "scrolling" ? "feed-container-history" : "feed-container-live"}
+                onMouseDown={handleScroll}
+            >
                 {/* NOTE: the order is reversed */}
                 <div ref={feedEndRef}/>
+
                 {/* current image */}
                 <div key={`card-current`} className="snap-center flex justify-center mt-auto">
                     <span
@@ -51,11 +64,12 @@ const ImageFeed: FC<ImageFeedProps> = ({isCurrentImageUpdated = false}) => {
                         <ImageDraggable
                             onReactions={handleDrag}
                             onDisable={handleDragDisabled}
-                            isLiveFeedState={feedState.feedType === "live"}
+                            isLiveFeedState={feedState.feedType === "live" || feedState.feedType === "voting"}
                         >
                             <div className="w-fit">
                                 <ImageWithReactions
-                                    imageUrl={isCurrentImageUpdated ? '/images/black_square.png' : feedState.currentImage.url}
+                                    imageUrl={isCurrentImageUpdated ?
+                                        '/images/black_square.png' : feedState.currentImage.url}
                                     altText={feedState.currentImage.alt_text}
                                     reactions={feedState.currentImage.reactions}
                                     activeUsers={feedState.currentImage.active_users}
@@ -68,10 +82,9 @@ const ImageFeed: FC<ImageFeedProps> = ({isCurrentImageUpdated = false}) => {
                         </ImageDraggable>
                     }
                     </span>
-
                 </div>
 
-                {/* history (NOTE: the last one is the duplicate of the current image)*/}
+                {/* history */}
                 {feedState?.feedHistory && !feedState.dragState.isDragging &&
                     (
                         // NOTE: the order is reversed; we want to make a shallow copy of the array to avoid mutating

@@ -29,7 +29,7 @@ const ImageDraggable: FC<ImageDraggableProps> = (props) => {
     const intervalCounterRef = useRef<any>(null);
 
 
-    // enable the drag after 1000 ms
+    // enable the drag after 500 ms
     useEffect(() => {
         if (isDisabled) {
             console.log("resetting isDisabled");
@@ -47,8 +47,8 @@ const ImageDraggable: FC<ImageDraggableProps> = (props) => {
 
 
     const handleDragStart = () => {
+        // console.log("drag start");
         startCounter();
-        console.log("drag start");
     }
 
     const handleDrag = (event: any, data: any) => {
@@ -67,7 +67,7 @@ const ImageDraggable: FC<ImageDraggableProps> = (props) => {
     }
 
     const handleDragStop = (event: any, data: any) => {
-        console.log("drag stop");
+        // console.log("drag stop");
         const direction = responseDirection({x: data.x, y: data.y}) as string;
         const magnitude = responseMagnitude({x: data.x, y: data.y, maxMagnitude: 200});
         stopCounter();
@@ -75,7 +75,7 @@ const ImageDraggable: FC<ImageDraggableProps> = (props) => {
     }
 
     const startCounter = () => {
-        console.log("start counter");
+        // console.log("start counter");
         if (intervalCounterRef.current) return;
         intervalCounterRef.current = setInterval(() => {
             setCounter((prevCounter) => prevCounter + 1);
@@ -96,7 +96,7 @@ const ImageDraggable: FC<ImageDraggableProps> = (props) => {
                 (
                     <div>
                         {children}
-                        <div>{counter}</div>
+                        {/*<div>{counter}</div>*/}
                     </div>
                 ) : (
                     <Draggable
@@ -114,7 +114,7 @@ const ImageDraggable: FC<ImageDraggableProps> = (props) => {
                                 "cursor-default" : "cursor-move drop-shadow-2xl"}
                         >
                             {children}
-                            <div>{counter}</div>
+                            {/*<div>{counter}</div>*/}
                         </div>
                     </Draggable>
                 )
@@ -152,9 +152,9 @@ const responseMagnitude = ({x, y, maxMagnitude = 200}: { x: number, y: number, m
 }
 
 const responseDist = ({dx, dy}: { dx: number, dy: number }) => {
-    let dist = Math.sqrt(dx * dx + dy * dy);
-    console.log(dist);
-    return dist;
+    return Math.sqrt(dx * dx + dy * dy);
+    // console.log(dist);
+    // return dist;
 }
 
 export default ImageDraggable;
