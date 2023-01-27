@@ -13,13 +13,11 @@ const FeedFooter = () => {
             payload: {userPrompt: newPrompt}
         })
         setNewPrompt('');
-    }
-
-    const onBackToLive = () => {
+        // go to scrolling mode
         feedDispatch({
             type: FEED_ACTIONS.SET_FEED_TYPE,
-            payload: {feedType: 'live'}
-        })
+            payload: {feedType: "scrolling",}
+        });
     }
 
     return (
